@@ -31,11 +31,11 @@ public class ImpulseTestHelper {
 
         if (posType.equals(POSType.BULLOCH)){
             FileHandler.deleteFile(passportIntDll);
-            FileHandler.copyFile(properties.getProperty("bulloch_pos_int_dll_soucre_path"),bullochIntDll);
+            FileHandler.copyFile(properties.getProperty("bulloch_pos_int_dll_source_path"),bullochIntDll);
             XmlManager.updateNode(cncConfigFile,"Config","ChannelID",properties.getProperty("bulloch_chanel_id"));
         }else {
             FileHandler.deleteFile(bullochIntDll);
-            FileHandler.copyFile(properties.getProperty("passport_pos_int_dll_soucre_path"),passportIntDll);
+            FileHandler.copyFile(properties.getProperty("passport_pos_int_dll_source_path"),passportIntDll);
             XmlManager.updateNode(cncConfigFile,"Config","ChannelID",properties.getProperty("passport_chanel_id"));
         }
     }
