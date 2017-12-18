@@ -1,0 +1,10 @@
+#include <Constants.au3>
+	  #include <GDIPlus.au3>
+	  #include <GUIConstantsEx.au3>
+	  #include <ScreenCapture.au3>
+	  #include <WinAPI.au3>
+	  #include <WindowsConstants.au3>
+
+	   WinActivate("KeepAlive")
+	   WinWaitActive("KeepAlive")
+	   Send("kill{ENTER}")

@@ -1,0 +1,17 @@
+	  #include <Constants.au3>
+	  #include <GDIPlus.au3>
+	  #include <GUIConstantsEx.au3>
+	  #include <ScreenCapture.au3>
+	  #include <WinAPI.au3>
+	  #include <WindowsConstants.au3>
+
+	   WinActivate("Odysii Delivery Station")
+	   WinWaitActive("Odysii Delivery Station")
+	   Sleep(3000)
+	   MouseClick($MOUSE_CLICK_LEFT, 351, 647, 2)
+	   Sleep(1000)
+
+	   Local $sText = ControlGetText("Odysii Delivery Station", "", "[X:377\;Y:433\]")
+
+    ; Display the window text.
+    MsgBox($MB_SYSTEMMODAL, "", $sText)

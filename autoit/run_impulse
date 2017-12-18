@@ -1,0 +1,32 @@
+	  #include <Constants.au3>
+	  #include <GDIPlus.au3>
+	  #include <GUIConstantsEx.au3>
+	  #include <ScreenCapture.au3>
+	  #include <WinAPI.au3>
+	  #include <WindowsConstants.au3>
+
+	  ; Run KeepAlive
+	  Run("C:\Program Files\Odysii\KeepAlive.exe")
+
+	   ; Change the username and password to the appropriate values for your system.
+    ;Local $sUserName = "YossiA.gilbarco.com"
+    ;Local $sPassword = "Valerie1996!"
+
+    ; Run Notepad with the window maximized. Notepad is run under the user previously specified.
+    ;Local $iPID = RunAs($sUserName, @ComputerName, $sPassword, $RUN_LOGON_NOPROFILE, "C:\Program Files\Odysii\KeepAlive.exe", "", @SW_SHOWMAXIMIZED)
+
+    ; Wait 10 seconds for the Notepad window to appear.
+    ;WinWait("[CLASS:Notepad]", "", 10)
+
+    ; Wait for 2 seconds.
+    Sleep(2000)
+
+    ; Close the Notepad process using the PID returned by RunAs.
+    ;ProcessClose($iPID)
+	  ; Wait for the Notepad to become active.
+	  Sleep(10000)
+	  WinActivate("Odysii Delivery Station")
+	  WinWaitActive("Odysii Delivery Station")
+	  Sleep(5000)
+	  Send("{f11}")
+	  WinMove("Odysii Delivery Station", "", 0, 0, 600, 900)

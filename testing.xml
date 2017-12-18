@@ -1,0 +1,17 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Impulse Suite">
+    <listeners>
+        <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+    </listeners>
+    <test name="Passport Serial">
+        <classes>
+            <class name="com.odysii.test.impulse.Test1"/>
+        </classes>
+    </test>
+    <test name="Bulloch Serial">
+        <classes>
+            <class name="com.odysii.test.impulse.BulochSerialTest"/>
+        </classes>
+    </test>
+</suite>
