@@ -5,6 +5,8 @@ import com.odysii.db.DBHandler;
 import com.odysii.general.POSType;
 import com.odysii.test.impulse.helper.ImpulseTestHelper;
 import jdk.nashorn.internal.ir.annotations.Ignore;
+import org.apache.commons.lang.StringUtils;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -13,6 +15,12 @@ public class BulochSerialTest extends ImpulseTestHelper{
     private final int WAIT = 4000;
 
     SerialMessageGenerator generator;
+    @BeforeClass
+    public void setUp(){
+        DBHandler dbHandler = new DBHandler("jdbc:sqlserver://10.28.76.71:1433;databaseName=DW_qa;user=sa;password=Gladiator01",
+                "com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        dbHandler.executeDeleteQuery("delete FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='1633'");
+    }
     /**
      * Test- valid the correct an item PLU received from add to basket:
      * 1. Run impulse script
@@ -58,8 +66,14 @@ public class BulochSerialTest extends ImpulseTestHelper{
         //connect to DB and execute queries
         DBHandler dbHandler = new DBHandler("jdbc:sqlserver://10.28.76.71:1433;databaseName=DW_qa;user=sa;password=Gladiator01",
                 "com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        dbHandler.executeSelectQuery("SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where ChannelId='8766'");
-        dbHandler.executeDeleteQuery("delete FROM [DW_qa].[dbo].[SurveyJournal] where ChannelId='8766'");
+        String actual = dbHandler.executeSelectQuery("SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='1633'",6);
+        int timeOut = 0;
+        while((StringUtils.isEmpty(actual) && timeOut < 10)){
+            wait(4000);
+            actual = dbHandler.executeSelectQuery("SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='1633'",6);
+            timeOut++;
+        }
         dbHandler.closeConnection();
+        assertEquals(actual,"1633");
     }
 }

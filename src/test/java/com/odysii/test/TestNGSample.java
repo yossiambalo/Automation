@@ -40,7 +40,7 @@ public class TestNGSample {
     public static void main(String[] args) {
         DBHandler dbHandler = new DBHandler("jdbc:sqlserver://10.28.76.71:1433;databaseName=DW_qa;user=sa;password=Gladiator01",
                 "com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        dbHandler.executeSelectQuery("SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where ChannelId='8766'");
+        //dbHandler.executeSelectQuery("SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where ChannelId='8766'");
         dbHandler.executeDeleteQuery("delete FROM [DW_qa].[dbo].[SurveyJournal] where ChannelId='8766'");
         dbHandler.closeConnection();
     }
