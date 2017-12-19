@@ -6,6 +6,7 @@ import com.odysii.general.POSType;
 import com.odysii.test.impulse.helper.ImpulseTestHelper;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.apache.commons.lang.StringUtils;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -75,5 +76,9 @@ public class BulochSerialTest extends ImpulseTestHelper{
         }
         dbHandler.closeConnection();
         assertEquals(actual,"1633");
+    }
+    @AfterClass
+    public void tearDown(){
+        runCmdCommand(closeImpluseRunnerScript);
     }
 }
