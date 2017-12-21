@@ -12,6 +12,7 @@ public class RequestHelper {
 
     protected Map<String,String> getHeaders;
     protected Map<String,String> postHeaders;
+    protected Map<String,String> deleteHeaders;
 
     protected void setGetHeaders(String token, String mediaType){
         getHeaders = new HashMap<String, String>();
@@ -23,5 +24,10 @@ public class RequestHelper {
         postHeaders = new HashMap<String, String>();
         postHeaders.put("Authorization",token);
         postHeaders.put("Content-Type", mediaType);
+    }
+    protected void setDeleteHeaders(String token, String mediaType){
+        deleteHeaders = new HashMap<String, String>();
+        deleteHeaders.put("Authorization",token);
+        deleteHeaders.put("Content-Type", mediaType);
     }
 }

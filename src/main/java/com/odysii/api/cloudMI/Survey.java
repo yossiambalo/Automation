@@ -14,7 +14,8 @@ public class Survey {
     }
     public void doDeleteRequest(String uri,CloudMIUser user,String surveyID){
         String url = uri+ surveyRoute +"/"+surveyID+"?ProjectId="+user.getProjectID()+"&UserEmail="+user.getUserEmail();
-        RequestUtil requestUtil = new RequestUtil(TOKEN,url);
+        RequestUtil requestUtil = new RequestUtil(TOKEN,url, MediaType.APPLICATION_JSON);
+        requestUtil.deleteRequest();
     }
     public static void main(String[]args){
         String uri = "http://cloudmiqa.tveez.local/api/v0";
@@ -22,6 +23,7 @@ public class Survey {
         String body = "{\"survey\": {\"name\": \"survey1\",\"question\": \"qqq1\",\"survey_template\": \"Image\",\"image\":\"CAFE01\",\"image_format\": \"abc\",\"background_image\":\"CAFE02\",\"background_image_format\": \"abc\"}}";
         Survey survey = new Survey();
         survey.doPostRequest(uri,body,user);
+        //survey.doDeleteRequest(uri,user,"1269");
 
     }
 }

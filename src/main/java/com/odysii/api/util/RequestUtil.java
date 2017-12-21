@@ -48,7 +48,7 @@ public class RequestUtil extends RequestHelper {
             outputStream.write(body.getBytes());
             outputStream.flush();
             if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                throw new RuntimeException("Failed : HTTP error code : "
+                throw new RuntimeException("Failed to create survey: HTTP error code : "
                         + conn.getResponseCode());
             }
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -60,6 +60,37 @@ public class RequestUtil extends RequestHelper {
             System.out.println(e.getMessage());
         }catch (IOException e){
             System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+    public int deleteRequest(){
+        setDeleteHeaders(token,mediaType);
+        HttpURLConnection conn = null;
+        try {
+            URL url = new URL(getUrl());
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setDoOutput(true);
+            conn.setRequestMethod("DELETE");
+            for (Map.Entry<String,String> header : deleteHeaders.entrySet()){
+                conn.setRequestProperty(header.getKey(),header.getValue());
+            }
+            OutputStream outputStream = conn.getOutputStream();
+            outputStream.flush();
+            if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                throw new RuntimeException("Failed to delete survey : HTTP error code Survey may not exist : "
+                        + conn.getResponseCode());
+            }
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String output = "";
+            while ((output = bufferedReader.readLine()) != null){
+                System.out.println(output);
+            }
+        }catch (MalformedURLException e){
+            System.out.println(e.getMessage());
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+        }finally {
+            conn.disconnect();
         }
         return 0;
     }
