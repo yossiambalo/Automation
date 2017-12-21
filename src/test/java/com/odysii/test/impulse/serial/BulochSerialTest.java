@@ -1,10 +1,9 @@
-package com.odysii.test.impulse;
+package com.odysii.test.impulse.serial;
 
 import com.odysii.api.pos.SerialMessageGenerator;
 import com.odysii.db.DBHandler;
 import com.odysii.general.POSType;
 import com.odysii.test.impulse.helper.ImpulseTestHelper;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.apache.commons.lang.StringUtils;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -34,11 +33,11 @@ public class BulochSerialTest extends ImpulseTestHelper{
     @Test
     public void _001_bulloch_AddToBasket() {
         init(POSType.BULLOCH);
-        String expectedPLU = "A2525";
+        String expectedPLU = "A1000232";
         //Start Impulse
-        runCmdCommand(impluseRunnerScript);
+        runCmdCommand(impulseRunnerScript);
         wait(12000);
-        generator = new SerialMessageGenerator();
+        generator = new SerialMessageGenerator("http://localhost:7007/OdysiiDeliveryStation/");
         //Start transaction
         generator.doPostRequest("<Body>[C000] NEWSALE  LANG=FR|/n</Body>");
         wait(WAIT);
@@ -77,8 +76,8 @@ public class BulochSerialTest extends ImpulseTestHelper{
         dbHandler.closeConnection();
         assertEquals(actual,"1633");
     }
-    @AfterClass
+    //@AfterClass
     public void tearDown(){
-        runCmdCommand(closeImpluseRunnerScript);
+        runCmdCommand(closeImpulseRunnerScript);
     }
 }

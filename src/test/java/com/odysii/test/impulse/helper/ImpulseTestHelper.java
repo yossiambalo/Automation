@@ -13,7 +13,7 @@ import java.util.Properties;
 
 public class ImpulseTestHelper {
 
-    protected static String atbListenerUrl,impluseRunnerScript,atbRunnerScript,closeImpluseRunnerScript,surveyRunnerScript;
+    protected static String atbListenerUrl, impulseRunnerScript,atbRunnerScript, closeImpulseRunnerScript,surveyRunnerScript;
 
     public static void init(POSType posType){
         String cncConfigFile,bullochIntDll,passportIntDll;
@@ -21,9 +21,9 @@ public class ImpulseTestHelper {
         PropertyLoader propertyLoader = new PropertyLoader();
         Properties properties = propertyLoader.loadPropFile("impulseTestHelper.properties");
         atbListenerUrl = properties.getProperty("atb_listener_url");
-        impluseRunnerScript = properties.getProperty("impulse_runner_script");
+        impulseRunnerScript = properties.getProperty("impulse_runner_script");
         atbRunnerScript = properties.getProperty("atb_runner_script");
-        closeImpluseRunnerScript = properties.getProperty("close_impulse_runner_script");
+        closeImpulseRunnerScript = properties.getProperty("close_impulse_runner_script");
         surveyRunnerScript = properties.getProperty("survey_runner_script");
         cncConfigFile = properties.getProperty("cnc_config_path");
         bullochIntDll = properties.getProperty("bulloch_pos_int_dll_path");

@@ -1,4 +1,4 @@
-package com.odysii.test.impulse;
+package com.odysii.test.impulse.serial;
 
 import com.odysii.api.pos.SerialMessageGenerator;
 import com.odysii.general.POSType;
@@ -25,9 +25,9 @@ public class PassportSerialTest extends ImpulseTestHelper {
         init(POSType.PASSPORT_SERIAL);
         String expectedPLU = "A1000232";
         //Start Impulse
-        runCmdCommand(impluseRunnerScript);
+        runCmdCommand(impulseRunnerScript);
         wait(12000);
-        SerialMessageGenerator generator = new SerialMessageGenerator();
+        SerialMessageGenerator generator = new SerialMessageGenerator("http://localhost:7007/OdysiiDeliveryStation/");
         //Start transaction
         generator.doPostRequest("<Body>1|"+getDate()+"|6004|91|Begin Sale: Op #: 91|</Body>");
         wait(WAIT);
@@ -44,7 +44,7 @@ public class PassportSerialTest extends ImpulseTestHelper {
         wait(WAIT);
         //End transaction
         generator.doPostRequest("<Body>1|"+getDate()+"|6004|91|End Sale: Op #: 91|</Body>");
-        runCmdCommand(closeImpluseRunnerScript);
+        runCmdCommand(closeImpulseRunnerScript);
         assertEquals(itemPLU,expectedPLU);
     }
 
@@ -53,9 +53,9 @@ public class PassportSerialTest extends ImpulseTestHelper {
         wait(5000);
         String expectedPLU = "121212";
         //Start Impulse
-        runCmdCommand(impluseRunnerScript);
+        runCmdCommand(impulseRunnerScript);
         wait(12000);
-        SerialMessageGenerator generator = new SerialMessageGenerator();
+        SerialMessageGenerator generator = new SerialMessageGenerator("http://localhost:7007/OdysiiDeliveryStation/");
         //Start transaction
         generator.doPostRequest("<Body>1|"+getDate()+"|6004|91|Begin Sale: Op #: 91|</Body>");
         wait(WAIT);
@@ -72,7 +72,7 @@ public class PassportSerialTest extends ImpulseTestHelper {
         wait(WAIT);
         //End transaction
         generator.doPostRequest("<Body>1|"+getDate()+"|6004|91|End Sale: Op #: 91|</Body>");
-        runCmdCommand(closeImpluseRunnerScript);
+        runCmdCommand(closeImpulseRunnerScript);
         assertEquals(itemPLU,expectedPLU);
     }
 }

@@ -15,16 +15,17 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
-public abstract class MessageGenerator {
+public class MessageGenerator {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss");
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-    private final String listenerUrl = "http://localhost:7007/OdysiiDeliveryStation/";
+    private String listenerUri;// = "http://localhost:7007/OdysiiDeliveryStation/";
     private final String messageInfo = "<MessageInfo><MessageInfo UniqueID=\"4ab7f2c4-2127-455c-bd9c-3d77140bd165\" Category=\"POSAddProductMessaging\" BodyType=\"System.String\" ChannelID=\"0\" TimeStamp=\"2017-11-28T08:25:36.6188534Z\">";
     private final String endMessageInfo = "</MessageInfo></MessageInfo>";
     private final String nativeUrl = "http://localhost:7007/OdysiiDeliveryStation/";
     //const
-    public MessageGenerator(){
+    public MessageGenerator(String uri){
+        this.listenerUri = uri;
     }
 
     /**
@@ -59,25 +60,29 @@ public abstract class MessageGenerator {
     /**
      * @param body : body
      */
-    public void doPostRequest(String body, String uri){
-        String input = ""+messageInfo+""+body+""+endMessageInfo+"";
+    public void doPostRequest(String body, String route){
         try {
-            URL url = new URL(listenerUrl+uri);
+            URL url = new URL(listenerUri +route);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             OutputStream outputStream = conn.getOutputStream();
-            outputStream.write(input.getBytes());
+            outputStream.write(body.getBytes());
             outputStream.flush();
             if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 throw new RuntimeException("Failed : HTTP error code : "
                         + conn.getResponseCode());
             }
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String output = "";
+            while ((output = bufferedReader.readLine()) != null){
+                System.out.println(output);
+            }
         }catch (MalformedURLException e){
-            e.fillInStackTrace();
+            System.out.println(e.getMessage());
         }catch (IOException e){
-            e.fillInStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
