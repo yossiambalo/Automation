@@ -53,7 +53,7 @@ public class BulochSerialTest extends ImpulseTestHelper{
         generator.doPostRequest("<Body>[C110] "+itemPLU.substring(1)+" ATB Item        QT=1 PR=1.79 AMT=1.79 STTL=1.79 DSC=0.00 TAX=0.23 TOTAL=2.02|/n</Body>");
         wait(WAIT);
         //End transaction
-        //generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
+        //generator.createSurvey("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
         //runCmdCommand(CLOSE_IMPULSE_RUNNER_SCRIPT);
         assertEquals(itemPLU,expectedPLU);
     }

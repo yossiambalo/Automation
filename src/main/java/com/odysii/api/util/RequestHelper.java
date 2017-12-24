@@ -8,7 +8,7 @@ import java.net.ContentHandler;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RequestHelper {
+public abstract class RequestHelper {
 
     protected Map<String,String> getHeaders;
     protected Map<String,String> postHeaders;
