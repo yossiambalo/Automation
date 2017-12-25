@@ -1,26 +1,28 @@
 package com.odysii.test.impulse.serial;
 
-import com.odysii.api.cloudMI.CloudMIUser;
 import com.odysii.api.cloudMI.Survey;
-import com.odysii.general.PropertyLoader;
+import org.json.JSONObject;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
-import java.util.Properties;
+import static org.testng.Assert.assertEquals;
 
 public class SurveyTest {
-    String token, surveyRoute,cloudMIUri,projectID,createSurveyBody;
-    CloudMIUser cloudMIUser;
+
+    private String surveyID;
+
     @BeforeClass
     public void setUp(){
-        PropertyLoader propertyLoader = new PropertyLoader();
-        Properties properties = propertyLoader.loadPropFile("survey.properties");
-        token = properties.getProperty("token");
-        surveyRoute = properties.getProperty("surveyRoute");
-        cloudMIUri = properties.getProperty("coloudMI_uri");
-        projectID = properties.getProperty("project_id");
-        createSurveyBody = properties.getProperty("create_survey_body");
-        cloudMIUser = new CloudMIUser(properties.getProperty("user_name"));
-        Survey survey = new Survey(token,surveyRoute);
+        Survey survey = new Survey();
+        JSONObject jsonObject = survey.createSurvey();
+        assertEquals(jsonObject.get("status"),"Success","Failed to create survey!");
+        surveyID = jsonObject.get("id").toString();
+        jsonObject = survey.createOption(surveyID);
+        assertEquals(jsonObject.get("status"),"Success","Failed to create option to survey!");
+    }
 
+    @Test
+    public void validSurveyInImpulse(){
+        System.out.println("dddd");
     }
 }

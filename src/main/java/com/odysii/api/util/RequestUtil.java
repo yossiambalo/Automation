@@ -34,8 +34,9 @@ public class RequestUtil extends RequestHelper {
         setGetHeaders(token,mediaType);
         return 0;
     }
-    public int postRequest(String body){
+    public String postRequest(String body){
         setPostHeaders(token,mediaType);
+        String res = "";
         try {
             URL url = new URL(getUrl());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -54,14 +55,14 @@ public class RequestUtil extends RequestHelper {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String output = "";
             while ((output = bufferedReader.readLine()) != null){
-                System.out.println(output);
+                res = output;
             }
         }catch (MalformedURLException e){
             System.out.println(e.getMessage());
         }catch (IOException e){
             System.out.println(e.getMessage());
         }
-        return 0;
+        return res;
     }
     public int deleteRequest(){
         setDeleteHeaders(token,mediaType);
