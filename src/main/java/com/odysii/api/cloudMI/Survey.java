@@ -59,4 +59,20 @@ public class Survey extends CloudMI {
 
         return JsonHandler.stringToJson(result);
     }
+    public JSONObject linkPlacement(String surveyID,String placementID){
+        Placement placement = new Placement();
+        String url = cloudMIUri+ surveyRoute+"/"+surveyID+placement.getAddRoute() +"?ProjectId="+projectID+"&placement_id="+placementID+"&UserEmail="+cloudMIUser.getUserEmail();
+        RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_X_URL_ENCODED);
+        String result = requestUtil.getRequest();
+
+        return JsonHandler.stringToJson(result);
+    }
+    public JSONObject deletePlacement(String placementID){
+        Placement placement = new Placement();
+        String url = cloudMIUri+ surveyRoute+placement.getDeletePlacementRoute() +"?ProjectId="+projectID+"&placement_id="+placementID+"&UserEmail="+cloudMIUser.getUserEmail();
+        RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_X_URL_ENCODED);
+        String result = requestUtil.deleteRequest();
+
+        return JsonHandler.stringToJson(result);
+    }
 }

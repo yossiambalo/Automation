@@ -18,7 +18,11 @@ public class Placement {
         return body;
     }
 
-    private String createRoute,addRoute,body;
+    public String getDeletePlacementRoute() {
+        return deletePlacementRoute;
+    }
+
+    private String createRoute,addRoute,body, deletePlacementRoute;
 
     public Placement(){
         PropertyLoader propertyLoader = new PropertyLoader();
@@ -26,5 +30,6 @@ public class Placement {
         this.createRoute = properties.getProperty("create_placement_route");
         this.addRoute = properties.getProperty("link_placement_route");
         this.body = properties.getProperty("placement_body");
+        this.deletePlacementRoute = properties.getProperty("delete_placement_route");
     }
 }

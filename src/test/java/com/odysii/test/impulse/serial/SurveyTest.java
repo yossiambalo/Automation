@@ -26,7 +26,7 @@ public class SurveyTest {
         jsonObject = survey.createPlacement();
         assertEquals(jsonObject.get("status"),"Success","Failed to create placement for survey!");
         placementID = jsonObject.get("id").toString();
-        System.out.println("Placement ID: " +placementID);
+
     }
 
     @Test

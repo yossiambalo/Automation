@@ -16,6 +16,7 @@ public class RequestUtil extends RequestHelper {
     private String token;
     private String url;
     private String mediaType;
+    private String res;
 
     public RequestUtil(String token, String url){
         this.token = token;
@@ -30,13 +31,36 @@ public class RequestUtil extends RequestHelper {
         return url;
     }
 
-    public int getRequest(){
+    public String getRequest(){
         setGetHeaders(token,mediaType);
-        return 0;
+        try {
+            URL url = new URL(getUrl());
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setDoOutput(true);
+            conn.setRequestMethod("GET");
+            for (Map.Entry<String,String> header : getHeaders.entrySet()){
+                conn.setRequestProperty(header.getKey(),header.getValue());
+            }
+            OutputStream outputStream = conn.getOutputStream();
+            outputStream.flush();
+            if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                throw new RuntimeException("Failed to create survey: HTTP error code : "
+                        + conn.getResponseCode());
+            }
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String output = "";
+            while ((output = bufferedReader.readLine()) != null){
+                res = output;
+            }
+        }catch (MalformedURLException e){
+            System.out.println(e.getMessage());
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+        return res;
     }
     public String postRequest(String body){
         setPostHeaders(token,mediaType);
-        String res = "";
         try {
             URL url = new URL(getUrl());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -64,7 +88,7 @@ public class RequestUtil extends RequestHelper {
         }
         return res;
     }
-    public int deleteRequest(){
+    public String deleteRequest(){
         setDeleteHeaders(token,mediaType);
         HttpURLConnection conn = null;
         try {
@@ -84,7 +108,7 @@ public class RequestUtil extends RequestHelper {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String output = "";
             while ((output = bufferedReader.readLine()) != null){
-                System.out.println(output);
+                res = output;
             }
         }catch (MalformedURLException e){
             System.out.println(e.getMessage());
@@ -93,7 +117,6 @@ public class RequestUtil extends RequestHelper {
         }finally {
             conn.disconnect();
         }
-        return 0;
+        return res;
     }
-    //ToDo: add following methods: get,post,update and delete
 }
