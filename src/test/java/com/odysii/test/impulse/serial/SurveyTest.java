@@ -13,12 +13,20 @@ public class SurveyTest {
 
     @BeforeClass
     public void setUp(){
+        String placementID;
         Survey survey = new Survey();
+        //create survey
         JSONObject jsonObject = survey.createSurvey();
         assertEquals(jsonObject.get("status"),"Success","Failed to create survey!");
         surveyID = jsonObject.get("id").toString();
+        //create options for survey
         jsonObject = survey.createOption(surveyID);
         assertEquals(jsonObject.get("status"),"Success","Failed to create option to survey!");
+        //create placement for survey
+        jsonObject = survey.createPlacement();
+        assertEquals(jsonObject.get("status"),"Success","Failed to create placement for survey!");
+        placementID = jsonObject.get("id").toString();
+        System.out.println("Placement ID: " +placementID);
     }
 
     @Test
