@@ -25,9 +25,20 @@ public class SurveyTest {
         jsonObject = survey.createPlacement();
         assertEquals(jsonObject.get("status"),"Success","Failed to create placement for survey!");
         placementID = jsonObject.get("id").toString();
-        jsonObject = survey.linkPlacement("1296","2025");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //link placement to survey
+        jsonObject = survey.linkPlacement(surveyID,placementID);
         assertEquals(jsonObject.get("status"),"Success","Failed to link placement for survey!");
-        survey.deletePlacement("2024");
+        //delete survey
+//        jsonObject = survey.deleteSurvey(surveyID);
+//        assertEquals(jsonObject.get("status"),"Success","Failed to delete survey!");
+//        //delete placement
+//        jsonObject = survey.deletePlacement(placementID);
+//        assertEquals(jsonObject.get("status"),"Success","Failed to delete placement of survey!");
 
     }
 

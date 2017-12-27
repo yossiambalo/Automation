@@ -34,10 +34,11 @@ public class Survey extends CloudMI {
         String result = requestUtil.postRequest(createSurveyBody);
         return JsonHandler.stringToJson(result);
     }
-    public void deleteSurvey(String uri,CloudMIUser user,String surveyID){
-        String url = uri+ surveyRoute +"/"+surveyID+"?ProjectId="+user.getProjectID()+"&UserEmail="+user.getUserEmail();
+    public JSONObject deleteSurvey(String surveyID){
+        String url = cloudMIUri+ surveyRoute +"/"+surveyID+"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
         RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
-        requestUtil.deleteRequest();
+        String result = requestUtil.deleteRequest();
+        return JsonHandler.stringToJson(result);
     }
     public JSONObject createOption(String surveyID){
         String url = cloudMIUri+ surveyOptionRoute +"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
