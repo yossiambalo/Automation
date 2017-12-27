@@ -17,7 +17,7 @@ public abstract class RequestHelper {
     protected void setGetHeaders(String token, String mediaType){
         getHeaders = new HashMap<String, String>();
         getHeaders.put("Authorization",token);
-        getHeaders.put("accept",mediaType);
+        getHeaders.put("Content-Type",mediaType);
     }
 
     protected void setPostHeaders(String token, String mediaType){

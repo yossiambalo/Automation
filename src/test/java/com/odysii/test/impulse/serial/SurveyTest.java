@@ -9,11 +9,10 @@ import static org.testng.Assert.assertEquals;
 
 public class SurveyTest {
 
-    private String surveyID;
+    private String surveyID,placementID;
 
     @BeforeClass
     public void setUp(){
-        String placementID;
         Survey survey = new Survey();
         //create survey
         JSONObject jsonObject = survey.createSurvey();
@@ -26,6 +25,9 @@ public class SurveyTest {
         jsonObject = survey.createPlacement();
         assertEquals(jsonObject.get("status"),"Success","Failed to create placement for survey!");
         placementID = jsonObject.get("id").toString();
+        jsonObject = survey.linkPlacement("1296","2025");
+        assertEquals(jsonObject.get("status"),"Success","Failed to link placement for survey!");
+        survey.deletePlacement("2024");
 
     }
 

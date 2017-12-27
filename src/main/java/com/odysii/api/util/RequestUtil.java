@@ -1,11 +1,12 @@
 package com.odysii.api.util;
 
-import com.odysii.api.MediaType;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -31,33 +32,32 @@ public class RequestUtil extends RequestHelper {
         return url;
     }
 
-    public String getRequest(){
+    public StringBuffer getRequest(){
+        StringBuffer result = new StringBuffer();
         setGetHeaders(token,mediaType);
         try {
-            URL url = new URL(getUrl());
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setDoOutput(true);
-            conn.setRequestMethod("GET");
+            HttpClient client = HttpClientBuilder.create().build();
+            HttpGet request = new HttpGet(url);
             for (Map.Entry<String,String> header : getHeaders.entrySet()){
-                conn.setRequestProperty(header.getKey(),header.getValue());
+                request.addHeader(header.getKey(),header.getValue());
             }
-            OutputStream outputStream = conn.getOutputStream();
-            outputStream.flush();
-            if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                throw new RuntimeException("Failed to create survey: HTTP error code : "
-                        + conn.getResponseCode());
+            BufferedReader rd = null;
+            HttpResponse response = client.execute(request);
+            if (response.getStatusLine().getStatusCode() != HttpURLConnection.HTTP_OK) {
+                throw new RuntimeException("Failed to process request : HTTP error code : "
+                        + response.getEntity().getContent());
             }
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String output = "";
-            while ((output = bufferedReader.readLine()) != null){
-                res = output;
+            rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            String line = "";
+            while ((line = rd.readLine()) != null) {
+                result.append(line);
             }
         }catch (MalformedURLException e){
             System.out.println(e.getMessage());
         }catch (IOException e){
             System.out.println(e.getMessage());
         }
-        return res;
+        return result;
     }
     public String postRequest(String body){
         setPostHeaders(token,mediaType);
@@ -73,7 +73,7 @@ public class RequestUtil extends RequestHelper {
             outputStream.write(body.getBytes());
             outputStream.flush();
             if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                throw new RuntimeException("Failed to create survey: HTTP error code : "
+                throw new RuntimeException("Failed to process request : HTTP error code : "
                         + conn.getResponseCode());
             }
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -102,7 +102,7 @@ public class RequestUtil extends RequestHelper {
             OutputStream outputStream = conn.getOutputStream();
             outputStream.flush();
             if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                throw new RuntimeException("Failed to delete survey : HTTP error code Survey may not exist : "
+                throw new RuntimeException("Failed to process request : HTTP error code : "
                         + conn.getResponseCode());
             }
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));

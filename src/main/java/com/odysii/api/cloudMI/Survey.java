@@ -63,9 +63,9 @@ public class Survey extends CloudMI {
         Placement placement = new Placement();
         String url = cloudMIUri+ surveyRoute+"/"+surveyID+placement.getAddRoute() +"?ProjectId="+projectID+"&placement_id="+placementID+"&UserEmail="+cloudMIUser.getUserEmail();
         RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_X_URL_ENCODED);
-        String result = requestUtil.getRequest();
+        StringBuffer result = requestUtil.getRequest();
 
-        return JsonHandler.stringToJson(result);
+        return JsonHandler.stringToJson(result.toString());
     }
     public JSONObject deletePlacement(String placementID){
         Placement placement = new Placement();
