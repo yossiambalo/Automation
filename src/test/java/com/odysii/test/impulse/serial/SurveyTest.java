@@ -2,8 +2,10 @@ package com.odysii.test.impulse.serial;
 
 import com.odysii.api.cloudMI.Survey;
 import com.odysii.api.pos.SerialMessageGenerator;
+import com.odysii.db.DBHandler;
 import com.odysii.general.POSType;
 import com.odysii.test.impulse.helper.ImpulseTestHelper;
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -12,7 +14,7 @@ import static org.testng.Assert.assertEquals;
 
 public class SurveyTest extends ImpulseTestHelper {
 
-    private String surveyID,placementID;
+    private String surveyID,placementID,surveyOptionID;
     SerialMessageGenerator generator;
     @BeforeClass
     public void setUp(){
@@ -25,6 +27,7 @@ public class SurveyTest extends ImpulseTestHelper {
         //create options for survey
         jsonObject = survey.createOption(surveyID);
         assertEquals(jsonObject.get("status"),"Success","Failed to create option to survey!");
+        surveyOptionID = jsonObject.get("id").toString();
         //create placement for survey
         jsonObject = survey.createPlacement();
         assertEquals(jsonObject.get("status"),"Success","Failed to create placement for survey!");
@@ -46,7 +49,7 @@ public class SurveyTest extends ImpulseTestHelper {
     public void validSurveyInImpulse(){
         //Start Impulse
         runCmdCommand(impulseRunnerScript);
-        wait(50000);
+        wait(30000);
         generator = new SerialMessageGenerator("http://localhost:7007/OdysiiDeliveryStation/");
         //Start transaction
         generator.doPostRequest("<Body>[C000] NEWSALE  LANG=FR|/n</Body>");
@@ -59,5 +62,16 @@ public class SurveyTest extends ImpulseTestHelper {
         wait(3000);
         //execute survey
         runCmdCommand(surveyRunnerScript);
+        String query = "SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='"+surveyOptionID+"'";
+        DBHandler dbHandler = new DBHandler();
+        String actual = dbHandler.executeSelectQuery(query,6);
+        int timeOut = 0;
+        while((StringUtils.isEmpty(actual) && timeOut < 20)){
+            wait(4000);
+            actual = dbHandler.executeSelectQuery(query,6);
+            timeOut++;
+        }
+        dbHandler.closeConnection();
+        assertEquals(actual,surveyOptionID);
     }
 }

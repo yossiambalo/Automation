@@ -1,9 +1,12 @@
 package com.odysii.db;
 
+import com.odysii.general.PropertyLoader;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Properties;
 
 public class DBHandler {
     private String connectionUrl;
@@ -12,9 +15,11 @@ public class DBHandler {
     private Statement stmt;
     private ResultSet rs;
 
-    public DBHandler(String connectionUrl, String classForname){
-        this.connectionUrl = connectionUrl;
-        this.classForname = classForname;
+    public DBHandler(){
+        PropertyLoader propertyLoader = new PropertyLoader();
+        Properties properties = propertyLoader.loadPropFile("db.properties");
+        this.connectionUrl = properties.getProperty("connection_url");
+        this.classForname = properties.getProperty("class_for_name");
         connect();
     }
     private void connect(){

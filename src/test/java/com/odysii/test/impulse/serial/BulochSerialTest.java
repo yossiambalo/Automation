@@ -17,8 +17,7 @@ public class BulochSerialTest extends ImpulseTestHelper{
     SerialMessageGenerator generator;
     @BeforeClass
     public void setUp(){
-        DBHandler dbHandler = new DBHandler("jdbc:sqlserver://10.28.76.71:1433;databaseName=DW_qa;user=sa;password=Gladiator01",
-                "com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        DBHandler dbHandler = new DBHandler();
         dbHandler.executeDeleteQuery("delete FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='1633'");
     }
     /**
@@ -66,8 +65,7 @@ public class BulochSerialTest extends ImpulseTestHelper{
         //execute survey
         runCmdCommand(surveyRunnerScript);
         //connect to DB and execute queries
-        DBHandler dbHandler = new DBHandler("jdbc:sqlserver://10.28.76.71:1433;databaseName=DW_qa;user=sa;password=Gladiator01",
-                "com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        DBHandler dbHandler = new DBHandler();
         String actual = dbHandler.executeSelectQuery("SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='1633'",6);
         int timeOut = 0;
         while((StringUtils.isEmpty(actual) && timeOut < 10)){
