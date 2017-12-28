@@ -6,10 +6,10 @@ import java.util.Properties;
 
 public abstract class CloudMI {
 
-     String token, cloudMIUri, projectID;
-     CloudMIUser cloudMIUser;
+     protected String token, cloudMIUri, projectID;
+     protected CloudMIUser cloudMIUser;
 
-     void init(){
+     protected void init(){
         PropertyLoader propertyLoader = new PropertyLoader();
         Properties properties = propertyLoader.loadPropFile("cloud_mi.properties");
         token = properties.getProperty("token");

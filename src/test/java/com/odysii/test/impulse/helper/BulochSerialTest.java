@@ -1,4 +1,4 @@
-package com.odysii.test.impulse.serial;
+package com.odysii.test.impulse.helper;
 
 import com.odysii.api.pos.SerialMessageGenerator;
 import com.odysii.db.DBHandler;
@@ -17,8 +17,7 @@ public class BulochSerialTest extends ImpulseTestHelper{
     SerialMessageGenerator generator;
     @BeforeClass
     public void setUp(){
-        DBHandler dbHandler = new DBHandler("jdbc:sqlserver://10.28.76.71:1433;databaseName=DW_qa;user=sa;password=Gladiator01",
-                "com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        DBHandler dbHandler = new DBHandler();
         dbHandler.executeDeleteQuery("delete FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='1633'");
     }
     /**
@@ -60,12 +59,13 @@ public class BulochSerialTest extends ImpulseTestHelper{
     @Test
     public void _002_Bulloch_Valid_Survey() {
         wait(5000);
+        //finish transaction
         generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
         wait(3000);
+        //execute survey
         runCmdCommand(surveyRunnerScript);
         //connect to DB and execute queries
-        DBHandler dbHandler = new DBHandler("jdbc:sqlserver://10.28.76.71:1433;databaseName=DW_qa;user=sa;password=Gladiator01",
-                "com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        DBHandler dbHandler = new DBHandler();
         String actual = dbHandler.executeSelectQuery("SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='1633'",6);
         int timeOut = 0;
         while((StringUtils.isEmpty(actual) && timeOut < 10)){

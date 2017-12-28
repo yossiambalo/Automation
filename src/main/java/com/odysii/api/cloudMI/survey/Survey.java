@@ -1,9 +1,12 @@
-package com.odysii.api.cloudMI;
+package com.odysii.api.cloudMI.survey;
 
 import com.odysii.api.MediaType;
+import com.odysii.api.cloudMI.CloudMI;
+import com.odysii.api.cloudMI.Placement;
 import com.odysii.api.util.RequestUtil;
 import com.odysii.general.JsonHandler;
 import com.odysii.general.PropertyLoader;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -12,20 +15,26 @@ import java.util.Properties;
 
 public class Survey extends CloudMI {
     private String createSurveyBody;
-    private String surveyRoute, surveyOptionRoute,surveyOptionBody1,surveyOptionBody2;
-    private List<String> surveyOptionList;
+    private String surveyRoute, surveyOptionRoute;
+    private List<String> surveyOptionBodyList;
+
+    public Properties getProperties() {
+        return properties;
+    }
+
+    private Properties properties;
 
     //const
-    public Survey(){
+    public Survey(String propFile){
         init();
         PropertyLoader propertyLoader = new PropertyLoader();
-        Properties properties = propertyLoader.loadPropFile("survey.properties");
-        surveyRoute = properties.getProperty("surveyRoute");
-        createSurveyBody = properties.getProperty("create_survey_body");
-        surveyOptionRoute = properties.getProperty("survey_option_route");
-        surveyOptionList = new ArrayList<>();
-        surveyOptionList.add(properties.getProperty("survey_option_body1"));
-        surveyOptionList.add(properties.getProperty("survey_option_body2"));
+        this.properties = propertyLoader.loadPropFile(propFile);
+        this.surveyRoute = properties.getProperty("surveyRoute");
+        this.createSurveyBody = properties.getProperty("create_survey_body");
+        this.surveyOptionRoute = properties.getProperty("survey_option_route");
+        this.surveyOptionBodyList = new ArrayList<>();
+        this.surveyOptionBodyList.add(properties.getProperty("survey_option_body1"));
+        this.surveyOptionBodyList.add(properties.getProperty("survey_option_body2"));
     }
 
     public JSONObject createSurvey(){
@@ -45,9 +54,33 @@ public class Survey extends CloudMI {
         RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
         String result = "";
         JSONObject jsonObject = null;
-        for (String body : surveyOptionList){
+        JSONObject jsonObject2 = null;
+        for (String optionBody : surveyOptionBodyList){
+            jsonObject = JsonHandler.stringToJson(optionBody);
+            jsonObject2 = JsonHandler.stringToJson(optionBody).getJSONObject("survey_option").put("survey_id",surveyID);
+            jsonObject.put("survey_option",jsonObject2);
+            result = requestUtil.postRequest(jsonObject.toString());
+        }
+        return JsonHandler.stringToJson(result);
+    }
+
+    /**
+     * Add options for survey
+     * @param surveyID
+     * @param optionProps: options names according properties file
+     * @return: JSONObject
+     */
+    public JSONObject addOption(String surveyID,List<String> optionProps){
+        String url = cloudMIUri+ surveyOptionRoute +"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
+        RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
+        String result = "";
+        JSONObject jsonObject = null;
+        JSONObject jsonObject2 = null;
+        for (String optionProp : optionProps){
+            String body = properties.getProperty(optionProp);
             jsonObject = JsonHandler.stringToJson(body);
-            jsonObject.put("survey_id",surveyID);
+            jsonObject2 = JsonHandler.stringToJson(body).getJSONObject("survey_option").put("survey_id",surveyID);
+            jsonObject.put("survey_option",jsonObject2);
             result = requestUtil.postRequest(jsonObject.toString());
         }
         return JsonHandler.stringToJson(result);
