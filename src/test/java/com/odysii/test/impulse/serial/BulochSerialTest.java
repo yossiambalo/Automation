@@ -60,8 +60,10 @@ public class BulochSerialTest extends ImpulseTestHelper{
     @Test
     public void _002_Bulloch_Valid_Survey() {
         wait(5000);
+        //finish transaction
         generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
         wait(3000);
+        //execute survey
         runCmdCommand(surveyRunnerScript);
         //connect to DB and execute queries
         DBHandler dbHandler = new DBHandler("jdbc:sqlserver://10.28.76.71:1433;databaseName=DW_qa;user=sa;password=Gladiator01",

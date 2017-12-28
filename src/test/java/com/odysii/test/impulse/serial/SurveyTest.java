@@ -1,18 +1,22 @@
 package com.odysii.test.impulse.serial;
 
 import com.odysii.api.cloudMI.Survey;
+import com.odysii.api.pos.SerialMessageGenerator;
+import com.odysii.general.POSType;
+import com.odysii.test.impulse.helper.ImpulseTestHelper;
 import org.json.JSONObject;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
-public class SurveyTest {
+public class SurveyTest extends ImpulseTestHelper {
 
     private String surveyID,placementID;
-
+    SerialMessageGenerator generator;
     @BeforeClass
     public void setUp(){
+        init(POSType.BULLOCH);
         Survey survey = new Survey();
         //create survey
         JSONObject jsonObject = survey.createSurvey();
@@ -25,12 +29,8 @@ public class SurveyTest {
         jsonObject = survey.createPlacement();
         assertEquals(jsonObject.get("status"),"Success","Failed to create placement for survey!");
         placementID = jsonObject.get("id").toString();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         //link placement to survey
+        wait(3000);
         jsonObject = survey.linkPlacement(surveyID,placementID);
         assertEquals(jsonObject.get("status"),"Success","Failed to link placement for survey!");
         //delete survey
@@ -44,6 +44,20 @@ public class SurveyTest {
 
     @Test
     public void validSurveyInImpulse(){
-        System.out.println("dddd");
+        //Start Impulse
+        runCmdCommand(impulseRunnerScript);
+        wait(50000);
+        generator = new SerialMessageGenerator("http://localhost:7007/OdysiiDeliveryStation/");
+        //Start transaction
+        generator.doPostRequest("<Body>[C000] NEWSALE  LANG=FR|/n</Body>");
+        wait(2000);
+        //Add item
+        generator.doPostRequest("<Body>[C110] 0000000000037 MRSHMLOW SQ        QT=1 PR=1.79 AMT=1.79 STTL=1.79 DSC=0.00 TAX=0.23 TOTAL=2.02|/n</Body>");
+        wait(2000);
+        //finish transaction
+        generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
+        wait(3000);
+        //execute survey
+        runCmdCommand(surveyRunnerScript);
     }
 }
