@@ -83,11 +83,10 @@ public class SurveyTest extends ImpulseTestHelper {
         dbHandler.closeConnection();
         assertEquals(actual,surveyOptionID);
     }
-    //Test Cases: SUR-2-1,SUR-2-2,SUR-2-3,SUR-2-5
+    //Test Cases: SUR-2-4
     @Test
-    public void _002_validAddOneMoreAnswerToSurvey(){
-        //Start Impulse
-        //runCmdCommand(impulseRunnerScript);
+    public void _002_valid3dAnswerToSurvey(){
+
         List<String> options = new ArrayList<>();
         options.add("survey_option_body3");
         //create options for survey
@@ -119,6 +118,40 @@ public class SurveyTest extends ImpulseTestHelper {
         assertEquals(actual,surveyOptionID);
     }
 
+    //Test Cases: SUR-2-6
+    @Test
+    public void _003_valid4dAnswerToSurvey(){
+
+        List<String> options = new ArrayList<>();
+        options.add("survey_option_body4");
+        //create options for survey
+        jsonObject = survey.addOption(surveyID,options);
+        assertEquals(jsonObject.get("status"),"Success","Failed to create option to survey!");
+        surveyOptionID = jsonObject.get("id").toString();
+        wait(30000);
+        generator = new SerialMessageGenerator("http://localhost:7007/OdysiiDeliveryStation/");
+        //Start transaction
+        generator.doPostRequest("<Body>[C000] NEWSALE  LANG=FR|/n</Body>");
+        wait(2000);
+        //Add item
+        generator.doPostRequest("<Body>[C110] 0000000000037 MRSHMLOW SQ        QT=1 PR=1.79 AMT=1.79 STTL=1.79 DSC=0.00 TAX=0.23 TOTAL=2.02|/n</Body>");
+        wait(2000);
+        //finish transaction
+        generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
+        wait(3000);
+        //execute survey
+        runCmdCommand(survey3dOption);
+        String query = "SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='"+surveyOptionID+"'";
+        dbHandler = new DBHandler();
+        String actual = dbHandler.executeSelectQuery(query,6);
+        int timeOut = 0;
+        while((StringUtils.isEmpty(actual) && timeOut < 20)){
+            wait(4000);
+            actual = dbHandler.executeSelectQuery(query,6);
+            timeOut++;
+        }
+        assertEquals(actual,surveyOptionID);
+    }
     @AfterClass
     public void tearDown(){
         String query = "delete FROM [DW_qa].[dbo].[SurveyJournal] where [ProjectId]='2727'";
