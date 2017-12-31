@@ -12,14 +12,15 @@ import java.util.Properties;
 
 public class Survey extends CloudMI {
     private String createSurveyBody;
-    private String surveyRoute, surveyOptionRoute,surveyOptionBody1,surveyOptionBody2;
+    private String surveyRoute, surveyOptionRoute;
     private List<String> surveyOptionList;
+    private Properties properties;
 
     //const
     public Survey(){
         init();
         PropertyLoader propertyLoader = new PropertyLoader();
-        Properties properties = propertyLoader.loadPropFile("survey.properties");
+        properties = propertyLoader.loadPropFile("survey.properties");
         surveyRoute = properties.getProperty("surveyRoute");
         createSurveyBody = properties.getProperty("create_survey_body");
         surveyOptionRoute = properties.getProperty("survey_option_route");
@@ -47,6 +48,25 @@ public class Survey extends CloudMI {
         JSONObject jsonObject = null;
         for (String body : surveyOptionList){
             jsonObject = JsonHandler.stringToJson(body);
+            jsonObject.put("survey_id",surveyID);
+            result = requestUtil.postRequest(jsonObject.toString());
+        }
+        return JsonHandler.stringToJson(result);
+    }
+
+    /**
+     * Add options for survey
+     * @param surveyID
+     * @param optionProps: options names according properties file
+     * @return: JSONObject
+     */
+    public JSONObject addOption(String surveyID,List<String> optionProps){
+        String url = cloudMIUri+ surveyOptionRoute +"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
+        RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
+        String result = "";
+        JSONObject jsonObject = null;
+        for (String optionProp : optionProps){
+            jsonObject = JsonHandler.stringToJson(properties.getProperty(optionProp));
             jsonObject.put("survey_id",surveyID);
             result = requestUtil.postRequest(jsonObject.toString());
         }
