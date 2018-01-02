@@ -17,16 +17,16 @@ public class Survey extends CloudMI {
     private Properties properties;
 
     //const
-    public Survey(){
+    public Survey(String propFile,String surveyRoute,String surveyBody,String surveyOptionRoute,String optionBody1,String optionBody2){
         init();
         PropertyLoader propertyLoader = new PropertyLoader();
-        properties = propertyLoader.loadPropFile("survey.properties");
-        surveyRoute = properties.getProperty("surveyRoute");
-        createSurveyBody = properties.getProperty("create_survey_body");
-        surveyOptionRoute = properties.getProperty("survey_option_route");
-        surveyOptionList = new ArrayList<>();
-        surveyOptionList.add(properties.getProperty("survey_option_body1"));
-        surveyOptionList.add(properties.getProperty("survey_option_body2"));
+        this.properties = propertyLoader.loadPropFile(propFile);
+        this.surveyRoute = properties.getProperty(surveyRoute);
+        this.createSurveyBody = properties.getProperty(surveyBody);
+        this.surveyOptionRoute = properties.getProperty(surveyOptionRoute);
+        this.surveyOptionList = new ArrayList<>();
+        this.surveyOptionList.add(properties.getProperty(optionBody1));
+        this.surveyOptionList.add(properties.getProperty(optionBody2));
     }
 
     public JSONObject createSurvey(){

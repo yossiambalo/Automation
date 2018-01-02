@@ -1,6 +1,7 @@
 package com.odysii.test.impulse.serial;
 
 import com.odysii.api.cloudMI.Survey;
+import com.odysii.api.cloudMI.TextSurvey;
 import com.odysii.api.pos.SerialMessageGenerator;
 import com.odysii.db.DBHandler;
 import com.odysii.general.POSType;
@@ -27,7 +28,7 @@ public class SurveyTest extends ImpulseTestHelper {
     @BeforeClass
     public void setUp(){
         init(POSType.BULLOCH);
-        survey = new Survey();
+        survey = new TextSurvey();
         //create survey
         jsonObject = survey.createSurvey();
         assertEquals(jsonObject.get("status"),"Success","Failed to create survey!");
