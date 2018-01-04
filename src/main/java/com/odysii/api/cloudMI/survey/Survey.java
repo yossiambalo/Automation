@@ -1,6 +1,8 @@
-package com.odysii.api.cloudMI;
+package com.odysii.api.cloudMI.survey;
 
 import com.odysii.api.MediaType;
+import com.odysii.api.cloudMI.CloudMI;
+import com.odysii.api.cloudMI.Placement;
 import com.odysii.api.util.RequestUtil;
 import com.odysii.general.JsonHandler;
 import com.odysii.general.PropertyLoader;
@@ -10,23 +12,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class Survey extends CloudMI {
+public abstract class Survey extends CloudMI {
     private String createSurveyBody;
     private String surveyRoute, surveyOptionRoute;
     private List<String> surveyOptionList;
     private Properties properties;
 
     //const
-    public Survey(String propFile,String surveyRoute,String surveyBody,String surveyOptionRoute,String optionBody1,String optionBody2){
+    public Survey(String propFile){
         init();
         PropertyLoader propertyLoader = new PropertyLoader();
         this.properties = propertyLoader.loadPropFile(propFile);
-        this.surveyRoute = properties.getProperty(surveyRoute);
-        this.createSurveyBody = properties.getProperty(surveyBody);
-        this.surveyOptionRoute = properties.getProperty(surveyOptionRoute);
+        this.surveyRoute = properties.getProperty("surveyRoute");
+        this.createSurveyBody = properties.getProperty("create_survey_body");
+        this.surveyOptionRoute = properties.getProperty("survey_option_route");
         this.surveyOptionList = new ArrayList<>();
-        this.surveyOptionList.add(properties.getProperty(optionBody1));
-        this.surveyOptionList.add(properties.getProperty(optionBody2));
+        this.surveyOptionList.add(properties.getProperty("survey_option_body1"));
+        this.surveyOptionList.add(properties.getProperty("survey_option_body2"));
     }
 
     public JSONObject createSurvey(){
@@ -47,7 +49,7 @@ public class Survey extends CloudMI {
         String result = "";
         JSONObject jsonObject = null;
         for (String body : surveyOptionList){
-            jsonObject = JsonHandler.stringToJson(body);
+            jsonObject = JsonHandler.stringToJson(body).getJSONObject("survey_option");
             jsonObject.put("survey_id",surveyID);
             result = requestUtil.postRequest(jsonObject.toString());
         }

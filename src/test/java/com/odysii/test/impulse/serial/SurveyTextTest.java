@@ -1,14 +1,13 @@
 package com.odysii.test.impulse.serial;
 
-import com.odysii.api.cloudMI.Survey;
-import com.odysii.api.cloudMI.TextSurvey;
+import com.odysii.api.cloudMI.survey.Survey;
+import com.odysii.api.cloudMI.survey.TextSurvey;
 import com.odysii.api.pos.SerialMessageGenerator;
 import com.odysii.db.DBHandler;
 import com.odysii.general.POSType;
 import com.odysii.test.impulse.helper.ImpulseTestHelper;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -17,41 +16,11 @@ import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 
-public class SurveyTest extends ImpulseTestHelper {
-
-    private String surveyID,placementID,surveyOptionID;
-    SerialMessageGenerator generator;
-    private Survey survey;
-    private JSONObject jsonObject;
-    private DBHandler dbHandler;
+public class SurveyTextTest extends SurveyTestBase {
 
     @BeforeClass
     public void setUp(){
-        init(POSType.BULLOCH);
-        survey = new TextSurvey();
-        //create survey
-        jsonObject = survey.createSurvey();
-        assertEquals(jsonObject.get("status"),"Success","Failed to create survey!");
-        surveyID = jsonObject.get("id").toString();
-        //create options for survey
-        jsonObject = survey.createOption(surveyID);
-        assertEquals(jsonObject.get("status"),"Success","Failed to create option to survey!");
-        surveyOptionID = jsonObject.get("id").toString();
-        //create placement for survey
-        jsonObject = survey.createPlacement();
-        assertEquals(jsonObject.get("status"),"Success","Failed to create placement for survey!");
-        placementID = jsonObject.get("id").toString();
-        //link placement to survey
-        wait(3000);
-        jsonObject = survey.linkPlacement(surveyID,placementID);
-        assertEquals(jsonObject.get("status"),"Success","Failed to link placement for survey!");
-        //delete survey
-//        jsonObject = survey.deleteSurvey(surveyID);
-//        assertEquals(jsonObject.get("status"),"Success","Failed to delete survey!");
-//        //delete placement
-//        jsonObject = survey.deletePlacement(placementID);
-//        assertEquals(jsonObject.get("status"),"Success","Failed to delete placement of survey!");
-
+       setUp(TextSurvey.class);
     }
 
     //Test Cases: SUR-2-1,SUR-2-2,SUR-2-3,SUR-2-5
@@ -325,13 +294,5 @@ public class SurveyTest extends ImpulseTestHelper {
             timeOut++;
         }
         assertEquals(actual,surveyOptionID);
-    }
-    @AfterClass
-    public void tearDown(){
-        String query = "delete FROM [DW_qa].[dbo].[SurveyJournal] where [ProjectId]='2727'";
-        survey.deletePlacement(placementID);
-        survey.deleteSurvey(surveyID);
-        dbHandler.executeDeleteQuery(query);
-        dbHandler.closeConnection();
     }
 }
