@@ -1,6 +1,5 @@
 package com.odysii.test.impulse.serial;
 
-import com.odysii.api.cloudMI.survey.DonationSurvey;
 import com.odysii.api.cloudMI.survey.Survey;
 import com.odysii.api.pos.SerialMessageGenerator;
 import com.odysii.db.DBHandler;
@@ -8,7 +7,6 @@ import com.odysii.general.POSType;
 import com.odysii.test.impulse.helper.ImpulseTestHelper;
 import org.json.JSONObject;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 
 import static org.testng.Assert.assertEquals;
 
@@ -20,13 +18,11 @@ public class SurveyTestBase extends ImpulseTestHelper {
     protected JSONObject jsonObject;
     protected DBHandler dbHandler;
 
-    public void setUp(Class<? extends Survey> surveyClass){
+    public void setUp(Class<? extends Survey> surveyClass,String surveyProp){
         init(POSType.BULLOCH);
         try {
-            survey = surveyClass.newInstance();
-        } catch (InstantiationException e) {
-            System.out.println(e.getMessage());
-        } catch (IllegalAccessException e) {
+            survey = surveyClass.getConstructor(String.class).newInstance(surveyProp);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         //create survey

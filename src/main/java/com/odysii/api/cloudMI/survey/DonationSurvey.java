@@ -1,8 +1,9 @@
 package com.odysii.api.cloudMI.survey;
 
+
 public class DonationSurvey extends Survey {
 
-    public DonationSurvey() {
-        super("donation_survey.properties");
+    public DonationSurvey(String surveyProp) {
+        super(surveyProp);
     }
 }

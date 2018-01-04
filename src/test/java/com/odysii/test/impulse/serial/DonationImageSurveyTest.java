@@ -13,16 +13,16 @@ import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 
-public class DonationTextSurveyTest extends SurveyTestBase {
+public class DonationImageSurveyTest extends SurveyTestBase {
 
     @BeforeClass
     public void setUp(){
-        setUp(DonationSurvey.class, SurveyType.DONATION_TEXT);
+        setUp(DonationSurvey.class, SurveyType.DONATION_IMAGE);
     }
 
     //Test Cases: SUR-2-1,SUR-2-2,SUR-2-3,SUR-2-5
     @Test
-    public void _001_validOptionNumber2TypeText(){
+    public void _001_validOptionNumber2TypeImage(){
         //Start Impulse
         runCmdCommand(impulseRunnerScript);
         //Wait CNC client downloading the new survey instructions
@@ -52,7 +52,7 @@ public class DonationTextSurveyTest extends SurveyTestBase {
         assertEquals(actual,surveyOptionID);
     }
     @Test
-    public void _002_validOptionNumber3TypeText(){
+    public void _002_validOptionNumber3TypeImage(){
 
         List<String> options = new ArrayList<>();
         options.add("survey_option_body3");
@@ -73,7 +73,7 @@ public class DonationTextSurveyTest extends SurveyTestBase {
         generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
         wait(3000);
         //execute survey
-        runCmdCommand(surveyRunnerScript);
+        runCmdCommand(survey3dOption);
         String query = "SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='"+surveyOptionID+"'";
         dbHandler = new DBHandler();
         String actual = dbHandler.executeSelectQuery(query,6);
@@ -87,7 +87,7 @@ public class DonationTextSurveyTest extends SurveyTestBase {
     }
 
     @Test
-    public void _003_validOptionNumber4TypeText(){
+    public void _003_validOptionNumber4TypeImage(){
 
         List<String> options = new ArrayList<>();
         options.add("survey_option_body4");

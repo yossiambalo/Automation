@@ -6,6 +6,7 @@ import com.odysii.api.cloudMI.Placement;
 import com.odysii.api.util.RequestUtil;
 import com.odysii.general.JsonHandler;
 import com.odysii.general.PropertyLoader;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.Properties;
 public abstract class Survey extends CloudMI {
     private String createSurveyBody;
     private String surveyRoute, surveyOptionRoute;
-    private List<String> surveyOptionList;
+    private List<String> surveyOptionBodyList;
     private Properties properties;
 
     //const
@@ -26,9 +27,9 @@ public abstract class Survey extends CloudMI {
         this.surveyRoute = properties.getProperty("surveyRoute");
         this.createSurveyBody = properties.getProperty("create_survey_body");
         this.surveyOptionRoute = properties.getProperty("survey_option_route");
-        this.surveyOptionList = new ArrayList<>();
-        this.surveyOptionList.add(properties.getProperty("survey_option_body1"));
-        this.surveyOptionList.add(properties.getProperty("survey_option_body2"));
+        this.surveyOptionBodyList = new ArrayList<>();
+        this.surveyOptionBodyList.add(properties.getProperty("survey_option_body1"));
+        this.surveyOptionBodyList.add(properties.getProperty("survey_option_body2"));
     }
 
     public JSONObject createSurvey(){
@@ -48,9 +49,11 @@ public abstract class Survey extends CloudMI {
         RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
         String result = "";
         JSONObject jsonObject = null;
-        for (String body : surveyOptionList){
-            jsonObject = JsonHandler.stringToJson(body).getJSONObject("survey_option");
-            jsonObject.put("survey_id",surveyID);
+        JSONObject jsonObject2 = null;
+        for (String optionBody : surveyOptionBodyList){
+            jsonObject = JsonHandler.stringToJson(optionBody);
+            jsonObject2 = JsonHandler.stringToJson(optionBody).getJSONObject("survey_option").put("survey_id",surveyID);
+            jsonObject.put("survey_option",jsonObject2);
             result = requestUtil.postRequest(jsonObject.toString());
         }
         return JsonHandler.stringToJson(result);
@@ -67,9 +70,12 @@ public abstract class Survey extends CloudMI {
         RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
         String result = "";
         JSONObject jsonObject = null;
+        JSONObject jsonObject2 = null;
         for (String optionProp : optionProps){
-            jsonObject = JsonHandler.stringToJson(properties.getProperty(optionProp));
-            jsonObject.put("survey_id",surveyID);
+            String body = properties.getProperty(optionProp);
+            jsonObject = JsonHandler.stringToJson(body);
+            jsonObject2 = JsonHandler.stringToJson(body).getJSONObject("survey_option").put("survey_id",surveyID);
+            jsonObject.put("survey_option",jsonObject2);
             result = requestUtil.postRequest(jsonObject.toString());
         }
         return JsonHandler.stringToJson(result);
