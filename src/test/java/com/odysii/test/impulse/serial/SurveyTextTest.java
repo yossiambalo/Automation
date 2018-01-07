@@ -16,7 +16,7 @@ public class SurveyTextTest extends SurveyTestBase {
 
     @BeforeClass
     public void setUp(){
-       setUp(SurveyType.SURVEY_TEXT);
+       setUp(SurveyType.SURVEY_TEXT,true);
     }
 
     //Test Cases: SUR-2-1,SUR-2-2,SUR-2-3,SUR-2-5

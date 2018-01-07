@@ -19,7 +19,7 @@ public class SurveyTestBase extends ImpulseTestHelper {
     protected JSONObject jsonObject;
     protected DBHandler dbHandler;
 
-    public Survey setUp(String surveyProp){
+    public Survey setUp(String surveyProp,boolean enablePlacement){
         //ToDo: PosType must be dynamic, get it from vm options
         init(POSType.BULLOCH);
         try {
@@ -36,14 +36,15 @@ public class SurveyTestBase extends ImpulseTestHelper {
         assertEquals(jsonObject.get("status"),"Success","Failed to create option to survey!");
         surveyOptionID = jsonObject.get("id").toString();
         //create placement for survey
-        jsonObject = survey.createPlacement();
-        assertEquals(jsonObject.get("status"),"Success","Failed to create placement for survey!");
-        placementID = jsonObject.get("id").toString();
+        if (enablePlacement){
+            jsonObject = survey.createPlacement();
+            assertEquals(jsonObject.get("status"),"Success","Failed to create placement for survey!");
+            placementID = jsonObject.get("id").toString();
+            wait(3000);
+            jsonObject = survey.linkPlacement(surveyID,placementID);
+            assertEquals(jsonObject.get("status"),"Success","Failed to link placement for survey!");
+        }
         //link placement to survey
-        wait(3000);
-        jsonObject = survey.linkPlacement(surveyID,placementID);
-        assertEquals(jsonObject.get("status"),"Success","Failed to link placement for survey!");
-
         return survey;
     }
     @AfterClass

@@ -16,7 +16,7 @@ public class DonationImageSurveyTest extends SurveyTestBase {
 
     @BeforeClass
     public void setUp(){
-        setUp(SurveyType.DONATION_IMAGE);
+        setUp(SurveyType.DONATION_IMAGE,true);
     }
 
     //Test Cases: SUR-2-1,SUR-2-2,SUR-2-3,SUR-2-5
