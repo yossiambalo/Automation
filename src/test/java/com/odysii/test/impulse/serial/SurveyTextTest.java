@@ -1,7 +1,6 @@
 package com.odysii.test.impulse.serial;
 
 import com.odysii.api.cloudMI.survey.SurveyType;
-import com.odysii.api.cloudMI.survey.TextSurvey;
 import com.odysii.api.pos.SerialMessageGenerator;
 import com.odysii.db.DBHandler;
 import org.apache.commons.lang.StringUtils;
@@ -17,7 +16,7 @@ public class SurveyTextTest extends SurveyTestBase {
 
     @BeforeClass
     public void setUp(){
-       setUp(TextSurvey.class, SurveyType.SURVEY_TEXT);
+       setUp(SurveyType.SURVEY_TEXT);
     }
 
     //Test Cases: SUR-2-1,SUR-2-2,SUR-2-3,SUR-2-5

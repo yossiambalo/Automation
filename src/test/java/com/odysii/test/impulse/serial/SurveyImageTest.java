@@ -1,7 +1,7 @@
 package com.odysii.test.impulse.serial;
 
+import com.odysii.api.cloudMI.survey.Survey;
 import com.odysii.api.cloudMI.survey.SurveyType;
-import com.odysii.api.cloudMI.survey.TextSurvey;
 import com.odysii.api.pos.SerialMessageGenerator;
 import com.odysii.db.DBHandler;
 import org.apache.commons.lang.StringUtils;
@@ -15,9 +15,10 @@ import static org.testng.Assert.assertEquals;
 
 public class SurveyImageTest extends SurveyTestBase {
 
+    private Survey survey;
     @BeforeClass
     public void setUp(){
-        setUp(TextSurvey.class, SurveyType.SURVEY_IMAGE);
+        survey = setUp(SurveyType.SURVEY_IMAGE);
     }
 
     //Test Cases: SUR-2-1,SUR-2-2,SUR-2-3,SUR-2-5
@@ -110,7 +111,7 @@ public class SurveyImageTest extends SurveyTestBase {
         generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
         wait(3000);
         //execute survey
-        runCmdCommand(survey3dOption);
+        runCmdCommand(survey.getProperties().getProperty("image_option_num_4"));
         String query = "SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='"+surveyOptionID+"'";
         dbHandler = new DBHandler();
         String actual = dbHandler.executeSelectQuery(query,6);
@@ -178,7 +179,7 @@ public class SurveyImageTest extends SurveyTestBase {
         generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
         wait(3000);
         //execute survey
-        runCmdCommand(survey4dOption);
+        runCmdCommand(survey.getProperties().getProperty("image_option_num_6"));
         String query = "SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='"+surveyOptionID+"'";
         dbHandler = new DBHandler();
         String actual = dbHandler.executeSelectQuery(query,6);
@@ -212,7 +213,7 @@ public class SurveyImageTest extends SurveyTestBase {
         generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
         wait(3000);
         //execute survey
-        runCmdCommand(survey4dOption);
+        runCmdCommand(survey.getProperties().getProperty("image_option_num_7"));
         String query = "SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='"+surveyOptionID+"'";
         dbHandler = new DBHandler();
         String actual = dbHandler.executeSelectQuery(query,6);
@@ -280,7 +281,7 @@ public class SurveyImageTest extends SurveyTestBase {
         generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
         wait(3000);
         //execute survey
-        runCmdCommand(survey4dOption);
+        runCmdCommand(survey.getProperties().getProperty("image_option_num_9"));
         String query = "SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='"+surveyOptionID+"'";
         dbHandler = new DBHandler();
         String actual = dbHandler.executeSelectQuery(query,6);

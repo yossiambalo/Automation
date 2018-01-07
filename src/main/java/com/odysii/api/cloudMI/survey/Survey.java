@@ -13,10 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public abstract class Survey extends CloudMI {
+public class Survey extends CloudMI {
     private String createSurveyBody;
     private String surveyRoute, surveyOptionRoute;
     private List<String> surveyOptionBodyList;
+
+    public Properties getProperties() {
+        return properties;
+    }
+
     private Properties properties;
 
     //const

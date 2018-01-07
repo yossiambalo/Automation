@@ -8,6 +8,7 @@ import com.odysii.test.impulse.helper.ImpulseTestHelper;
 import org.json.JSONObject;
 import org.testng.annotations.AfterClass;
 
+
 import static org.testng.Assert.assertEquals;
 
 public class SurveyTestBase extends ImpulseTestHelper {
@@ -18,10 +19,11 @@ public class SurveyTestBase extends ImpulseTestHelper {
     protected JSONObject jsonObject;
     protected DBHandler dbHandler;
 
-    public void setUp(Class<? extends Survey> surveyClass,String surveyProp){
+    public Survey setUp(String surveyProp){
+        //ToDo: PosType must be dynamic, get it from vm options
         init(POSType.BULLOCH);
         try {
-            survey = surveyClass.getConstructor(String.class).newInstance(surveyProp);
+            survey = new Survey(surveyProp);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -41,6 +43,8 @@ public class SurveyTestBase extends ImpulseTestHelper {
         wait(3000);
         jsonObject = survey.linkPlacement(surveyID,placementID);
         assertEquals(jsonObject.get("status"),"Success","Failed to link placement for survey!");
+
+        return survey;
     }
     @AfterClass
     public void tearDown(){
