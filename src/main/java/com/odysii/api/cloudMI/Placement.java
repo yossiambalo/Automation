@@ -23,13 +23,18 @@ public class Placement {
     }
 
     private String createRoute,addRoute,body, deletePlacementRoute;
+    private Properties properties;
 
     public Placement(){
         PropertyLoader propertyLoader = new PropertyLoader();
-        Properties properties = propertyLoader.loadPropFile("placement.properties");
+        this.properties = propertyLoader.loadPropFile("placement.properties");
         this.createRoute = properties.getProperty("create_placement_route");
         this.addRoute = properties.getProperty("link_placement_route");
         this.body = properties.getProperty("placement_body");
         this.deletePlacementRoute = properties.getProperty("delete_placement_route");
+    }
+    public Placement(String placementProp){
+        this();
+        this.body = properties.getProperty(placementProp);
     }
 }

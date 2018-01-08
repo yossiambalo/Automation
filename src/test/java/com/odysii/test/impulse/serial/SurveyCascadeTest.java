@@ -41,7 +41,7 @@ public class SurveyCascadeTest extends SurveyTestBase {
         runCmdCommand(survey.getProperties().getProperty("cascade_option_num_1"));
         wait(1000);
         runCmdCommand(survey.getProperties().getProperty("cascade_option_num_2"));
-        String query = "SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='"+surveyOptionID+"'";
+        String query = "SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='1634'";
         dbHandler = new DBHandler();
         String actual = dbHandler.executeSelectQuery(query,6);
         int timeOut = 0;
@@ -51,10 +51,13 @@ public class SurveyCascadeTest extends SurveyTestBase {
             timeOut++;
         }
         dbHandler.closeConnection();
-        assertNotEquals(actual,"1634");
+        assertEquals(actual,"1634");
     }
     @Test
     public void _002_moveUserToNextSurveyWithPlacement(){
+        jsonObject = survey.createPlacement("placement_body2");
+        assertEquals(jsonObject.get("status"),"Success","Failed to create placement for survey!");
+        String placementID = jsonObject.get("id").toString();
         jsonObject = survey.linkPlacement("1266",placementID);
         assertEquals(jsonObject.get("status"),"Success","Failed to link placement for survey!");
         jsonObject = survey.linkPlacement("1264",placementID);
@@ -79,7 +82,7 @@ public class SurveyCascadeTest extends SurveyTestBase {
         runCmdCommand(survey.getProperties().getProperty("cascade_option_num_1"));
         wait(1000);
         runCmdCommand(survey.getProperties().getProperty("cascade_option_num_2"));
-        String query = "SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='"+surveyOptionID+"'";
+        String query = "SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='1634'";
         dbHandler = new DBHandler();
         String actual = dbHandler.executeSelectQuery(query,6);
         int timeOut = 0;
@@ -89,6 +92,7 @@ public class SurveyCascadeTest extends SurveyTestBase {
             timeOut++;
         }
         dbHandler.closeConnection();
-        assertNotEquals(actual,"1634");
+        survey.deletePlacement(placementID);
+        assertEquals(actual,"1634");
     }
 }
