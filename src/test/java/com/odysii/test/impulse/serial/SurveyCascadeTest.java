@@ -55,7 +55,6 @@ public class SurveyCascadeTest extends SurveyTestBase {
     }
     @Test
     public void _002_moveUserToNextSurveyWithPlacement(){
-
         jsonObject = survey.linkPlacement("1266",placementID);
         assertEquals(jsonObject.get("status"),"Success","Failed to link placement for survey!");
         jsonObject = survey.linkPlacement("1264",placementID);
