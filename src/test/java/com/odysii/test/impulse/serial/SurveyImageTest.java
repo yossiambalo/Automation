@@ -23,7 +23,8 @@ public class SurveyImageTest extends SurveyTestBase {
     }
 
     @Test
-    public void _001_validAnswerNumber2WithoutPlacement(){
+    //Survey without placement should not be play in impulse
+    public void _001_validSurveyWithoutPlacement(){
         //Start Impulse
         runCmdCommand(impulseRunnerScript);
         //Wait CNC client downloading the new survey instructions
@@ -297,6 +298,8 @@ public class SurveyImageTest extends SurveyTestBase {
         assertEquals(actual,surveyOptionID);
     }
     @Test
+    //Survey is image type and following option will be without image
+    //and options should not be display
     public void _009_validAnswerNumber9ShouldNotBeDisplayed(){
 
         List<String> options = new ArrayList<>();

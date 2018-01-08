@@ -18,6 +18,7 @@ public class SurveyTestBase extends ImpulseTestHelper {
     protected Survey survey;
     protected JSONObject jsonObject;
     protected DBHandler dbHandler;
+    protected final String QUERY = "delete FROM [DW_qa].[dbo].[SurveyJournal] where [ProjectId]='2727'";
 
     public Survey setUp(String surveyProp,boolean enablePlacement){
         //ToDo: PosType must be dynamic, get it from vm options
@@ -49,10 +50,9 @@ public class SurveyTestBase extends ImpulseTestHelper {
     }
     @AfterClass
     public void tearDown(){
-        String query = "delete FROM [DW_qa].[dbo].[SurveyJournal] where [ProjectId]='2727'";
         survey.deletePlacement(placementID);
         survey.deleteSurvey(surveyID);
-        dbHandler.executeDeleteQuery(query);
+        dbHandler.executeDeleteQuery(QUERY);
         dbHandler.closeConnection();
     }
 }

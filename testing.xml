@@ -4,14 +4,18 @@
     <listeners>
         <listener class-name="org.uncommons.reportng.HTMLReporter"/>
     </listeners>
-    <test name="Passport Serial">
+    <test name="Survey Test">
         <classes>
-            <class name="com.odysii.test.impulse.Test1"/>
+            <class name="com.odysii.test.impulse.serial.SurveyTextTest"/>
+            <class name="com.odysii.test.impulse.serial.SurveyImageTest"/>
+            <class name="com.odysii.test.impulse.serial.CascadeSurveyTest"/>
+            <class name="com.odysii.test.impulse.serial.DonationImageSurveyTest"/>
+            <class name="com.odysii.test.impulse.serial.DonationTextSurveyTest"/>
         </classes>
     </test>
-    <test name="Bulloch Serial">
-        <classes>
-            <class name="com.odysii.test.impulse.helper.BulochSerialTest"/>
-        </classes>
-    </test>
+    <!--<test name="Bulloch Serial">-->
+        <!--<classes>-->
+            <!--<class name="com.odysii.test.impulse.helper.BulochSerialTest"/>-->
+        <!--</classes>-->
+    <!--</test>-->
 </suite>

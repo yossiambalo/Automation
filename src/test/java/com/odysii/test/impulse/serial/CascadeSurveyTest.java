@@ -9,9 +9,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotEquals;
 
-public class SurveyCascadeTest extends SurveyTestBase {
+public class CascadeSurveyTest extends SurveyTestBase {
 
     private Survey survey;
     @BeforeClass
@@ -50,6 +49,7 @@ public class SurveyCascadeTest extends SurveyTestBase {
             actual = dbHandler.executeSelectQuery(query,6);
             timeOut++;
         }
+        dbHandler.executeDeleteQuery(QUERY);
         dbHandler.closeConnection();
         assertEquals(actual,"1634");
     }
@@ -91,7 +91,6 @@ public class SurveyCascadeTest extends SurveyTestBase {
             actual = dbHandler.executeSelectQuery(query,6);
             timeOut++;
         }
-        dbHandler.closeConnection();
         survey.deletePlacement(placementID);
         assertEquals(actual,"1634");
     }
