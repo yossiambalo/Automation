@@ -1,4 +1,4 @@
-package com.odysii.test.impulse.serial;
+package com.odysii.test.impulse.helper;
 
 import com.odysii.api.pos.SerialMessageGenerator;
 import com.odysii.db.DBHandler;

@@ -30,7 +30,7 @@ public class DBHandler {
             System.out.println(e.getMessage());
         }
     }
-    public String executeSelectQuery(String query,int retunCulmon){
+    public String executeSelectQuery(String query,int returnColumn){
         String res = "";
         try {
             stmt = con.createStatement();
@@ -38,8 +38,8 @@ public class DBHandler {
 
             // Iterate through the data in the result set and display it.
             while (rs.next()) {
-                System.out.println(rs.getString(4) + " " + rs.getString(retunCulmon));
-                res = rs.getString(retunCulmon);
+                System.out.println(rs.getString(4) + " " + rs.getString(returnColumn));
+                res = rs.getString(returnColumn);
             }
         }catch (Exception e){
             System.out.println(e.getMessage());
