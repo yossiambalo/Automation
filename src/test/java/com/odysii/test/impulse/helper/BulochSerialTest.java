@@ -4,6 +4,7 @@ import com.odysii.api.pos.SerialMessageGenerator;
 import com.odysii.db.DBHandler;
 import com.odysii.general.POSType;
 import com.odysii.test.impulse.helper.ImpulseTestHelper;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.apache.commons.lang.StringUtils;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -56,7 +57,7 @@ public class BulochSerialTest extends ImpulseTestHelper{
         //runCmdCommand(CLOSE_IMPULSE_RUNNER_SCRIPT);
         assertEquals(itemPLU,expectedPLU);
     }
-    @Test
+    @Ignore
     public void _002_Bulloch_Valid_Survey() {
         wait(5000);
         //finish transaction
