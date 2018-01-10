@@ -19,6 +19,8 @@ public class SurveyTestBase extends ImpulseTestHelper {
     protected Survey survey;
     protected JSONObject jsonObject;
     protected DBHandler dbHandler;
+    protected final int WAIT = 3000;
+    protected final int CNC_DOWNLOAD_WAIT = 15000;
     protected final String QUERY = "delete FROM [DW_qa].[dbo].[SurveyJournal] where [ProjectId]='2727'";
 
     public Survey setUp(String surveyProp,boolean enablePlacement){

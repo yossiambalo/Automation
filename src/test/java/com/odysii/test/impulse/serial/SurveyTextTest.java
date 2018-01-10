@@ -25,17 +25,17 @@ public class SurveyTextTest extends SurveyTestBase {
         //Start Impulse
         runCmdCommand(impulseRunnerScript);
         //Wait CNC client downloading the new survey instructions
-        wait(20000);
+        wait(CNC_DOWNLOAD_WAIT);
         generator = new SerialMessageGenerator("http://localhost:7007/OdysiiDeliveryStation/");
         //Start transaction
         generator.doPostRequest("<Body>[C000] NEWSALE  LANG=FR|/n</Body>");
-        wait(2000);
+        wait(WAIT);
         //Add item
         generator.doPostRequest("<Body>[C110] 0000000000037 MRSHMLOW SQ        QT=1 PR=1.79 AMT=1.79 STTL=1.79 DSC=0.00 TAX=0.23 TOTAL=2.02|/n</Body>");
-        wait(2000);
+        wait(WAIT);
         //finish transaction
         generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
-        wait(3000);
+        wait(WAIT);
         //execute survey
         runCmdCommand(surveyRunnerScript);
         String query = "SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='"+surveyOptionID+"'";
@@ -43,7 +43,7 @@ public class SurveyTextTest extends SurveyTestBase {
         String actual = dbHandler.executeSelectQuery(query,6);
         int timeOut = 0;
         while((StringUtils.isEmpty(actual) && timeOut < 20)){
-            wait(4000);
+            wait(WAIT);
             actual = dbHandler.executeSelectQuery(query,6);
             timeOut++;
         }
@@ -61,17 +61,17 @@ public class SurveyTextTest extends SurveyTestBase {
         assertEquals(jsonObject.get("status"),"Success","Failed to create option to survey!");
         surveyOptionID = jsonObject.get("id").toString();
         //Wait CNC client downloading the new survey instructions
-        wait(20000);
+        wait(CNC_DOWNLOAD_WAIT);
         generator = new SerialMessageGenerator("http://localhost:7007/OdysiiDeliveryStation/");
         //Start transaction
         generator.doPostRequest("<Body>[C000] NEWSALE  LANG=FR|/n</Body>");
-        wait(2000);
+        wait(WAIT);
         //Add item
         generator.doPostRequest("<Body>[C110] 0000000000037 MRSHMLOW SQ        QT=1 PR=1.79 AMT=1.79 STTL=1.79 DSC=0.00 TAX=0.23 TOTAL=2.02|/n</Body>");
-        wait(2000);
+        wait(WAIT);
         //finish transaction
         generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
-        wait(3000);
+        wait(WAIT);
         //execute survey
         runCmdCommand(survey3dOption);
         String query = "SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='"+surveyOptionID+"'";
@@ -79,7 +79,7 @@ public class SurveyTextTest extends SurveyTestBase {
         String actual = dbHandler.executeSelectQuery(query,6);
         int timeOut = 0;
         while((StringUtils.isEmpty(actual) && timeOut < 20)){
-            wait(4000);
+            wait(WAIT);
             actual = dbHandler.executeSelectQuery(query,6);
             timeOut++;
         }
@@ -97,17 +97,17 @@ public class SurveyTextTest extends SurveyTestBase {
         assertEquals(jsonObject.get("status"),"Success","Failed to create option to survey!");
         surveyOptionID = jsonObject.get("id").toString();
         //Wait CNC client downloading the new survey instructions
-        wait(20000);
+        wait(CNC_DOWNLOAD_WAIT);
         generator = new SerialMessageGenerator("http://localhost:7007/OdysiiDeliveryStation/");
         //Start transaction
         generator.doPostRequest("<Body>[C000] NEWSALE  LANG=FR|/n</Body>");
-        wait(2000);
+        wait(WAIT);
         //Add item
         generator.doPostRequest("<Body>[C110] 0000000000037 MRSHMLOW SQ        QT=1 PR=1.79 AMT=1.79 STTL=1.79 DSC=0.00 TAX=0.23 TOTAL=2.02|/n</Body>");
-        wait(2000);
+        wait(WAIT);
         //finish transaction
         generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
-        wait(3000);
+        wait(WAIT);
         //execute survey
         runCmdCommand(survey3dOption);
         String query = "SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='"+surveyOptionID+"'";
@@ -115,7 +115,7 @@ public class SurveyTextTest extends SurveyTestBase {
         String actual = dbHandler.executeSelectQuery(query,6);
         int timeOut = 0;
         while((StringUtils.isEmpty(actual) && timeOut < 20)){
-            wait(4000);
+            wait(WAIT);
             actual = dbHandler.executeSelectQuery(query,6);
             timeOut++;
         }
@@ -131,17 +131,17 @@ public class SurveyTextTest extends SurveyTestBase {
         assertEquals(jsonObject.get("status"),"Success","Failed to create option to survey!");
         surveyOptionID = jsonObject.get("id").toString();
         //Wait CNC client downloading the new survey instructions
-        wait(20000);
+        wait(CNC_DOWNLOAD_WAIT);
         generator = new SerialMessageGenerator("http://localhost:7007/OdysiiDeliveryStation/");
         //Start transaction
         generator.doPostRequest("<Body>[C000] NEWSALE  LANG=FR|/n</Body>");
-        wait(2000);
+        wait(WAIT);
         //Add item
         generator.doPostRequest("<Body>[C110] 0000000000037 MRSHMLOW SQ        QT=1 PR=1.79 AMT=1.79 STTL=1.79 DSC=0.00 TAX=0.23 TOTAL=2.02|/n</Body>");
-        wait(2000);
+        wait(WAIT);
         //finish transaction
         generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
-        wait(3000);
+        wait(WAIT);
         //execute survey
         runCmdCommand(survey4dOption);
         String query = "SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='"+surveyOptionID+"'";
@@ -149,7 +149,7 @@ public class SurveyTextTest extends SurveyTestBase {
         String actual = dbHandler.executeSelectQuery(query,6);
         int timeOut = 0;
         while((StringUtils.isEmpty(actual) && timeOut < 20)){
-            wait(4000);
+            wait(WAIT);
             actual = dbHandler.executeSelectQuery(query,6);
             timeOut++;
         }
@@ -165,17 +165,17 @@ public class SurveyTextTest extends SurveyTestBase {
         assertEquals(jsonObject.get("status"),"Success","Failed to create option to survey!");
         surveyOptionID = jsonObject.get("id").toString();
         //Wait CNC client downloading the new survey instructions
-        wait(20000);
+        wait(CNC_DOWNLOAD_WAIT);
         generator = new SerialMessageGenerator("http://localhost:7007/OdysiiDeliveryStation/");
         //Start transaction
         generator.doPostRequest("<Body>[C000] NEWSALE  LANG=FR|/n</Body>");
-        wait(2000);
+        wait(WAIT);
         //Add item
         generator.doPostRequest("<Body>[C110] 0000000000037 MRSHMLOW SQ        QT=1 PR=1.79 AMT=1.79 STTL=1.79 DSC=0.00 TAX=0.23 TOTAL=2.02|/n</Body>");
-        wait(2000);
+        wait(WAIT);
         //finish transaction
         generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
-        wait(3000);
+        wait(WAIT);
         //execute survey
         runCmdCommand(survey4dOption);
         String query = "SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='"+surveyOptionID+"'";
@@ -183,7 +183,7 @@ public class SurveyTextTest extends SurveyTestBase {
         String actual = dbHandler.executeSelectQuery(query,6);
         int timeOut = 0;
         while((StringUtils.isEmpty(actual) && timeOut < 20)){
-            wait(4000);
+            wait(WAIT);
             actual = dbHandler.executeSelectQuery(query,6);
             timeOut++;
         }
@@ -199,17 +199,17 @@ public class SurveyTextTest extends SurveyTestBase {
         assertEquals(jsonObject.get("status"),"Success","Failed to create option to survey!");
         surveyOptionID = jsonObject.get("id").toString();
         //Wait CNC client downloading the new survey instructions
-        wait(20000);
+        wait(CNC_DOWNLOAD_WAIT);
         generator = new SerialMessageGenerator("http://localhost:7007/OdysiiDeliveryStation/");
         //Start transaction
         generator.doPostRequest("<Body>[C000] NEWSALE  LANG=FR|/n</Body>");
-        wait(2000);
+        wait(WAIT);
         //Add item
         generator.doPostRequest("<Body>[C110] 0000000000037 MRSHMLOW SQ        QT=1 PR=1.79 AMT=1.79 STTL=1.79 DSC=0.00 TAX=0.23 TOTAL=2.02|/n</Body>");
-        wait(2000);
+        wait(WAIT);
         //finish transaction
         generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
-        wait(3000);
+        wait(WAIT);
         //execute survey
         runCmdCommand(survey4dOption);
         String query = "SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='"+surveyOptionID+"'";
@@ -217,7 +217,7 @@ public class SurveyTextTest extends SurveyTestBase {
         String actual = dbHandler.executeSelectQuery(query,6);
         int timeOut = 0;
         while((StringUtils.isEmpty(actual) && timeOut < 20)){
-            wait(4000);
+            wait(WAIT);
             actual = dbHandler.executeSelectQuery(query,6);
             timeOut++;
         }
@@ -233,17 +233,17 @@ public class SurveyTextTest extends SurveyTestBase {
         assertEquals(jsonObject.get("status"),"Success","Failed to create option to survey!");
         surveyOptionID = jsonObject.get("id").toString();
         //Wait CNC client downloading the new survey instructions
-        wait(20000);
+        wait(CNC_DOWNLOAD_WAIT);
         generator = new SerialMessageGenerator("http://localhost:7007/OdysiiDeliveryStation/");
         //Start transaction
         generator.doPostRequest("<Body>[C000] NEWSALE  LANG=FR|/n</Body>");
-        wait(2000);
+        wait(WAIT);
         //Add item
         generator.doPostRequest("<Body>[C110] 0000000000037 MRSHMLOW SQ        QT=1 PR=1.79 AMT=1.79 STTL=1.79 DSC=0.00 TAX=0.23 TOTAL=2.02|/n</Body>");
-        wait(2000);
+        wait(WAIT);
         //finish transaction
         generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
-        wait(3000);
+        wait(WAIT);
         //execute survey
         runCmdCommand(survey4dOption);
         String query = "SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='"+surveyOptionID+"'";
@@ -251,7 +251,7 @@ public class SurveyTextTest extends SurveyTestBase {
         String actual = dbHandler.executeSelectQuery(query,6);
         int timeOut = 0;
         while((StringUtils.isEmpty(actual) && timeOut < 20)){
-            wait(4000);
+            wait(WAIT);
             actual = dbHandler.executeSelectQuery(query,6);
             timeOut++;
         }
@@ -267,17 +267,17 @@ public class SurveyTextTest extends SurveyTestBase {
         assertEquals(jsonObject.get("status"),"Success","Failed to create option to survey!");
         surveyOptionID = jsonObject.get("id").toString();
         //Wait CNC client downloading the new survey instructions
-        wait(20000);
+        wait(CNC_DOWNLOAD_WAIT);
         generator = new SerialMessageGenerator("http://localhost:7007/OdysiiDeliveryStation/");
         //Start transaction
         generator.doPostRequest("<Body>[C000] NEWSALE  LANG=FR|/n</Body>");
-        wait(2000);
+        wait(WAIT);
         //Add item
         generator.doPostRequest("<Body>[C110] 0000000000037 MRSHMLOW SQ        QT=1 PR=1.79 AMT=1.79 STTL=1.79 DSC=0.00 TAX=0.23 TOTAL=2.02|/n</Body>");
-        wait(2000);
+        wait(WAIT);
         //finish transaction
         generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
-        wait(3000);
+        wait(WAIT);
         //execute survey
         runCmdCommand(survey4dOption);
         String query = "SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='"+surveyOptionID+"'";
@@ -285,7 +285,7 @@ public class SurveyTextTest extends SurveyTestBase {
         String actual = dbHandler.executeSelectQuery(query,6);
         int timeOut = 0;
         while((StringUtils.isEmpty(actual) && timeOut < 20)){
-            wait(4000);
+            wait(WAIT);
             actual = dbHandler.executeSelectQuery(query,6);
             timeOut++;
         }

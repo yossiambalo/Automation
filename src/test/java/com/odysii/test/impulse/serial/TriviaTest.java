@@ -20,17 +20,17 @@ public class TriviaTest extends SurveyTestBase {
         //Start Impulse
         runCmdCommand(impulseRunnerScript);
         //Wait CNC client downloading the new survey instructions
-        wait(20000);
+        wait(CNC_DOWNLOAD_WAIT);
         generator = new SerialMessageGenerator("http://localhost:7007/OdysiiDeliveryStation/");
         //Start transaction
         generator.doPostRequest("<Body>[C000] NEWSALE  LANG=FR|/n</Body>");
-        wait(2000);
+        wait(WAIT);
         //Add item
         generator.doPostRequest("<Body>[C110] 0000000000037 MRSHMLOW SQ        QT=1 PR=1.79 AMT=1.79 STTL=1.79 DSC=0.00 TAX=0.23 TOTAL=2.02|/n</Body>");
-        wait(2000);
+        wait(WAIT);
         //execute survey
         runCmdCommand(surveyRunnerScript);
-        wait(2000);
+        wait(WAIT);
         //Get item PLU from ATBListener service
         String itemPLU = generator.doGetRequest(atbListenerUrl);
         assertEquals(itemPLU,expectedPLU);
