@@ -8,6 +8,7 @@ import com.odysii.test.impulse.helper.ImpulseTestHelper;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeTest;
 
 
 import static org.testng.Assert.assertEquals;
@@ -52,8 +53,6 @@ public class SurveyTestBase extends ImpulseTestHelper {
         return survey;
     }
     public Survey setUp(String surveyProp,boolean enablePlacement,String placementProp){
-        //ToDo: PosType must be dynamic, get it from vm options
-        init(POSType.BULLOCH);
         try {
             survey = new Survey(surveyProp);
         } catch (Exception e) {
@@ -91,5 +90,11 @@ public class SurveyTestBase extends ImpulseTestHelper {
             dbHandler.executeDeleteQuery(QUERY);
             dbHandler.closeConnection();
         }
+    }
+    @BeforeTest
+    public void beforeSuite(){
+        //ToDo: PosType must be dynamic, get it from vm options
+        init(POSType.BULLOCH);
+        System.out.println("======================Should run once=================================");
     }
 }

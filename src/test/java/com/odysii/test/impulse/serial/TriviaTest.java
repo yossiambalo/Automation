@@ -15,7 +15,7 @@ public class TriviaTest extends SurveyTestBase {
     }
 
     @Test
-    public void _001_validAnswerNumber2() {
+    public void _001_validATBWhenSurveyOptionSelected() {
         String expectedPLU = "A1000232";
         //Start Impulse
         runCmdCommand(impulseRunnerScript);
