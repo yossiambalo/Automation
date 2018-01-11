@@ -8,6 +8,7 @@ import com.odysii.test.impulse.helper.ImpulseTestHelper;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
 
@@ -95,6 +96,9 @@ public class SurveyTestBase extends ImpulseTestHelper {
     public void beforeSuite(){
         //ToDo: PosType must be dynamic, get it from vm options
         init(POSType.BULLOCH);
-        System.out.println("======================Should run once=================================");
+    }
+    @AfterTest
+    public void afterTest(){
+        runCmdCommand(closeImpulseRunnerScript);
     }
 }

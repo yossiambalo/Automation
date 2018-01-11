@@ -30,7 +30,7 @@ public class TriviaTest extends SurveyTestBase {
         wait(WAIT);
         //execute survey
         runCmdCommand(surveyRunnerScript);
-        wait(WAIT);
+        wait(3000);
         //Get item PLU from ATBListener service
         String itemPLU = generator.doGetRequest(atbListenerUrl);
         assertEquals(itemPLU,expectedPLU);
