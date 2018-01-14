@@ -2,6 +2,7 @@ package com.odysii.test.impulse.serial;
 
 import com.odysii.api.cloudMI.survey.SurveyType;
 import com.odysii.api.pos.SerialMessageGenerator;
+import org.apache.commons.lang3.StringUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -33,6 +34,12 @@ public class TriviaTest extends SurveyTestBase {
         wait(3000);
         //Get item PLU from ATBListener service
         String itemPLU = generator.doGetRequest(atbListenerUrl);
+        int counter = 0;
+        while (StringUtils.isEmpty(itemPLU)&& counter < 5){
+            itemPLU = generator.doGetRequest(atbListenerUrl);
+            wait(1000);
+            counter++;
+        }
         assertEquals(itemPLU,expectedPLU);
     }
 }
