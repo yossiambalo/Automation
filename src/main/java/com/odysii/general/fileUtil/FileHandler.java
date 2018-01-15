@@ -18,7 +18,7 @@ public class FileHandler {
             }
 
         }catch(Exception e){
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -101,6 +101,26 @@ public class FileHandler {
            return false;
         }
 
+    }
+    public static void deleteContentOfFolder(File folder,boolean includeFolder) {
+        File[] files = folder.listFiles();
+        if(files!=null) { //some JVMs return null for empty dirs
+            for(File f: files) {
+                if(f.isDirectory()) {
+                    deleteContentOfFolder(f,true);
+                } else {
+                    f.delete();
+                }
+            }
+        }
+       if (includeFolder)
+           folder.delete();
+    }
+
+    public static void main(String[]args){
+        deleteContentOfFolder(new File("C:\\pb\\yossi"),false);
+//        boolean flag = compareFiles("C:\\pb\\yossi\\ILT.xml","C:\\data\\ILT.xml");
+//        System.out.println(flag);
     }
 
 }
