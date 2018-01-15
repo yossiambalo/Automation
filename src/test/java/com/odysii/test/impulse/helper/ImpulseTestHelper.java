@@ -14,7 +14,7 @@ import java.util.Properties;
 public class ImpulseTestHelper {
 
     protected static String atbListenerUrl, impulseRunnerScript,atbRunnerScript, closeImpulseRunnerScript,
-            surveyRunnerScript,survey3dOption,survey4dOption;
+            surveyRunnerScript,survey3dOption,survey4dOption,impulseDeliveryStationUrl;
 
     public static void init(POSType posType){
         String cncConfigFile,bullochIntDll,passportIntDll;
@@ -28,6 +28,7 @@ public class ImpulseTestHelper {
         surveyRunnerScript = properties.getProperty("survey_runner_script");
         survey3dOption = properties.getProperty("survey_3d_option");
         survey4dOption = properties.getProperty("survey_4d_option");
+        impulseDeliveryStationUrl = properties.getProperty("impulse_delivery_station_url");
         cncConfigFile = properties.getProperty("cnc_config_path");
         bullochIntDll = properties.getProperty("bulloch_pos_int_dll_path");
         passportIntDll = properties.getProperty("passport_pos_int_dll_path");

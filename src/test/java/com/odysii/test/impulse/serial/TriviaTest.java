@@ -22,7 +22,7 @@ public class TriviaTest extends SurveyTestBase {
         runCmdCommand(impulseRunnerScript);
         //Wait CNC client downloading the new survey instructions
         wait(CNC_DOWNLOAD_WAIT);
-        generator = new SerialMessageGenerator("http://localhost:7007/OdysiiDeliveryStation/");
+        generator = new SerialMessageGenerator(impulseDeliveryStationUrl);
         //Start transaction
         generator.doPostRequest("<Body>[C000] NEWSALE  LANG=FR|/n</Body>");
         wait(WAIT);
