@@ -116,6 +116,10 @@ public class FileHandler {
        if (includeFolder)
            folder.delete();
     }
+    public static boolean isFileExist(String file){
+        File file1 = new File(file);
+        return file1.exists();
+    }
 
     public static void main(String[]args){
         deleteContentOfFolder(new File("C:\\pb\\yossi"),false);

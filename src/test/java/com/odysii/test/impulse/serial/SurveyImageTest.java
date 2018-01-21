@@ -31,13 +31,13 @@ public class SurveyImageTest extends SurveyTestBase {
         wait(CNC_DOWNLOAD_WAIT);
         generator = new SerialMessageGenerator(impulseDeliveryStationUrl);
         //Start transaction
-        generator.doPostRequest("<Body>[C000] NEWSALE  LANG=FR|/n</Body>");
+        generator.doPostRequest(customer.getStartTransaction());
         wait(WAIT);
         //Add item
-        generator.doPostRequest("<Body>[C110] 0000000000037 MRSHMLOW SQ        QT=1 PR=1.79 AMT=1.79 STTL=1.79 DSC=0.00 TAX=0.23 TOTAL=2.02|/n</Body>");
+        generator.doPostRequest(customer.getAddItem());
         wait(WAIT);
         //finish transaction
-        generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
+        generator.doPostRequest(customer.getEndTransaction());
         wait(WAIT);
         //execute survey
         runCmdCommand(surveyRunnerScript);
@@ -68,13 +68,13 @@ public class SurveyImageTest extends SurveyTestBase {
         wait(CNC_DOWNLOAD_WAIT);
         generator = new SerialMessageGenerator(impulseDeliveryStationUrl);
         //Start transaction
-        generator.doPostRequest("<Body>[C000] NEWSALE  LANG=FR|/n</Body>");
+        generator.doPostRequest(customer.getStartTransaction());
         wait(WAIT);
         //Add item
-        generator.doPostRequest("<Body>[C110] 0000000000037 MRSHMLOW SQ        QT=1 PR=1.79 AMT=1.79 STTL=1.79 DSC=0.00 TAX=0.23 TOTAL=2.02|/n</Body>");
+        generator.doPostRequest(customer.getAddItem());
         wait(WAIT);
         //finish transaction
-        generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
+        generator.doPostRequest(customer.getEndTransaction());
         wait(WAIT);
         //execute survey
         runCmdCommand(surveyRunnerScript);
@@ -104,13 +104,13 @@ public class SurveyImageTest extends SurveyTestBase {
         wait(CNC_DOWNLOAD_WAIT);
         generator = new SerialMessageGenerator(impulseDeliveryStationUrl);
         //Start transaction
-        generator.doPostRequest("<Body>[C000] NEWSALE  LANG=FR|/n</Body>");
+        generator.doPostRequest(customer.getStartTransaction());
         wait(WAIT);
         //Add item
-        generator.doPostRequest("<Body>[C110] 0000000000037 MRSHMLOW SQ        QT=1 PR=1.79 AMT=1.79 STTL=1.79 DSC=0.00 TAX=0.23 TOTAL=2.02|/n</Body>");
+        generator.doPostRequest(customer.getAddItem());
         wait(WAIT);
         //finish transaction
-        generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
+        generator.doPostRequest(customer.getEndTransaction());
         wait(WAIT);
         //execute survey
         runCmdCommand(survey3dOption);
@@ -140,13 +140,13 @@ public class SurveyImageTest extends SurveyTestBase {
         wait(CNC_DOWNLOAD_WAIT);
         generator = new SerialMessageGenerator(impulseDeliveryStationUrl);
         //Start transaction
-        generator.doPostRequest("<Body>[C000] NEWSALE  LANG=FR|/n</Body>");
+        generator.doPostRequest(customer.getStartTransaction());
         wait(WAIT);
         //Add item
-        generator.doPostRequest("<Body>[C110] 0000000000037 MRSHMLOW SQ        QT=1 PR=1.79 AMT=1.79 STTL=1.79 DSC=0.00 TAX=0.23 TOTAL=2.02|/n</Body>");
+        generator.doPostRequest(customer.getAddItem());
         wait(WAIT);
         //finish transaction
-        generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
+        generator.doPostRequest(customer.getEndTransaction());
         wait(WAIT);
         //execute survey
         runCmdCommand(survey.getProperties().getProperty("image_option_num_4"));
@@ -174,13 +174,13 @@ public class SurveyImageTest extends SurveyTestBase {
         wait(CNC_DOWNLOAD_WAIT);
         generator = new SerialMessageGenerator(impulseDeliveryStationUrl);
         //Start transaction
-        generator.doPostRequest("<Body>[C000] NEWSALE  LANG=FR|/n</Body>");
+        generator.doPostRequest(customer.getStartTransaction());
         wait(WAIT);
         //Add item
-        generator.doPostRequest("<Body>[C110] 0000000000037 MRSHMLOW SQ        QT=1 PR=1.79 AMT=1.79 STTL=1.79 DSC=0.00 TAX=0.23 TOTAL=2.02|/n</Body>");
+        generator.doPostRequest(customer.getAddItem());
         wait(WAIT);
         //finish transaction
-        generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
+        generator.doPostRequest(customer.getEndTransaction());
         wait(WAIT);
         //execute survey
         runCmdCommand(survey4dOption);
@@ -208,13 +208,13 @@ public class SurveyImageTest extends SurveyTestBase {
         wait(CNC_DOWNLOAD_WAIT);
         generator = new SerialMessageGenerator(impulseDeliveryStationUrl);
         //Start transaction
-        generator.doPostRequest("<Body>[C000] NEWSALE  LANG=FR|/n</Body>");
+        generator.doPostRequest(customer.getStartTransaction());
         wait(WAIT);
         //Add item
-        generator.doPostRequest("<Body>[C110] 0000000000037 MRSHMLOW SQ        QT=1 PR=1.79 AMT=1.79 STTL=1.79 DSC=0.00 TAX=0.23 TOTAL=2.02|/n</Body>");
+        generator.doPostRequest(customer.getAddItem());
         wait(WAIT);
         //finish transaction
-        generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
+        generator.doPostRequest(customer.getEndTransaction());
         wait(WAIT);
         //execute survey
         runCmdCommand(survey.getProperties().getProperty("image_option_num_6"));
@@ -242,13 +242,13 @@ public class SurveyImageTest extends SurveyTestBase {
         wait(CNC_DOWNLOAD_WAIT);
         generator = new SerialMessageGenerator(impulseDeliveryStationUrl);
         //Start transaction
-        generator.doPostRequest("<Body>[C000] NEWSALE  LANG=FR|/n</Body>");
+        generator.doPostRequest(customer.getStartTransaction());
         wait(WAIT);
         //Add item
-        generator.doPostRequest("<Body>[C110] 0000000000037 MRSHMLOW SQ        QT=1 PR=1.79 AMT=1.79 STTL=1.79 DSC=0.00 TAX=0.23 TOTAL=2.02|/n</Body>");
+        generator.doPostRequest(customer.getAddItem());
         wait(WAIT);
         //finish transaction
-        generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
+        generator.doPostRequest(customer.getEndTransaction());
         wait(WAIT);
         //execute survey
         runCmdCommand(survey.getProperties().getProperty("image_option_num_7"));
@@ -276,13 +276,13 @@ public class SurveyImageTest extends SurveyTestBase {
         wait(CNC_DOWNLOAD_WAIT);
         generator = new SerialMessageGenerator(impulseDeliveryStationUrl);
         //Start transaction
-        generator.doPostRequest("<Body>[C000] NEWSALE  LANG=FR|/n</Body>");
+        generator.doPostRequest(customer.getStartTransaction());
         wait(WAIT);
         //Add item
-        generator.doPostRequest("<Body>[C110] 0000000000037 MRSHMLOW SQ        QT=1 PR=1.79 AMT=1.79 STTL=1.79 DSC=0.00 TAX=0.23 TOTAL=2.02|/n</Body>");
+        generator.doPostRequest(customer.getAddItem());
         wait(WAIT);
         //finish transaction
-        generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
+        generator.doPostRequest(customer.getEndTransaction());
         wait(WAIT);
         //execute survey
         runCmdCommand(survey4dOption);
@@ -312,13 +312,13 @@ public class SurveyImageTest extends SurveyTestBase {
         wait(CNC_DOWNLOAD_WAIT);
         generator = new SerialMessageGenerator(impulseDeliveryStationUrl);
         //Start transaction
-        generator.doPostRequest("<Body>[C000] NEWSALE  LANG=FR|/n</Body>");
+        generator.doPostRequest(customer.getStartTransaction());
         wait(WAIT);
         //Add item
-        generator.doPostRequest("<Body>[C110] 0000000000037 MRSHMLOW SQ        QT=1 PR=1.79 AMT=1.79 STTL=1.79 DSC=0.00 TAX=0.23 TOTAL=2.02|/n</Body>");
+        generator.doPostRequest(customer.getAddItem());
         wait(WAIT);
         //finish transaction
-        generator.doPostRequest("<Body>[C200] Sale TRANS=001326 TOTAL=3.12 CHNG=58.00 TAX=1.69|/n</Body>");
+        generator.doPostRequest(customer.getEndTransaction());
         wait(WAIT);
         //execute survey
         runCmdCommand(survey.getProperties().getProperty("image_option_num_9"));

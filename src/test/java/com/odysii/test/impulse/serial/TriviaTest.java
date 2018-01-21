@@ -24,10 +24,10 @@ public class TriviaTest extends SurveyTestBase {
         wait(CNC_DOWNLOAD_WAIT);
         generator = new SerialMessageGenerator(impulseDeliveryStationUrl);
         //Start transaction
-        generator.doPostRequest("<Body>[C000] NEWSALE  LANG=FR|/n</Body>");
+        generator.doPostRequest(customer.getStartTransaction());
         wait(WAIT);
         //Add item
-        generator.doPostRequest("<Body>[C110] 0000000000037 MRSHMLOW SQ        QT=1 PR=1.79 AMT=1.79 STTL=1.79 DSC=0.00 TAX=0.23 TOTAL=2.02|/n</Body>");
+        generator.doPostRequest(customer.getAddItem());
         wait(WAIT);
         //execute survey
         runCmdCommand(surveyRunnerScript);

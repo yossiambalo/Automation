@@ -4,6 +4,9 @@ import com.odysii.general.POSType;
 import com.odysii.general.PropertyLoader;
 import com.odysii.general.fileUtil.FileHandler;
 import com.odysii.general.fileUtil.XmlManager;
+import com.odysii.pos.BullochSerial;
+import com.odysii.pos.Customer;
+import com.odysii.pos.PassportSerial;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -15,6 +18,7 @@ public class ImpulseTestHelper {
 
     protected static String atbListenerUrl, impulseRunnerScript,atbRunnerScript, closeImpulseRunnerScript,
             surveyRunnerScript,survey3dOption,survey4dOption,impulseDeliveryStationUrl;
+    protected static Customer customer;
 
     public static void init(POSType posType){
         String cncConfigFile,bullochIntDll,passportIntDll;
@@ -34,13 +38,21 @@ public class ImpulseTestHelper {
         passportIntDll = properties.getProperty("passport_pos_int_dll_path");
 
         if (posType.equals(POSType.BULLOCH)){
-            FileHandler.deleteFile(passportIntDll);
-            FileHandler.copyFile(properties.getProperty("bulloch_pos_int_dll_source_path"),bullochIntDll);
-            XmlManager.updateNode(cncConfigFile,"Config","ChannelID",properties.getProperty("bulloch_chanel_id"));
+            customer = new BullochSerial();
+            customer.init();
+            if (FileHandler.isFileExist(passportIntDll)) {
+                FileHandler.deleteFile(passportIntDll);
+                FileHandler.copyFile(properties.getProperty("bulloch_pos_int_dll_source_path"), bullochIntDll);
+                XmlManager.updateNode(cncConfigFile, "Config", "ChannelID", properties.getProperty("bulloch_chanel_id"));
+            }
         }else {
-            FileHandler.deleteFile(bullochIntDll);
-            FileHandler.copyFile(properties.getProperty("passport_pos_int_dll_source_path"),passportIntDll);
-            XmlManager.updateNode(cncConfigFile,"Config","ChannelID",properties.getProperty("passport_chanel_id"));
+            customer = new PassportSerial();
+            customer.init();
+            if (FileHandler.isFileExist(bullochIntDll)){
+                FileHandler.deleteFile(bullochIntDll);
+                FileHandler.copyFile(properties.getProperty("passport_pos_int_dll_source_path"),passportIntDll);
+                XmlManager.updateNode(cncConfigFile,"Config","ChannelID",properties.getProperty("passport_chanel_id"));
+            }
         }
     }
     protected void runCmdCommand(String command){

@@ -27,7 +27,7 @@ public class SurveyTestBase extends ImpulseTestHelper {
 
     public Survey setUp(String surveyProp,boolean enablePlacement){
         //ToDo: PosType must be dynamic, get it from vm options
-        init(POSType.BULLOCH);
+        //init(POSType.PASSPORT_SERIAL);
         try {
             survey = new Survey(surveyProp);
         } catch (Exception e) {
@@ -95,7 +95,7 @@ public class SurveyTestBase extends ImpulseTestHelper {
     @BeforeTest
     public void beforeSuite(){
         //ToDo: PosType must be dynamic, get it from vm options
-        init(POSType.BULLOCH);
+        init(POSType.PASSPORT_SERIAL);
     }
     @AfterTest
     public void afterTest(){
