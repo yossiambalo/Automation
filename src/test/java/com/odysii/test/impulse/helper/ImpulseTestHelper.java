@@ -8,6 +8,7 @@ import com.odysii.pos.BullochSerial;
 import com.odysii.pos.Customer;
 import com.odysii.pos.PassportSerial;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -43,7 +44,7 @@ public class ImpulseTestHelper {
             if (FileHandler.isFileExist(passportIntDll)) {
                 FileHandler.deleteFile(passportIntDll);
                 FileHandler.copyFile(properties.getProperty("bulloch_pos_int_dll_source_path"), bullochIntDll);
-                XmlManager.updateNode(cncConfigFile, "Config", "ChannelID", properties.getProperty("bulloch_chanel_id"));
+                XmlManager.updateNode(new File(cncConfigFile), "Config", "ChannelID", properties.getProperty("bulloch_chanel_id"));
             }
         }else {
             customer = new PassportSerial();
@@ -51,7 +52,7 @@ public class ImpulseTestHelper {
             if (FileHandler.isFileExist(bullochIntDll)){
                 FileHandler.deleteFile(bullochIntDll);
                 FileHandler.copyFile(properties.getProperty("passport_pos_int_dll_source_path"),passportIntDll);
-                XmlManager.updateNode(cncConfigFile,"Config","ChannelID",properties.getProperty("passport_chanel_id"));
+                XmlManager.updateNode(new File(cncConfigFile),"Config","ChannelID",properties.getProperty("passport_chanel_id"));
             }
         }
     }

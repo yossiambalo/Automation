@@ -1,6 +1,9 @@
 package com.odysii.general.fileUtil;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class FileHandler {
 
@@ -120,11 +123,20 @@ public class FileHandler {
         File file1 = new File(file);
         return file1.exists();
     }
-
-    public static void main(String[]args){
-        deleteContentOfFolder(new File("C:\\pb\\yossi"),false);
-//        boolean flag = compareFiles("C:\\pb\\yossi\\ILT.xml","C:\\data\\ILT.xml");
-//        System.out.println(flag);
+    public static File[] getFilesOfFolder(String folder){
+        File file = new File(folder);
+        return file.listFiles();
     }
 
+    public static void renameFile(File oldName,String newName){
+        Path old = Paths.get(oldName.toString());
+        try {
+            Files.move(old, old.resolveSibling(newName));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public static void main(String[]args){
+        renameFile(new File("C:\\btuh\\yossi.pdf"),"C:\\btuh\\001.pdf");
+    }
 }
