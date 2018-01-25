@@ -43,16 +43,16 @@ public class ImpulseTestHelper {
             customer.init();
             if (FileHandler.isFileExist(passportIntDll)) {
                 FileHandler.deleteFile(passportIntDll);
-                FileHandler.copyFile(properties.getProperty("bulloch_pos_int_dll_source_path"), bullochIntDll);
-                XmlManager.updateNode(new File(cncConfigFile), "Config", "ChannelID", properties.getProperty("bulloch_chanel_id"));
+                FileHandler.copyFile(properties.getProperty("bulloch_pos_int_dll_source_path"), bullochIntDll,true);
+                XmlManager.updateNodeContent(new File(cncConfigFile), "Config", "ChannelID", properties.getProperty("bulloch_chanel_id"));
             }
         }else {
             customer = new PassportSerial();
             customer.init();
             if (FileHandler.isFileExist(bullochIntDll)){
                 FileHandler.deleteFile(bullochIntDll);
-                FileHandler.copyFile(properties.getProperty("passport_pos_int_dll_source_path"),passportIntDll);
-                XmlManager.updateNode(new File(cncConfigFile),"Config","ChannelID",properties.getProperty("passport_chanel_id"));
+                FileHandler.copyFile(properties.getProperty("passport_pos_int_dll_source_path"),passportIntDll,true);
+                XmlManager.updateNodeContent(new File(cncConfigFile),"Config","ChannelID",properties.getProperty("passport_chanel_id"));
             }
         }
     }

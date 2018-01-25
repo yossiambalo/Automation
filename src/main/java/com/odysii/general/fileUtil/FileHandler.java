@@ -25,7 +25,7 @@ public class FileHandler {
         }
     }
 
-    public static void copyFile(String source, String destination){
+    public static void copyFile(String source, String destination,boolean override){
 
         InputStream inStream = null;
         OutputStream outStream = null;
@@ -35,7 +35,7 @@ public class FileHandler {
             File from = new File(source);
             File to = new File(destination);
 
-            if (!to.exists()) {
+            if (!to.exists() || override) {
                 inStream = new FileInputStream(from);
                 outStream = new FileOutputStream(to);
 
@@ -54,7 +54,7 @@ public class FileHandler {
             }
 
         }catch(IOException e){
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
     public static boolean compareFiles(String file1, String file2){
