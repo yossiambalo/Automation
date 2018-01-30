@@ -7,6 +7,7 @@ import com.odysii.general.fileUtil.XmlManager;
 import com.odysii.test.impulse.helper.ImpulseTestHelper;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -29,17 +30,14 @@ public class IncrementalTest extends ImpulseTestHelper{
     private long incrementNum;
     private long num;
     private String[]arr1;
-    //Increment timestamp
+
+    /**
+     * Update shared ITT file and validate local ITT file updated too respectively
+     * 1. Update shared ITT file
+     * 2. Increment timestamp(name of ITT file)
+     */
     @Test
     public void _001_validILTLocalFileUpdatedRespectivelyIncrementTimestamp(){
-        init(POSType.PASSPORT_SERIAL);
-        flag = true;
-        //Run impulse
-        runCmdCommand(impulseRunnerScript);
-        PropertyLoader propertyLoader = new PropertyLoader();
-        Properties properties = propertyLoader.loadPropFile("price_book.properties");
-        localPath = properties.getProperty("local_pricebook_path");
-        shardPath = properties.getProperty("shard_pricebook_path");
         Random rand = new Random();
         int  n = rand.nextInt(20000) + 100;
         System.out.println("Random Number: "+n);
@@ -66,15 +64,6 @@ public class IncrementalTest extends ImpulseTestHelper{
     //Discernment timestamp
     @Test
     public void _002_validILTLocalFileNotUpdatedTimestampNotChanged(){
-        if (!flag) {
-            init(POSType.PASSPORT_SERIAL);
-            //Run impulse
-            runCmdCommand(impulseRunnerScript);
-        }
-        PropertyLoader propertyLoader = new PropertyLoader();
-        Properties properties = propertyLoader.loadPropFile("price_book.properties");
-        String localPath = properties.getProperty("local_pricebook_path");
-        shardPath = properties.getProperty("shard_pricebook_path");
         Random rand = new Random();
         int  n = rand.nextInt(20000) + 100;
         System.out.println("Random Number: "+n);
@@ -100,15 +89,34 @@ public class IncrementalTest extends ImpulseTestHelper{
         String fileName = arr1[0]+FILE_PERFIX+incrementNum+".xml";
         FileHandler.renameFile(new File(newFileName),fileName);
         wait(TIME_OUT);
-        flag = FileHandler.copyFile("C:\\data\\backup\\ITTCopy.xml",fileName,true);
-        assertTrue(flag,"Failed to copy file!");
-        flag = XmlManager.isNodeExist(new File("C:\\pb\\yossi\\ITT.xml"),ROOT_NODE,CHILD_NODE,SIBLING_NODE,UPDATE_NODE);
+        flag = XmlManager.isNodeExist(new File(localPath+"\\ITT.xml"),ROOT_NODE,CHILD_NODE,SIBLING_NODE,UPDATE_NODE);
         assertFalse(flag);
     }
 
     @AfterTest
     public void tearDown(){
-        FileHandler.copyFile("C:\\pb\\yossi\\backup\\ITTCopy.xml","C:\\pb\\yossi\\ITT.xml",true);
         runCmdCommand(closeImpulseRunnerScript);
+    }
+    @BeforeClass
+    public void setUp(){
+        init(POSType.PASSPORT_SERIAL);
+        String fileName = "";
+        //Run impulse
+        runCmdCommand(impulseRunnerScript);
+        PropertyLoader propertyLoader = new PropertyLoader();
+        Properties properties = propertyLoader.loadPropFile("price_book.properties");
+        localPath = properties.getProperty("local_pricebook_path");
+        shardPath = properties.getProperty("shard_pricebook_path");
+        boolean flag = FileHandler.copyFile(localPath+"\\backup\\ITTIncCopy.xml",localPath+"\\ITT.xml",true);
+        assertTrue(flag,"Failed to copy file!");
+        File[]files = FileHandler.getFilesOfFolder(shardPath);
+        for (File file : files){
+            String fileStr = file.toString();
+            if (fileStr.contains(FILE_PERFIX)){
+                fileName = file.toString();
+            }
+        }
+        flag = FileHandler.copyFile(shardPath+"\\backup\\ITTIncCopy.xml",fileName,true);
+        assertTrue(flag,"Failed to copy file!");
     }
 }

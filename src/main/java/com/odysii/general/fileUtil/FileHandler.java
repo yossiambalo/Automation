@@ -25,10 +25,11 @@ public class FileHandler {
         }
     }
 
-    public static void copyFile(String source, String destination,boolean override){
+    public static boolean copyFile(String source, String destination,boolean override){
 
         InputStream inStream = null;
         OutputStream outStream = null;
+        boolean flag = false;
 
         try{
 
@@ -51,11 +52,13 @@ public class FileHandler {
                 outStream.close();
 
                 System.out.println("File is copied successful!");
+                flag = true;
             }
 
         }catch(IOException e){
             System.out.println(e.getMessage());
         }
+        return flag;
     }
     public static boolean compareFiles(String file1, String file2){
         BufferedReader reader1 = null;

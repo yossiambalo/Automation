@@ -64,36 +64,42 @@ public class XmlManager {
             sae.printStackTrace();
         }
     }
-    public static String getValueOfNode(File file, String nodeWrapper, String nodeToEdit){
+    public static String getValueOfLastNode(File file, String rootNode, String childNode,String siblingNode,String updatedNode){
 
         String res = "";
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
             Document doc = docBuilder.parse(file);
-            Node wrapper = doc.getElementsByTagName(nodeWrapper).item(0);
+            Node wrapper = doc.getElementsByTagName(rootNode).item(0);
             NodeList list = wrapper.getChildNodes();
 
-            for (int i = 0; i < list.getLength(); i++) {
+            int length = list.getLength()-1;
+            for (int i = 0; length > i; length--) {
 
-                Node node = list.item(i);
-                if (nodeToEdit.equals(node.getNodeName())) {
-                    res = node.getTextContent();
+                Node node = list.item(length);
+                if (childNode.equals(node.getNodeName())) {
+                    NodeList list1 = node.getChildNodes();
+                    for (int j = 0; j < list1.getLength(); j++){
+                        if (list1.item(j).getNodeName().equals(siblingNode)){
+                            //child of sibling
+                            NodeList list2 = list1.item(j).getChildNodes();
+                            for (int k = 0; k < list2.getLength(); k++){
+                                if (updatedNode.equals(list2.item(k).getNodeName())){
+                                    res = list2.item(k).getTextContent();
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    break;
                 }
 
             }
 
-            // write the content into xml file
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(file);
-            transformer.transform(source, result);
-
         } catch (ParserConfigurationException pce) {
             pce.printStackTrace();
-        } catch (TransformerException tfe) {
-            tfe.printStackTrace();
         } catch (IOException ioe) {
             ioe.printStackTrace();
         } catch (SAXException sae) {
@@ -128,27 +134,50 @@ public class XmlManager {
         }
         return res;
     }
-    public static boolean isNodeExist(File file,String parentNode, String childNode){
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        Document doc = null;
-        boolean found = false;
-        dbf.setValidating(false);
+    public static boolean isNodeExist(File file, String rootNode, String childNode,String siblingNode,String updatedNode){
+
+        boolean res = false;
         try {
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            doc = db.parse(file);
-            // retrieve the element 'link'
-            NodeList nodeList = doc.getElementsByTagName(parentNode).item(0).getChildNodes();
-            for (int i = 0; i < nodeList.getLength(); i++){
-                if (nodeList.item(i).getNodeName().contains(childNode)){
-                    found = true;
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+            Document doc = docBuilder.parse(file);
+            Node wrapper = doc.getElementsByTagName(rootNode).item(0);
+            NodeList list = wrapper.getChildNodes();
+
+            int length = list.getLength()-1;
+            for (int i = 0; length > i; length--) {
+
+                Node node = list.item(length);
+                if (childNode.equals(node.getNodeName())) {
+                    NodeList list1 = node.getChildNodes();
+                    for (int j = 0; j < list1.getLength(); j++){
+                        if (list1.item(j).getNodeName().equals(siblingNode)){
+                            //child of sibling
+                            NodeList list2 = list1.item(j).getChildNodes();
+                            for (int k = 0; k < list2.getLength(); k++){
+                                if (updatedNode.equals(list2.item(k).getNodeName())){
+                                    res = true;
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    break;
                 }
+
             }
-        }catch (Exception e){
-            System.out.println(e.getMessage());
+
+        } catch (ParserConfigurationException pce) {
+            pce.printStackTrace();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        } catch (SAXException sae) {
+            sae.printStackTrace();
         }
-        return found;
+        return res;
     }
-    public static boolean replaceNodeAttribute(File file, String tagName,String attribute,String oldValue, String newValue){
+    public static boolean replaceNodeAttribute(File file, String tagName,String attribute, String newValue){
         boolean flag = false;
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         Document doc = null;
