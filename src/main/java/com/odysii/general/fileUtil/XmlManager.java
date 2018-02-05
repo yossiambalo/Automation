@@ -202,4 +202,28 @@ public class XmlManager {
         }
         return flag;
     }
+    public static int getSizeOfNode(File file,String nodeName){
+        int size = 0;
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        Document doc = null;
+        dbf.setValidating(false);
+        try {
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            doc = db.parse(file);
+            // retrieve the element 'link'
+            size = doc.getElementsByTagName(nodeName).getLength();
+            // Normalize the DOM tree, puts all text nodes in the
+            // full depth of the sub-tree underneath this node
+            doc.normalize();
+            // write the content into xml file
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(file);
+            transformer.transform(source, result);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return size;
+    }
 }

@@ -5,6 +5,7 @@ import com.odysii.general.PropertyLoader;
 import com.odysii.general.fileUtil.FileHandler;
 import com.odysii.general.fileUtil.XmlManager;
 import com.odysii.test.impulse.helper.ImpulseTestHelper;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -22,8 +23,8 @@ public class IncrementalTest extends ImpulseTestHelper{
     private boolean flag;
     private final String ITT_FILE_PERFIX = "ITT";
     private final String ILT_FILE_PERFIX = "ILT";
-    private final String ROOT_NODE = "ItemMaintenance";//"ITTData";
-    private final String CHILD_NODE = "ITTDetail";//"Description";
+    private final String ROOT_NODE = "ItemMaintenance";
+    private final String CHILD_NODE = "ITTDetail";
     private final String SIBLING_NODE = "ITTData";
     private final String UPDATE_NODE = "Description";
     private final int TIME_OUT = 30000;
@@ -53,7 +54,7 @@ public class IncrementalTest extends ImpulseTestHelper{
      * 1. Update shared ITT file
      * 2. Increment timestamp(name of ITT file)
      */
-    @Test
+    @Test(priority = 1)
     public void _001_validILTLocalFileUpdatedRespectivelyIncrementTimestamp(){
         Random rand = new Random();
         int  n = rand.nextInt(20000) + 100;
@@ -78,7 +79,7 @@ public class IncrementalTest extends ImpulseTestHelper{
             }
         }
     }
-    @Test
+    @Test(priority = 2)
     public void _002_validITTLocalFileNotUpdatedTimestampNotChanged(){
         Random rand = new Random();
         int  n = rand.nextInt(20000) + 100;
@@ -95,7 +96,7 @@ public class IncrementalTest extends ImpulseTestHelper{
             }
         }
     }
-    @Test
+    @Test(priority = 3)
     public void _003_validDeletedDataUpdatedRespectively(){
         boolean flag = XmlManager.replaceNodeAttribute(new File(newFileName),"RecordAction","type","delete");
        assertTrue(flag,"Failed to replace Node attribute!");
@@ -108,7 +109,7 @@ public class IncrementalTest extends ImpulseTestHelper{
         flag = XmlManager.isNodeExist(new File(localPath+File.separator+ ITT_FILE_PERFIX+incrementNum +".xml"),ROOT_NODE,CHILD_NODE,SIBLING_NODE,UPDATE_NODE);
         assertFalse(flag);
     }
-    @Test
+    @Test(priority = 4)
     public void _004_validFileWithInvalidNamesNotAddedToLocalWhileImpulseInit(){
         runCmdCommand(closeImpulseRunnerScript);
         String newFileName = "";
@@ -123,8 +124,8 @@ public class IncrementalTest extends ImpulseTestHelper{
         FileHandler.renameFile(new File(newFileName),file.toString());
         assertNull(localFile,"Invalid File found in: "+localPath);
     }
-    @Test
-    public void _005_validFileWithInvalidExtentionNotAddedToLocalWhileImpulseInit(){
+    @Test(priority = 5)
+    public void _005_validFileWithTxtFormatNotAddedToLocalWhileImpulseInit(){
         wait(5000);
         runCmdCommand(closeImpulseRunnerScript);
         String newFileName = "";
@@ -142,6 +143,74 @@ public class IncrementalTest extends ImpulseTestHelper{
         FileHandler.renameFile(new File(newFileName),file.toString());
         assertNull(localFile,"Invalid File found in: "+localPath);
     }
+
+    /**
+     * Update multiple files in shared of same type(ITT) and valid local was synchronized
+     * respectively- while impulse is running
+     */
+    @Test(dependsOnMethods = {"_005_validFileWithInvalidExtentionNotAddedToLocalWhileImpulseInit"},priority = 6)
+    public void _006_validLocalSyncMultipleUpdatedOfSharedFilesWhileImpulseRunning(){
+
+        File file = getFile(shardPath,ITT_FILE_PERFIX);
+        String fileStr = getFileName(file.toString());
+        String[]arr = fileStr.split(ITT_FILE_PERFIX);
+        long copy1,copy2;
+        copy1 = Long.parseLong(arr[1])+2;
+        copy2 = copy1+2;
+        String newFile1 = shardPath+"\\"+ITT_FILE_PERFIX+copy1+".xml";
+        String newFile2 = shardPath+"\\"+ITT_FILE_PERFIX+copy2+".xml";
+        FileHandler.copyFile(file.toString(),newFile1,true);
+        FileHandler.copyFile(newFile1,newFile2,true);
+        FileHandler.copyFile(shardPath+"\\backup\\item1.xml",newFile1,true);
+        FileHandler.copyFile(shardPath+"\\backup\\item2.xml",newFile2,true);
+        wait(20000);
+        int size = XmlManager.getSizeOfNode(getFile(localPath,ITT_FILE_PERFIX),"ITTDetail");
+        FileHandler.deleteFile(newFile1);
+        FileHandler.deleteFile(file.toString());
+        assertEquals(size,3,"Update multiple files in shared of same type(ITT) wasn't synchronized in local!");
+    }
+    /**
+     * Update files in shared of same type(ITT) and valid local was synchronized
+     * respectively with latest file- while impulse is init!
+     */
+    @Test(priority = 7)
+    public void _007_validLocalSyncUpdatedOfLatestSharedFilesWhileImpulseInit(){
+
+        runCmdCommand(closeImpulseRunnerScript);
+        boolean flag = FileHandler.copyFile(localPath+"\\backup\\ITTIncCopy.xml",getFile(localPath,ITT_FILE_PERFIX).toString(),true);
+        assertTrue(flag,"Failed to copy file!");
+        wait(2000);
+        File file = getFile(shardPath,ITT_FILE_PERFIX);
+        String fileStr = getFileName(file.toString());
+        String[]arr = fileStr.split(ITT_FILE_PERFIX);
+        long copy1,copy2;
+        copy1 = Long.parseLong(arr[1])+2;
+        copy2 = copy1+2;
+        String newFile1 = shardPath+"\\"+ITT_FILE_PERFIX+copy1+".xml";
+        String newFile2 = shardPath+"\\"+ITT_FILE_PERFIX+copy2+".xml";
+        FileHandler.copyFile(file.toString(),newFile1,true);
+        FileHandler.copyFile(newFile1,newFile2,true);
+        FileHandler.copyFile(shardPath+"\\backup\\item1.xml",newFile1,true);
+        FileHandler.copyFile(shardPath+"\\backup\\item2.xml",newFile2,true);
+        runCmdCommand(impulseRunnerScript);
+        wait(15000);
+        int size = XmlManager.getSizeOfNode(getFile(localPath,ITT_FILE_PERFIX),"ITTDetail");
+        FileHandler.deleteFile(newFile1);
+        FileHandler.deleteFile(file.toString());
+        assertEquals(size,2,"Update latest file of shared wasn't synchronized in local!");
+    }
+    @Test(priority = 8)
+    public void _008_validLocalSyncUpdatedOfLatestSharedFilesWhileImpulseInit(){
+        File file = getFile(shardPath,ITT_FILE_PERFIX);
+        runCmdCommand(impulseRunnerScript);
+        wait(15000);
+        FileHandler.copyFile(shardPath+"\\backup\\ITTAll.xml",file.toString(),true);
+        String fileStr = getFileName(file.toString());
+        String[]arr = fileStr.split(ITT_FILE_PERFIX);
+        long copy1 = Long.parseLong(arr[1])+2;
+        FileHandler.renameFile(file,shardPath+"\\ITT"+copy1+".xml");
+        int size = XmlManager.getSizeOfNode(getFile(localPath,ITT_FILE_PERFIX),"ITTDetail");
+    }
     private File getFile(String folder,String type){
         File resFile = null;
         File[]files = FileHandler.getFilesOfFolder(folder);
@@ -154,6 +223,12 @@ public class IncrementalTest extends ImpulseTestHelper{
         return resFile;
     }
 
+    private String getFileName(String file){
+        String[]arr = file.split("\\\\");
+        int index = arr.length -1;
+        String[]arr2 = arr[index].split("\\.");
+        return  arr2[0];
+    }
     @AfterTest
     public void tearDown(){
         runCmdCommand(closeImpulseRunnerScript);
