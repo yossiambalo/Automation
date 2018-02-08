@@ -98,7 +98,7 @@ public class IncrementalTest extends ImpulseTestHelper{
     }
     @Test(priority = 3)
     public void _003_validDeletedDataUpdatedRespectively(){
-        boolean flag = XmlManager.replaceNodeAttribute(new File(newFileName),"RecordAction","type","delete");
+        boolean flag = XmlManager.replaceNodeAttribute(new File(newFileName),"RecordAction",0,"type","delete");
        assertTrue(flag,"Failed to replace Node attribute!");
         flag = XmlManager.deleteNode(new File(newFileName),"Description");
         assertTrue(flag,"Failed to delete Node!");
@@ -148,7 +148,7 @@ public class IncrementalTest extends ImpulseTestHelper{
      * Update multiple files in shared of same type(ITT) and valid local was synchronized
      * respectively- while impulse is running
      */
-    @Test(dependsOnMethods = {"_005_validFileWithInvalidExtentionNotAddedToLocalWhileImpulseInit"},priority = 6)
+    @Test(dependsOnMethods = {"_005_validFileWithTxtFormatNotAddedToLocalWhileImpulseInit"},priority = 6)
     public void _006_validLocalSyncMultipleUpdatedOfSharedFilesWhileImpulseRunning(){
 
         File file = getFile(shardPath,ITT_FILE_PERFIX);
@@ -200,16 +200,59 @@ public class IncrementalTest extends ImpulseTestHelper{
         assertEquals(size,2,"Update latest file of shared wasn't synchronized in local!");
     }
     @Test(priority = 8)
-    public void _008_validLocalSyncUpdatedOfLatestSharedFilesWhileImpulseInit(){
+    public void _008_validAllFileOfSharedUpdatedWhenTableActionSetToInit(){
         File file = getFile(shardPath,ITT_FILE_PERFIX);
         runCmdCommand(impulseRunnerScript);
-        wait(15000);
+        wait(2000);
         FileHandler.copyFile(shardPath+"\\backup\\ITTAll.xml",file.toString(),true);
         String fileStr = getFileName(file.toString());
         String[]arr = fileStr.split(ITT_FILE_PERFIX);
         long copy1 = Long.parseLong(arr[1])+2;
         FileHandler.renameFile(file,shardPath+"\\ITT"+copy1+".xml");
+        wait(20000);
         int size = XmlManager.getSizeOfNode(getFile(localPath,ITT_FILE_PERFIX),"ITTDetail");
+        assertEquals(size,199);
+    }
+    @Test(priority = 9)
+    public void _009_validWhenDeletingLocalFileItRetakingFromShared(){
+        File file = getFile(localPath,ITT_FILE_PERFIX);
+        boolean res = FileHandler.deleteFile(file.toString());
+        assertTrue(res,"Failed to delete file!");
+        wait(20000);
+        file = getFile(localPath,ITT_FILE_PERFIX);
+        assertNotNull(file,"Failed to retaking file from shared!");
+    }
+    @Test(priority = 10)
+    public void _010_validItemNotDuplicatedInLocal(){
+        boolean flag = FileHandler.copyFile(localPath+"\\backup\\ITTIncCopy.xml",getFile(localPath,ITT_FILE_PERFIX).toString(),true);
+        assertTrue(flag,"Failed to copy file!");
+        flag = FileHandler.copyFile(shardPath+"\\backup\\ITTIncCopy.xml",getFile(shardPath,ITT_FILE_PERFIX).toString(),true);
+        assertTrue(flag,"Failed to copy file!");
+        flag = FileHandler.copyFile(shardPath+"\\backup\\ITTIncDuplicate.xml",getFile(shardPath,ITT_FILE_PERFIX).toString(),true);
+        assertTrue(flag,"Failed to copy file!");
+        File file = getFile(shardPath,ITT_FILE_PERFIX);
+        String fileStr = getFileName(file.toString());
+        String[]arr = fileStr.split(ITT_FILE_PERFIX);
+        long copy1 = Long.parseLong(arr[1])+2;
+        FileHandler.renameFile(file,shardPath+"\\ITT"+copy1+".xml");
+        wait(20000);
+        int size = XmlManager.getSizeOfNode(getFile(localPath,ITT_FILE_PERFIX),"ITTDetail");
+        assertEquals(size,1);
+    }
+    @Test(priority = 11)
+    public void _011_validItemDeletedInLocal(){
+        File file = getFile(shardPath,ILT_FILE_PERFIX);
+        //Expected size
+        int originalSize = XmlManager.getSizeOfNode(file,"ILTDetail");
+        boolean flag = XmlManager.replaceNodeAttribute(file,"RecordAction",1,"type","delete");
+        assertTrue(flag);
+        String fileStr = getFileName(file.toString());
+        String[]arr = fileStr.split(ILT_FILE_PERFIX);
+        long copy1 = Long.parseLong(arr[1])+2;
+        FileHandler.renameFile(file,shardPath+"\\ILT"+copy1+".xml");
+        wait(20000);
+        int actualSize = XmlManager.getSizeOfNode(getFile(localPath,ILT_FILE_PERFIX),"ILTDetail");
+        assertEquals(actualSize,originalSize-1);
     }
     private File getFile(String folder,String type){
         File resFile = null;

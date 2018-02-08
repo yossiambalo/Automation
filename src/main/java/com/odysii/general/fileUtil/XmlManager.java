@@ -177,7 +177,7 @@ public class XmlManager {
         }
         return res;
     }
-    public static boolean replaceNodeAttribute(File file, String tagName,String attribute, String newValue){
+    public static boolean replaceNodeAttribute(File file, String tagName,int tagIndex,String attribute, String newValue){
         boolean flag = false;
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         Document doc = null;
@@ -186,7 +186,7 @@ public class XmlManager {
             DocumentBuilder db = dbf.newDocumentBuilder();
             doc = db.parse(file);
             // retrieve the element 'link'
-            doc.getElementsByTagName(tagName).item(0).getAttributes().getNamedItem(attribute).setTextContent(newValue);
+            doc.getElementsByTagName(tagName).item(tagIndex).getAttributes().getNamedItem(attribute).setTextContent(newValue);
             // Normalize the DOM tree, puts all text nodes in the
             // full depth of the sub-tree underneath this node
             doc.normalize();

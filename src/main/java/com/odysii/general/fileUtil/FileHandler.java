@@ -7,7 +7,8 @@ import java.nio.file.Paths;
 
 public class FileHandler {
 
-    public static void deleteFile(String deleteFile){
+    public static boolean deleteFile(String deleteFile){
+        boolean flag = false;
         try{
 
             File file = new File(deleteFile);
@@ -15,6 +16,7 @@ public class FileHandler {
             if (file.exists()){
                 if(file.delete()){
                     System.out.println(file.getName() + " is deleted!");
+                    flag = true;
                 }else{
                     System.out.println("Delete operation is failed.");
                 }
@@ -23,6 +25,7 @@ public class FileHandler {
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
+        return flag;
     }
 
     public static boolean copyFile(String source, String destination,boolean override){
