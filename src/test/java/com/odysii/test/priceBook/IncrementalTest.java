@@ -100,7 +100,7 @@ public class IncrementalTest extends ImpulseTestHelper{
     public void _003_validDeletedDataUpdatedRespectively(){
         boolean flag = XmlManager.replaceNodeAttribute(new File(newFileName),"RecordAction",0,"type","delete");
        assertTrue(flag,"Failed to replace Node attribute!");
-        flag = XmlManager.deleteNode(new File(newFileName),"Description");
+        flag = XmlManager.deleteNode(new File(newFileName),"Description",0);
         assertTrue(flag,"Failed to delete Node!");
         incrementNum = incrementNum+2;
         String fileName = arr1[0]+ ITT_FILE_PERFIX +incrementNum+".xml";
@@ -240,19 +240,40 @@ public class IncrementalTest extends ImpulseTestHelper{
         assertEquals(size,1);
     }
     @Test(priority = 11)
-    public void _011_validItemDeletedInLocal(){
+    public void _011_validItemDeletedInLocalWhenRecordActionDelete(){
+        //ToDo: copy file contains at least 2 items...
         File file = getFile(shardPath,ILT_FILE_PERFIX);
         //Expected size
         int originalSize = XmlManager.getSizeOfNode(file,"ILTDetail");
         boolean flag = XmlManager.replaceNodeAttribute(file,"RecordAction",1,"type","delete");
-        assertTrue(flag);
+        assertTrue(flag,"Failed to set node attribute to delete!");
         String fileStr = getFileName(file.toString());
         String[]arr = fileStr.split(ILT_FILE_PERFIX);
         long copy1 = Long.parseLong(arr[1])+2;
-        FileHandler.renameFile(file,shardPath+"\\ILT"+copy1+".xml");
+        String newFileName = shardPath+"\\ILT"+copy1+".xml";
+        FileHandler.renameFile(file,newFileName);
         wait(20000);
         int actualSize = XmlManager.getSizeOfNode(getFile(localPath,ILT_FILE_PERFIX),"ILTDetail");
+        //Return the original value of node attribute
+        flag = XmlManager.replaceNodeAttribute(new File(newFileName),"RecordAction",1,"type","addchange");
+        assertTrue(flag,"Failed to set node attribute to addchange!");
         assertEquals(actualSize,originalSize-1);
+    }
+    @Test(priority = 12)
+    public void _012_validItemWithoutRecordActionAddedToLocal() {
+        File file = getFile(shardPath,ITT_FILE_PERFIX);
+        int originalSize = XmlManager.getSizeOfNode(file,"RecordAction");
+        XmlManager.deleteNode(file,"RecordAction",1);
+        String fileStr = getFileName(file.toString());
+        String[]arr = fileStr.split(ITT_FILE_PERFIX);
+        long copy1 = Long.parseLong(arr[1])+2;
+        String newFileName = shardPath+"\\ITT"+copy1+".xml";
+        FileHandler.renameFile(file,newFileName);
+        wait(20000);
+        file = getFile(localPath,ITT_FILE_PERFIX);
+        int actualSize = XmlManager.getSizeOfNode(file,"RecordAction");
+        assertEquals(actualSize,originalSize -1);
+
     }
     private File getFile(String folder,String type){
         File resFile = null;

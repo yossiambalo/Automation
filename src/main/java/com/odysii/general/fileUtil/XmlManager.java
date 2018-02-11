@@ -107,7 +107,7 @@ public class XmlManager {
         }
         return res;
     }
-    public static boolean deleteNode(File file,String tagToDelete){
+    public static boolean deleteNode(File file,String tagToDelete,int index){
         boolean res = false;
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         Document doc = null;
@@ -116,7 +116,7 @@ public class XmlManager {
             DocumentBuilder db = dbf.newDocumentBuilder();
             doc = db.parse(file);
             // retrieve the element 'link'
-            Element element = (Element) doc.getElementsByTagName(tagToDelete).item(0);
+            Element element = (Element) doc.getElementsByTagName(tagToDelete).item(index);
             // remove the specific node
             element.getParentNode().removeChild(element);
             // Normalize the DOM tree, puts all text nodes in the
