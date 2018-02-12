@@ -241,7 +241,6 @@ public class IncrementalTest extends ImpulseTestHelper{
     }
     @Test(priority = 11)
     public void _011_validItemDeletedInLocalWhenRecordActionDelete(){
-        //ToDo: copy file contains at least 2 items...
         File file = getFile(shardPath,ILT_FILE_PERFIX);
         //Expected size
         int originalSize = XmlManager.getSizeOfNode(file,"ILTDetail");
@@ -262,6 +261,8 @@ public class IncrementalTest extends ImpulseTestHelper{
     @Test(priority = 12)
     public void _012_validItemWithoutRecordActionAddedToLocal() {
         File file = getFile(shardPath,ITT_FILE_PERFIX);
+        boolean flag = FileHandler.copyFile(shardPath+"\\backup\\twoItems.xml",file.toString(),true);
+        assertTrue(flag,"Failed to copy file!");
         int originalSize = XmlManager.getSizeOfNode(file,"RecordAction");
         XmlManager.deleteNode(file,"RecordAction",1);
         String fileStr = getFileName(file.toString());
@@ -272,7 +273,31 @@ public class IncrementalTest extends ImpulseTestHelper{
         wait(20000);
         file = getFile(localPath,ITT_FILE_PERFIX);
         int actualSize = XmlManager.getSizeOfNode(file,"RecordAction");
-        assertEquals(actualSize,originalSize -1);
+        assertEquals(actualSize,originalSize);
+
+    }
+
+    /**
+     * Verify same item with selling unit 2 not override local item with selling unit 1, should add it as new one
+     */
+    @Test(priority = 13)
+    public void _013_validSameItemWithDifferentSellingUnitNotOverridden() {
+        File file = getFile(localPath,ITT_FILE_PERFIX);
+        boolean flag = FileHandler.copyFile(shardPath+"\\backup\\item2.xml",file.toString(),true);
+        assertTrue(flag, "Failed to copy file!");
+        file = getFile(shardPath,ITT_FILE_PERFIX);
+        flag = FileHandler.copyFile(shardPath+"\\backup\\same_item_diff_unit.xml",file.toString(),true);
+        assertTrue(flag);
+        String fileName = getFileName(file.toString());
+        String[]arr = fileName.split(ITT_FILE_PERFIX);
+        String newFileName = shardPath+"\\ITT"+Long.parseLong(arr[1])+2+".xml";
+        FileHandler.renameFile(file,newFileName);
+        wait(1000);
+        int originalSize = XmlManager.getSizeOfNode(new File(newFileName),"ITTDetail");
+        wait(20000);
+        file = getFile(localPath,ITT_FILE_PERFIX);
+        int actualSize = XmlManager.getSizeOfNode(file,"ITTDetail");
+        assertEquals(actualSize,originalSize);
 
     }
     private File getFile(String folder,String type){
