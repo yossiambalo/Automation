@@ -298,7 +298,6 @@ public class IncrementalTest extends ImpulseTestHelper{
         file = getFile(localPath,ITT_FILE_PERFIX);
         int actualSize = XmlManager.getSizeOfNode(file,"ITTDetail");
         assertEquals(actualSize,originalSize);
-
     }
     private File getFile(String folder,String type){
         File resFile = null;
