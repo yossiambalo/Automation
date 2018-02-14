@@ -142,7 +142,22 @@ public class FileHandler {
             System.out.println(e.getMessage());
         }
     }
-    public static void main(String[]args){
-        renameFile(new File("C:\\btuh\\yossi.pdf"),"C:\\btuh\\001.pdf");
+    public static File getFile(String folder,String type){
+        File resFile = null;
+        File[]files = FileHandler.getFilesOfFolder(folder);
+        for (File file : files) {
+            String fileStr = file.toString();
+            if (fileStr.contains(type)) {
+                resFile = file;
+            }
+        }
+        return resFile;
+    }
+
+    public static String getFileName(String file){
+        String[]arr = file.split("\\\\");
+        int index = arr.length -1;
+        String[]arr2 = arr[index].split("\\.");
+        return  arr2[0];
     }
 }

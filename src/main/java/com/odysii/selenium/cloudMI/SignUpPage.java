@@ -11,7 +11,7 @@ public class SignUpPage extends PageObject {
     private WebElement email;
     @FindBy(id="user_password")
     private WebElement password;
-    @FindBy(id="commit")
+    @FindBy(name="commit")
     private WebElement submitButton;
 
     public SignUpPage(WebDriver driver) {

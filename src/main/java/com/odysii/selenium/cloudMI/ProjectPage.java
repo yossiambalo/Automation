@@ -14,7 +14,8 @@ public class ProjectPage extends PageObject{
         super(driver);
     }
 
-    public void getPriceBook(){
+    public PriceBookManager getPriceBook(){
         this.pricebook_link.click();
+        return new PriceBookManager(webDriver);
     }
 }

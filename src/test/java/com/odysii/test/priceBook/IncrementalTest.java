@@ -14,6 +14,8 @@ import java.io.File;
 import java.util.Properties;
 import java.util.Random;
 
+import static com.odysii.general.fileUtil.FileHandler.getFile;
+import static com.odysii.general.fileUtil.FileHandler.getFileName;
 import static org.testng.Assert.*;
 
 public class IncrementalTest extends ImpulseTestHelper{
@@ -298,24 +300,6 @@ public class IncrementalTest extends ImpulseTestHelper{
         file = getFile(localPath,ITT_FILE_PERFIX);
         int actualSize = XmlManager.getSizeOfNode(file,"ITTDetail");
         assertEquals(actualSize,originalSize);
-    }
-    private File getFile(String folder,String type){
-        File resFile = null;
-        File[]files = FileHandler.getFilesOfFolder(folder);
-        for (File file : files) {
-            String fileStr = file.toString();
-            if (fileStr.contains(type)) {
-                resFile = file;
-            }
-        }
-        return resFile;
-    }
-
-    private String getFileName(String file){
-        String[]arr = file.split("\\\\");
-        int index = arr.length -1;
-        String[]arr2 = arr[index].split("\\.");
-        return  arr2[0];
     }
     @AfterTest
     public void tearDown(){

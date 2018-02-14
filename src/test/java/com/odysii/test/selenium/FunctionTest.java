@@ -18,10 +18,10 @@ public class FunctionTest {
        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
        driver.manage().window().maximize();
    }
-    @AfterTest
-    public void cleanUp(){
-        driver.manage().deleteAllCookies();
-    }
+//    @AfterTest
+//    public void cleanUp(){
+//        driver.manage().deleteAllCookies();
+//    }
     @AfterClass
     public void tearDown() {
         driver.close();
