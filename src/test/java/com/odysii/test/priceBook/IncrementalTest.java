@@ -4,8 +4,14 @@ import com.odysii.general.POSType;
 import com.odysii.general.PropertyLoader;
 import com.odysii.general.fileUtil.FileHandler;
 import com.odysii.general.fileUtil.XmlManager;
+import com.odysii.selenium.cloudMI.PriceBookLoaderType;
+import com.odysii.selenium.cloudMI.PriceBookManager;
+import com.odysii.selenium.cloudMI.ProjectPage;
+import com.odysii.selenium.cloudMI.SignUpPage;
 import com.odysii.test.impulse.helper.ImpulseTestHelper;
 import jdk.nashorn.internal.ir.annotations.Ignore;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -13,6 +19,7 @@ import org.testng.annotations.Test;
 import java.io.File;
 import java.util.Properties;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import static com.odysii.general.fileUtil.FileHandler.getFile;
 import static com.odysii.general.fileUtil.FileHandler.getFileName;
@@ -33,10 +40,28 @@ public class IncrementalTest extends ImpulseTestHelper{
     private long incrementNum;
     private long num;
     private String[]arr1;
-
+    private WebDriver driver;
 
     @BeforeClass
     public void setUp(){
+        /**
+         * WebDriver Start
+         */
+        System.setProperty("webdriver.chrome.driver", "C:\\chrome\\chromedriver.exe");
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
+        driver.get("http://cloudmiqa.tveez.local/projects/76");
+        SignUpPage signUpPage = new SignUpPage(driver);
+        signUpPage.enterCredentials("yossi.ambalo@odysii.com","Jt1Z1xwS");
+        ProjectPage projectPage = signUpPage.submit();
+        PriceBookManager priceBookManager = projectPage.getPriceBook();
+        priceBookManager.setPricebookLoaderType(PriceBookLoaderType.INC);
+        wait(10000);
+        driver.quit();
+        /**
+         * WebDriver End
+         */
         init(POSType.PASSPORT_SERIAL);
         String fileName = "";
         //Run impulse
@@ -216,7 +241,7 @@ public class IncrementalTest extends ImpulseTestHelper{
         assertEquals(size,199);
     }
     @Test(priority = 9)
-    public void _009_validWhenDeletingLocalFileItRetakingFromShared(){
+    public void _009_validLocalDeletedFileItRetakingWhileImpulseRunning(){
         File file = getFile(localPath,ITT_FILE_PERFIX);
         boolean res = FileHandler.deleteFile(file.toString());
         assertTrue(res,"Failed to delete file!");
