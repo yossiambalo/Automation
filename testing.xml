@@ -14,9 +14,4 @@
             <class name="com.odysii.test.impulse.serial.TriviaTest"/>
         </classes>
     </test>
-    <!--<test name="Bulloch Serial">-->
-        <!--<classes>-->
-            <!--<class name="com.odysii.test.impulse.helper.BulochSerialTest"/>-->
-        <!--</classes>-->
-    <!--</test>-->
 </suite>

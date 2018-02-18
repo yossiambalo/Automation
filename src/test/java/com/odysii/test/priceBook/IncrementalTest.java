@@ -44,6 +44,18 @@ public class IncrementalTest extends ImpulseTestHelper{
 
     @BeforeClass
     public void setUp(){
+        init(POSType.PASSPORT_SERIAL);
+        String fileName = "";
+        //Run impulse
+        runCmdCommand(impulseRunnerScript);
+        PropertyLoader propertyLoader = new PropertyLoader();
+        Properties properties = propertyLoader.loadPropFile("price_book.properties");
+        localPath = properties.getProperty("local_pricebook_path");
+        shardPath = properties.getProperty("shard_pricebook_path");
+        boolean flag = FileHandler.copyFile(localPath+"\\backup\\ITTIncCopy.xml",getFile(localPath,ITT_FILE_PERFIX).toString(),true);
+        assertTrue(flag,"Failed to copy file!");
+        flag = FileHandler.copyFile(shardPath+"\\backup\\ITTIncCopy.xml",getFile(shardPath,ITT_FILE_PERFIX).toString(),true);
+        assertTrue(flag,"Failed to copy file!");
         /**
          * WebDriver Start
          */
@@ -62,18 +74,6 @@ public class IncrementalTest extends ImpulseTestHelper{
         /**
          * WebDriver End
          */
-        init(POSType.PASSPORT_SERIAL);
-        String fileName = "";
-        //Run impulse
-        runCmdCommand(impulseRunnerScript);
-        PropertyLoader propertyLoader = new PropertyLoader();
-        Properties properties = propertyLoader.loadPropFile("price_book.properties");
-        localPath = properties.getProperty("local_pricebook_path");
-        shardPath = properties.getProperty("shard_pricebook_path");
-        boolean flag = FileHandler.copyFile(localPath+"\\backup\\ITTIncCopy.xml",getFile(localPath,ITT_FILE_PERFIX).toString(),true);
-        assertTrue(flag,"Failed to copy file!");
-        flag = FileHandler.copyFile(shardPath+"\\backup\\ITTIncCopy.xml",getFile(shardPath,ITT_FILE_PERFIX).toString(),true);
-        assertTrue(flag,"Failed to copy file!");
     }
 
     /**
