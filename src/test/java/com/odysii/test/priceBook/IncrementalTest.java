@@ -56,6 +56,7 @@ public class IncrementalTest extends ImpulseTestHelper{
         assertTrue(flag,"Failed to copy file!");
         flag = FileHandler.copyFile(shardPath+"\\backup\\ITTIncCopy.xml",getFile(shardPath,ITT_FILE_PERFIX).toString(),true);
         assertTrue(flag,"Failed to copy file!");
+        wait(10000);
         /**
          * WebDriver Start
          */
@@ -69,7 +70,7 @@ public class IncrementalTest extends ImpulseTestHelper{
         ProjectPage projectPage = signUpPage.submit();
         PriceBookManager priceBookManager = projectPage.getPriceBook();
         priceBookManager.setPricebookLoaderType(PriceBookLoaderType.INC);
-        wait(10000);
+        wait(5000);
         driver.quit();
         /**
          * WebDriver End
@@ -106,7 +107,7 @@ public class IncrementalTest extends ImpulseTestHelper{
             }
         }
     }
-    @Test(priority = 2)
+    @Test(priority = 2,dependsOnMethods = {"_001_validILTLocalFileUpdatedRespectivelyIncrementTimestamp"})
     public void _002_validITTLocalFileNotUpdatedTimestampNotChanged(){
         Random rand = new Random();
         int  n = rand.nextInt(20000) + 100;
@@ -136,6 +137,10 @@ public class IncrementalTest extends ImpulseTestHelper{
         flag = XmlManager.isNodeExist(new File(localPath+File.separator+ ITT_FILE_PERFIX+incrementNum +".xml"),ROOT_NODE,CHILD_NODE,SIBLING_NODE,UPDATE_NODE);
         assertFalse(flag);
     }
+
+    /**
+     * File name not configured in cloudMI
+     */
     @Test(priority = 4)
     public void _004_validFileWithInvalidNamesNotAddedToLocalWhileImpulseInit(){
         runCmdCommand(closeImpulseRunnerScript);
@@ -152,7 +157,7 @@ public class IncrementalTest extends ImpulseTestHelper{
         assertNull(localFile,"Invalid File found in: "+localPath);
     }
     @Test(priority = 5)
-    public void _005_validFileWithTxtFormatNotAddedToLocalWhileImpulseInit(){
+    public void _005_validFileWithFormatNotAddedToLocalWhileImpulseInit(){
         wait(5000);
         runCmdCommand(closeImpulseRunnerScript);
         String newFileName = "";
@@ -201,7 +206,7 @@ public class IncrementalTest extends ImpulseTestHelper{
      * respectively with latest file- while impulse is init!
      */
     @Test(priority = 7)
-    public void _007_validLocalSyncUpdatedOfLatestSharedFilesWhileImpulseInit(){
+    public void _007_validLocalUpdatedTheLatestSharedFilesWhileImpulseInit(){
 
         runCmdCommand(closeImpulseRunnerScript);
         boolean flag = FileHandler.copyFile(localPath+"\\backup\\ITTIncCopy.xml",getFile(localPath,ITT_FILE_PERFIX).toString(),true);
@@ -224,7 +229,7 @@ public class IncrementalTest extends ImpulseTestHelper{
         int size = XmlManager.getSizeOfNode(getFile(localPath,ITT_FILE_PERFIX),"ITTDetail");
         FileHandler.deleteFile(newFile1);
         FileHandler.deleteFile(file.toString());
-        assertEquals(size,2,"Update latest file of shared wasn't synchronized in local!");
+        assertEquals(size,3,"Update latest file of shared wasn't synchronized in local!");
     }
     @Test(priority = 8)
     public void _008_validAllFileOfSharedUpdatedWhenTableActionSetToInit(){
