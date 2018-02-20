@@ -180,7 +180,7 @@ public class IncrementalTest extends ImpulseTestHelper{
      * Update multiple files in shared of same type(ITT) and valid local was synchronized
      * respectively- while impulse is running
      */
-    @Test(dependsOnMethods = {"_005_validFileWithTxtFormatNotAddedToLocalWhileImpulseInit"},priority = 6)
+    @Test(dependsOnMethods = {"_005_validFileWithFormatNotAddedToLocalWhileImpulseInit"},priority = 6)
     public void _006_validLocalSyncMultipleUpdatedOfSharedFilesWhileImpulseRunning(){
 
         File file = getFile(shardPath,ITT_FILE_PERFIX);
@@ -330,6 +330,22 @@ public class IncrementalTest extends ImpulseTestHelper{
         file = getFile(localPath,ITT_FILE_PERFIX);
         int actualSize = XmlManager.getSizeOfNode(file,"ITTDetail");
         assertEquals(actualSize,originalSize);
+    }
+    @Test(priority = 14)
+    public void _014_validITTFileWithUnderScoreUpdatedToLocal(){
+        //delete file from local
+        boolean res = FileHandler.deleteFile(getFile(localPath,ITT_FILE_PERFIX).toString());
+        assertTrue(res,"Failed to delete file!");
+        //get ITT  file from shared
+        File file = getFile(shardPath,ITT_FILE_PERFIX);
+        assertNotNull(file,"File not found!");
+        FileHandler.renameFile(file,shardPath+"\\ITT_360217.xml");
+        wait(TIME_OUT);
+        //Check file updated to local with underscore
+        String expectedFileName = getFileName(getFile(shardPath,ITT_FILE_PERFIX).toString());
+        String actualFileName = getFileName(getFile(localPath,ITT_FILE_PERFIX).toString());
+        FileHandler.renameFile(new File(shardPath+"\\ITT_360217.xml"),file.toString());
+        assertEquals(actualFileName,expectedFileName);
     }
     @AfterTest
     public void tearDown(){

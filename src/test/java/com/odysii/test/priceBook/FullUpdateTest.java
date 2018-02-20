@@ -9,6 +9,7 @@ import com.odysii.selenium.cloudMI.PriceBookManager;
 import com.odysii.selenium.cloudMI.ProjectPage;
 import com.odysii.selenium.cloudMI.SignUpPage;
 import com.odysii.test.impulse.helper.ImpulseTestHelper;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -168,8 +169,8 @@ public class FullUpdateTest extends ImpulseTestHelper {
             }
         }
     }
-    @Test(priority = 6,dependsOnMethods = {"_005_validILTLocalFileUpdatedRespectivelyIncrementTimestamp"})
-    public void _006_validITTLocalFileNotUpdatedTimestampNotChanged(){
+    @Ignore
+    public void _006_validILTLocalFileNotUpdatedTimestampNotChanged(){
         runCmdCommand(impulseRunnerScript);
         wait(TIME_OUT);
         Random rand = new Random();
@@ -179,10 +180,10 @@ public class FullUpdateTest extends ImpulseTestHelper {
         File[]files = FileHandler.getFilesOfFolder(shardPath);
         for (File file : files){
             String fileStr = file.toString();
-            if (fileStr.contains(ITT_FILE_PERFIX)){
+            if (fileStr.contains(ILT_FILE_PERFIX)){
                 XmlManager.updateNodeContent(file,SIBLING_NODE,UPDATE_NODE,ittItemListIDValue);
                 wait(TIME_OUT);
-                String res = XmlManager.getValueOfLastNode(new File(localPath+File.separator+ ITT_FILE_PERFIX+incrementNum +".xml"),ROOT_NODE,CHILD_NODE, SIBLING_NODE,UPDATE_NODE);
+                String res = XmlManager.getValueOfLastNode(new File(localPath+File.separator+ ILT_FILE_PERFIX+incrementNum +".xml"),ROOT_NODE,CHILD_NODE, SIBLING_NODE,UPDATE_NODE);
                 assertNotEquals(res,ittItemListIDValue);
             }
         }
@@ -196,11 +197,43 @@ public class FullUpdateTest extends ImpulseTestHelper {
         File file = getFile(shardPath,ITT_FILE_PERFIX);
         assertNotNull(file,"File not found!");
         FileHandler.renameFile(file,shardPath+"\\ITT_360217.xml");
-        wait(TIME_OUT);
+        wait(TIME_OUT+5000);
         //Check file updated to local with underscore
         String expectedFileName = getFileName(getFile(shardPath,ITT_FILE_PERFIX).toString());
         String actualFileName = getFileName(getFile(localPath,ITT_FILE_PERFIX).toString());
         FileHandler.renameFile(new File(shardPath+"\\ITT_360217.xml"),file.toString());
         assertEquals(actualFileName,expectedFileName);
+    }
+    /**
+     * File name not configured in cloudMI
+     */
+    @Test(priority = 8)
+    public void _008_validFileWithInvalidNamesNotAddedToLocalWhileImpulseInit(){
+        String newFileName = "";
+        File file = getFile(shardPath,ILT_FILE_PERFIX);
+        assertNotNull(file,"File not found in: "+shardPath);
+        newFileName = shardPath+"\\YOS36020170313153531.xml";
+        FileHandler.renameFile(file,newFileName);
+        wait(1000);
+        runCmdCommand(impulseRunnerScript);
+        wait(10000);
+        File localFile = getFile(localPath,"YOS");
+        FileHandler.renameFile(new File(newFileName),file.toString());
+        assertNull(localFile,"Invalid File found in: "+localPath);
+    }
+    @Test(priority = 9)
+    public void _009_validITTLocalFileNotUpdatedTimestampNotChanged(){
+        wait(5000);
+        boolean flag = FileHandler.copyFile(shardPath+"\\backup\\ITTIncCopy.xml",getFile(shardPath,ITT_FILE_PERFIX).toString(),true);
+        assertTrue(flag,"Failed to copy file!");
+        Random rand = new Random();
+        int  n = rand.nextInt(20000) + 100;
+        System.out.println("Random Number: "+n);
+        String ittItemListIDValue = String.valueOf(n);
+        File file = getFile(shardPath,ITT_FILE_PERFIX);
+        XmlManager.updateNodeContent(file,SIBLING_NODE,UPDATE_NODE,ittItemListIDValue);
+        wait(TIME_OUT+2000);
+        String res = XmlManager.getValueOfLastNode(getFile(localPath,ITT_FILE_PERFIX),ROOT_NODE,CHILD_NODE, SIBLING_NODE,UPDATE_NODE);
+        assertNotEquals(res,ittItemListIDValue);
     }
 }
