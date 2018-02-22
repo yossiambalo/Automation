@@ -1,0 +1,13 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+        <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Impulse Suite">
+<listeners>
+    <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+</listeners>
+<test name="PriceBook Test">
+    <classes>
+        <class name="com.odysii.test.priceBook.IncrementalTest"/>
+        <class name="com.odysii.test.priceBook.FullUpdateTest"/>
+    </classes>
+</test>
+</suite>

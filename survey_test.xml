@@ -1,17 +1,17 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+        <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Impulse Suite">
-    <listeners>
-        <listener class-name="org.uncommons.reportng.HTMLReporter"/>
-    </listeners>
-    <test name="Survey Test">
-        <classes>
-            <class name="com.odysii.test.impulse.serial.SurveyTextTest"/>
-            <class name="com.odysii.test.impulse.serial.SurveyImageTest"/>
-            <class name="com.odysii.test.impulse.serial.CascadeSurveyTest"/>
-            <class name="com.odysii.test.impulse.serial.DonationImageSurveyTest"/>
-            <class name="com.odysii.test.impulse.serial.DonationTextSurveyTest"/>
-            <class name="com.odysii.test.impulse.serial.TriviaTest"/>
-        </classes>
-    </test>
+<listeners>
+    <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+</listeners>
+<test name="Survey Test">
+    <classes>
+        <class name="com.odysii.test.impulse.serial.SurveyTextTest"/>
+        <class name="com.odysii.test.impulse.serial.SurveyImageTest"/>
+        <class name="com.odysii.test.impulse.serial.CascadeSurveyTest"/>
+        <class name="com.odysii.test.impulse.serial.DonationImageSurveyTest"/>
+        <class name="com.odysii.test.impulse.serial.DonationTextSurveyTest"/>
+        <class name="com.odysii.test.impulse.serial.TriviaTest"/>
+    </classes>
+</test>
 </suite>
