@@ -231,7 +231,7 @@ public class IncrementalTest extends ImpulseTestHelper{
         FileHandler.deleteFile(file.toString());
         assertEquals(size,3,"Update latest file of shared wasn't synchronized in local!");
     }
-    @Test(priority = 8)
+    @Test(priority =8)
     public void _008_validAllFileOfSharedUpdatedWhenTableActionSetToInit(){
         File file = getFile(shardPath,ITT_FILE_PERFIX);
         runCmdCommand(impulseRunnerScript);

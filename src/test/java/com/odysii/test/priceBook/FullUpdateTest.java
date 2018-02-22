@@ -82,7 +82,7 @@ public class FullUpdateTest extends ImpulseTestHelper {
         runCmdCommand(closeImpulseRunnerScript);
     }
 
-    @Test(priority = 1)
+    @Test(priority = 16)
     public void _001_validLocalDeletedFileItRetakingWhileImpulseRunning(){
         File file = getFile(localPath,ITT_FILE_PERFIX);
         boolean res = FileHandler.deleteFile(file.toString());
@@ -91,7 +91,7 @@ public class FullUpdateTest extends ImpulseTestHelper {
         file = getFile(localPath,ITT_FILE_PERFIX);
         assertNotNull(file,"Failed to retaking file from shared!");
     }
-    @Test(priority = 2)
+    @Test(priority = 17)
     public void _002_validLocalFileUpdateWhileImpulseRunning(){
         File sharedFile = getFile(shardPath,ITT_FILE_PERFIX);
         String fileName = getFileName(sharedFile.toString());
@@ -105,7 +105,7 @@ public class FullUpdateTest extends ImpulseTestHelper {
         String[]arr2 = fileName2.split(ITT_FILE_PERFIX);
         assertEquals(changeFileName,Long.parseLong(arr2[1]));
     }
-    @Test(priority = 3)
+    @Test(priority = 18)
     public void _003_validLocalDeletedFileUpdateWhileImpulseInit(){
         runCmdCommand(closeImpulseRunnerScript);
         wait(2000);
@@ -118,7 +118,7 @@ public class FullUpdateTest extends ImpulseTestHelper {
         String actualFile = getFileName(getFile(localPath,ITT_FILE_PERFIX).toString());
         assertEquals(actualFile,originalFile);
     }
-    @Test(priority = 4)
+    @Test(priority = 19)
     public void _004_validFileWithTxtFormatNotAddedToLocalWhileImpulseInit(){
         wait(5000);
         runCmdCommand(closeImpulseRunnerScript);
@@ -142,7 +142,7 @@ public class FullUpdateTest extends ImpulseTestHelper {
      * 1. Update shared ITT file
      * 2. Increment timestamp(name of ITT file)
      */
-    @Test(priority = 5)
+    @Test(priority = 20)
     public void _005_validILTLocalFileUpdatedRespectivelyIncrementTimestamp(){
         runCmdCommand(impulseRunnerScript);
         wait(TIME_OUT);
@@ -188,7 +188,7 @@ public class FullUpdateTest extends ImpulseTestHelper {
             }
         }
     }
-    @Test(priority = 7)
+    @Test(priority = 21)
     public void _007_validITTFileWithUnderScoreUpdatedToLocal(){
         //delete file from local
         boolean res = FileHandler.deleteFile(getFile(localPath,ITT_FILE_PERFIX).toString());
@@ -207,7 +207,7 @@ public class FullUpdateTest extends ImpulseTestHelper {
     /**
      * File name not configured in cloudMI
      */
-    @Test(priority = 8)
+    @Test(priority = 22)
     public void _008_validFileWithInvalidNamesNotAddedToLocalWhileImpulseInit(){
         String newFileName = "";
         File file = getFile(shardPath,ILT_FILE_PERFIX);
@@ -221,7 +221,7 @@ public class FullUpdateTest extends ImpulseTestHelper {
         FileHandler.renameFile(new File(newFileName),file.toString());
         assertNull(localFile,"Invalid File found in: "+localPath);
     }
-    @Test(priority = 9)
+    @Test(priority = 23)
     public void _009_validITTLocalFileNotUpdatedTimestampNotChanged(){
         wait(5000);
         boolean flag = FileHandler.copyFile(shardPath+"\\backup\\ITTIncCopy.xml",getFile(shardPath,ITT_FILE_PERFIX).toString(),true);
