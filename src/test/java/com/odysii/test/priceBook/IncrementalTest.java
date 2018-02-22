@@ -347,6 +347,21 @@ public class IncrementalTest extends ImpulseTestHelper{
         FileHandler.renameFile(new File(shardPath+"\\ITT_360217.xml"),file.toString());
         assertEquals(actualFileName,expectedFileName);
     }
+    @Test(priority = 15)
+    public void _015_validFileContainsOnlyDeleteItemsNotAddedToLocal(){
+         runCmdCommand(closeImpulseRunnerScript);
+         wait(1000);
+         //delete file from local
+         boolean res = FileHandler.deleteFile(getFile(localPath,ITT_FILE_PERFIX).toString());
+         assertTrue(res,"Failed to delete file!");
+         boolean flag = FileHandler.copyFile(shardPath+"\\backup\\delete_items.xml",getFile(shardPath,ITT_FILE_PERFIX).toString(),true);
+         assertTrue(flag,"Failed to delete file!");
+         int originalSize = XmlManager.getSizeOfNode(getFile(shardPath,ITT_FILE_PERFIX),"ITTDetail");
+         runCmdCommand(impulseRunnerScript);
+         wait(TIME_OUT);
+         int actualSize = XmlManager.getSizeOfNode(getFile(localPath,ITT_FILE_PERFIX),"ITTDetail");
+         assertEquals(actualSize,originalSize -1,"Item type delete should not add to local!");
+    }
     @AfterTest
     public void tearDown(){
         runCmdCommand(closeImpulseRunnerScript);
