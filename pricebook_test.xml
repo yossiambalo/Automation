@@ -6,8 +6,8 @@
 </listeners>
 <test name="PriceBook Test">
     <classes>
-        <class name="com.odysii.test.priceBook.IncrementalTest"/>
-        <class name="com.odysii.test.priceBook.FullUpdateTest"/>
+        <class name="com.odysii.test.impulse.serial.priceBook.IncrementalTest"/>
+        <class name="com.odysii.test.impulse.serial.priceBook.FullUpdateTest"/>
     </classes>
 </test>
 </suite>

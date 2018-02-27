@@ -1,4 +1,4 @@
-package com.odysii.test.priceBook;
+package com.odysii.test.impulse.serial.priceBook;
 
 import com.odysii.general.POSType;
 import com.odysii.general.PropertyLoader;
@@ -9,7 +9,6 @@ import com.odysii.selenium.cloudMI.PriceBookManager;
 import com.odysii.selenium.cloudMI.ProjectPage;
 import com.odysii.selenium.cloudMI.SignUpPage;
 import com.odysii.test.impulse.helper.ImpulseTestHelper;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterTest;

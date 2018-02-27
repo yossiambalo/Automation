@@ -1,4 +1,4 @@
-package com.odysii.test.priceBook;
+package com.odysii.test.impulse.serial.priceBook;
 
 import com.odysii.general.POSType;
 import com.odysii.general.PropertyLoader;

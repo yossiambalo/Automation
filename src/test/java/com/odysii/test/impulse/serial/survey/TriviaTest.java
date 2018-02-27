@@ -1,4 +1,4 @@
-package com.odysii.test.impulse.serial;
+package com.odysii.test.impulse.serial.survey;
 
 import com.odysii.api.cloudMI.survey.SurveyType;
 import com.odysii.api.pos.SerialMessageGenerator;

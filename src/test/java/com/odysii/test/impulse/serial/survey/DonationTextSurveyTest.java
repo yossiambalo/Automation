@@ -1,4 +1,4 @@
-package com.odysii.test.impulse.serial;
+package com.odysii.test.impulse.serial.survey;
 
 import com.odysii.api.cloudMI.survey.SurveyType;
 import com.odysii.api.pos.SerialMessageGenerator;
@@ -12,16 +12,16 @@ import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 
-public class DonationImageSurveyTest extends SurveyTestBase {
+public class DonationTextSurveyTest extends SurveyTestBase {
 
     @BeforeClass
     public void setUp(){
-        setUp(SurveyType.DONATION_IMAGE,true);
+        setUp(SurveyType.DONATION_TEXT,true);
     }
 
     //Test Cases: SUR-2-1,SUR-2-2,SUR-2-3,SUR-2-5
     @Test
-    public void _001_validOptionNumber2TypeImage(){
+    public void _001_validOptionNumber2TypeText(){
         //Start Impulse
         runCmdCommand(impulseRunnerScript);
         //Wait CNC client downloading the new survey instructions
@@ -51,7 +51,7 @@ public class DonationImageSurveyTest extends SurveyTestBase {
         assertEquals(actual,surveyOptionID);
     }
     @Test
-    public void _002_validOptionNumber3TypeImage(){
+    public void _002_validOptionNumber3TypeText(){
 
         List<String> options = new ArrayList<>();
         options.add("survey_option_body3");
@@ -72,7 +72,7 @@ public class DonationImageSurveyTest extends SurveyTestBase {
         generator.doPostRequest(customer.getEndTransaction());
         wait(WAIT);
         //execute survey
-        runCmdCommand(survey3dOption);
+        runCmdCommand(surveyRunnerScript);
         String query = "SELECT [Id],[ProjectId],[SurveyTime],[SurveyDate],[SurveyId],[OptionId] FROM [DW_qa].[dbo].[SurveyJournal] where OptionId='"+surveyOptionID+"'";
         dbHandler = new DBHandler();
         String actual = dbHandler.executeSelectQuery(query,6);
@@ -86,7 +86,7 @@ public class DonationImageSurveyTest extends SurveyTestBase {
     }
 
     @Test
-    public void _003_validOptionNumber4TypeImage(){
+    public void _003_validOptionNumber4TypeText(){
 
         List<String> options = new ArrayList<>();
         options.add("survey_option_body4");

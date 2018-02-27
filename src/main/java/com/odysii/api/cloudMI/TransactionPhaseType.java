@@ -10,7 +10,6 @@ public enum TransactionPhaseType {
     private String phase;
 
     TransactionPhaseType(String phase) {
-
         this.phase = phase;
     }
 }

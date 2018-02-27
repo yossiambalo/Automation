@@ -6,12 +6,12 @@
 </listeners>
 <test name="Survey Test">
     <classes>
-        <class name="com.odysii.test.impulse.serial.SurveyTextTest"/>
-        <class name="com.odysii.test.impulse.serial.SurveyImageTest"/>
-        <class name="com.odysii.test.impulse.serial.CascadeSurveyTest"/>
-        <class name="com.odysii.test.impulse.serial.DonationImageSurveyTest"/>
-        <class name="com.odysii.test.impulse.serial.DonationTextSurveyTest"/>
-        <class name="com.odysii.test.impulse.serial.TriviaTest"/>
+        <class name="com.odysii.test.impulse.serial.survey.SurveyTextTest"/>
+        <class name="com.odysii.test.impulse.serial.survey.SurveyImageTest"/>
+        <class name="com.odysii.test.impulse.serial.survey.CascadeSurveyTest"/>
+        <class name="com.odysii.test.impulse.serial.survey.DonationImageSurveyTest"/>
+        <class name="com.odysii.test.impulse.serial.survey.DonationTextSurveyTest"/>
+        <class name="com.odysii.test.impulse.serial.survey.TriviaTest"/>
     </classes>
 </test>
 </suite>
