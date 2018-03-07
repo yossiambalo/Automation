@@ -15,6 +15,17 @@ import java.util.Properties;
 public class Game extends CloudMI {
 
     private String createGameBody;
+
+    public String getPlayGameScript() {
+        return playGameScript;
+    }
+
+    public String getGetRewardScript() {
+        return getRewardScript;
+    }
+
+    private String playGameScript;
+    private String getRewardScript;
     private String gameRoute, gameRewardRoute;
     private List<String> gameRewardBodyList;
 
@@ -33,6 +44,8 @@ public class Game extends CloudMI {
         this.gameRewardBodyList = new ArrayList<>();
         this.gameRewardBodyList.add(properties.getProperty("game_reward_body1"));
         this.gameRewardBodyList.add(properties.getProperty("game_reward_body2"));
+        this.playGameScript = properties.getProperty("play_game_script");
+        this.getRewardScript = properties.getProperty("get_reward_button");
     }
     public JSONObject createGame(){
         String url = cloudMIUri+ gameRoute +"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
@@ -40,8 +53,8 @@ public class Game extends CloudMI {
         String result = requestUtil.postRequest(createGameBody);
         return JsonHandler.stringToJson(result);
     }
-    public JSONObject deleteGame(String surveyID){
-        String url = cloudMIUri+ gameRoute +"/"+surveyID+"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
+    public JSONObject deleteGame(String contentID){
+        String url = cloudMIUri+ gameRoute +"/"+contentID+"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
         RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
         String result = requestUtil.deleteRequest();
         return JsonHandler.stringToJson(result);
