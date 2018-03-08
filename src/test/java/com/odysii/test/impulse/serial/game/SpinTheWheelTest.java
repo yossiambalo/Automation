@@ -2,8 +2,10 @@ package com.odysii.test.impulse.serial.game;
 
 import com.odysii.api.cloudMI.game.Game;
 import com.odysii.api.pos.SerialMessageGenerator;
+import com.odysii.db.DBHandler;
 import com.odysii.general.POSType;
 import com.odysii.test.impulse.helper.ImpulseTestHelper;
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -16,6 +18,7 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
     private String gameID,placementID;
     private final int WAIT = 15000;
     private SerialMessageGenerator generator;
+    private DBHandler dbHandler = null;
     @BeforeClass
     public void setUp(){
         init(POSType.PASSPORT_SERIAL);
@@ -48,11 +51,26 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
         wait(10000);
         //finish transaction
         generator.doPostRequest(customer.getEndTransaction());
-        System.out.println("It is a test!");
+        String query = "SELECT [Id],[ChannelId],[SiteId],[ProjectId],[TransactionId],[GameTime],[GameDate],[GameId] " +
+                "FROM [DW_qa].[dbo].[GameJournal] where GameId='"+gameID+"'";
+        dbHandler = new DBHandler();
+        String actual = dbHandler.executeSelectQuery(query,8);
+        int timeOut = 0;
+        while((StringUtils.isEmpty(actual) && timeOut < 20)){
+            wait(5000);
+            actual = dbHandler.executeSelectQuery(query,8);
+            timeOut++;
+        }
+        System.out.println("================GameID: "+gameID+" Actual gameID is: "+actual+"======================");
+        assertEquals(actual,gameID);
     }
     @AfterClass
     public void tearDown(){
         JSONObject jsonObject = game.deleteGame(gameID);
         assertEquals(jsonObject.get("status"),"Success");
+            if (dbHandler != null) {
+                dbHandler.executeDeleteQuery("delete FROM [DW_qa].[dbo].[GameJournal] where ProjectId='2727'");
+                dbHandler.closeConnection();
+            }
     }
 }
