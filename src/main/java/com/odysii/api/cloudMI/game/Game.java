@@ -53,6 +53,15 @@ public class Game extends CloudMI {
         String result = requestUtil.postRequest(createGameBody);
         return JsonHandler.stringToJson(result);
     }
+    public JSONObject createGame(String percent){
+        String url = cloudMIUri+ gameRoute +"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
+        RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
+        JSONObject jsonObject = JsonHandler.stringToJson(createGameBody);
+        JSONObject jsonObject2 = JsonHandler.stringToJson(createGameBody).getJSONObject("Games").put("winPercent",percent);
+        jsonObject.put("Games",jsonObject2);
+        String result = requestUtil.postRequest(jsonObject.toString());
+        return JsonHandler.stringToJson(result);
+    }
     public JSONObject deleteGame(String contentID){
         String url = cloudMIUri+ gameRoute +"/"+contentID+"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
         RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
