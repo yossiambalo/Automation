@@ -28,7 +28,8 @@ public class Game extends CloudMI {
     private String getRewardScript;
     private String gameRoute, gameRewardRoute;
     private List<String> gameRewardBodyList;
-
+    private final String url;
+    private RequestUtil requestUtil;
     public Properties getProperties() {
         return properties;
     }
@@ -46,18 +47,16 @@ public class Game extends CloudMI {
         this.gameRewardBodyList.add(properties.getProperty("game_reward_body2"));
         this.playGameScript = properties.getProperty("play_game_script");
         this.getRewardScript = properties.getProperty("get_reward_button");
+        url = cloudMIUri+ gameRoute +"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
+        requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
     }
     public JSONObject createGame(){
-        String url = cloudMIUri+ gameRoute +"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
-        RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
         String result = requestUtil.postRequest(createGameBody);
         return JsonHandler.stringToJson(result);
     }
-    public JSONObject createGame(String percent){
-        String url = cloudMIUri+ gameRoute +"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
-        RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
+    public JSONObject createGame(String key,String value){
         JSONObject jsonObject = JsonHandler.stringToJson(createGameBody);
-        JSONObject jsonObject2 = JsonHandler.stringToJson(createGameBody).getJSONObject("Games").put("winPercent",percent);
+        JSONObject jsonObject2 = JsonHandler.stringToJson(createGameBody).getJSONObject("Games").put(key,value);
         jsonObject.put("Games",jsonObject2);
         String result = requestUtil.postRequest(jsonObject.toString());
         return JsonHandler.stringToJson(result);

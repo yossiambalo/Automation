@@ -69,7 +69,7 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
     }
     @Test
     public void _002_verifyOnlyLosePercent(){
-        JSONObject jsonObject = game.createGame("0");
+        JSONObject jsonObject = game.createGame("winPercent","0");
         assertEquals(jsonObject.get("status"),"Success","Failed to create game!");
         gameID = jsonObject.get("id").toString();
         jsonObject = game.createReward(gameID);
@@ -106,6 +106,46 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
         }
         System.out.println("================GameID: "+gameID+" Actual gameID is: "+actual+"======================");
         assertEquals(actual,LOSE_STATUS);
+    }
+    @Test
+    public void _003_verifyGamePlayedWithoutListItems(){
+        JSONObject jsonObject = game.createGame("winUPC","028400026864");
+        assertEquals(jsonObject.get("status"),"Success","Failed to create game!");
+        gameID = jsonObject.get("id").toString();
+        jsonObject = game.createReward(gameID);
+        assertEquals(jsonObject.get("status"),"Success","Failed to create reward for game!");
+        jsonObject = game.createPlacement("placement_targeted_body");
+        assertEquals(jsonObject.get("status"),"Success","Failed to create placement for game!");
+        placementID = jsonObject.get("id").toString();
+        jsonObject = game.linkPlacement(gameID,placementID);
+        assertEquals(jsonObject.get("status"),"Success","Failed to link placement for game!");
+        wait(WAIT);
+        //Start transaction
+        generator.doPostRequest(customer.getStartTransaction());
+        wait(2000);
+        //Add item
+        generator.doPostRequest(customer.getAddItem());
+        wait(2000);
+        //click to play game
+        runCmdCommand(game.getPlayGameScript());
+        wait(10000);
+        //click to get the reward
+        runCmdCommand(game.getGetRewardScript());
+        wait(10000);
+        //finish transaction
+        generator.doPostRequest(customer.getEndTransaction());
+        String query = "SELECT [Id],[ChannelId],[SiteId],[ProjectId],[TransactionId],[GameTime],[GameDate],[GameId],[GameType]" +
+                ",[GameStatus] FROM [DW_qa].[dbo].[GameJournal] where GameId='"+gameID+"'";
+        dbHandler = new DBHandler();
+        String actual = dbHandler.executeSelectQuery(query,10);
+        int timeOut = 0;
+        while((StringUtils.isEmpty(actual) && timeOut < 20)){
+            wait(5000);
+            actual = dbHandler.executeSelectQuery(query,10);
+            timeOut++;
+        }
+        System.out.println("================GameID: "+gameID+" Actual gameID is: "+actual+"======================");
+        assertEquals(actual,WON_STATUS);
     }
     @AfterMethod
     public void afterMethod(){
