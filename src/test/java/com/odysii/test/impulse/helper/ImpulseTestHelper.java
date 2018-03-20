@@ -7,6 +7,7 @@ import com.odysii.general.fileUtil.XmlManager;
 import com.odysii.pos.BullochSerial;
 import com.odysii.pos.Customer;
 import com.odysii.pos.PassportSerial;
+import org.testng.annotations.AfterClass;
 
 import java.io.File;
 import java.io.IOException;
@@ -84,4 +85,8 @@ public class ImpulseTestHelper {
         return dateFormat.format(date);
     }
 
+    @AfterClass
+    public void tearDown(){
+        runCmdCommand(closeImpulseRunnerScript);
+    }
 }

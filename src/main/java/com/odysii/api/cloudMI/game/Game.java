@@ -67,7 +67,7 @@ public class Game extends CloudMI {
         String result = requestUtil.deleteRequest();
         return JsonHandler.stringToJson(result);
     }
-    public JSONObject createReward(String gameID){
+    public JSONObject createReward(String gameID,String rewardType){
         String url = cloudMIUri+ gameRewardRoute +"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
         RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
         String result = "";
@@ -75,12 +75,47 @@ public class Game extends CloudMI {
         JSONObject jsonObject2 = null;
         for (String optionBody : gameRewardBodyList){
             jsonObject = JsonHandler.stringToJson(optionBody);
-            jsonObject2 = JsonHandler.stringToJson(optionBody).getJSONObject("RewardChoices").put("parent_id",gameID);
-            jsonObject.put("RewardChoices",jsonObject2);
+            jsonObject2 = JsonHandler.stringToJson(optionBody).getJSONObject(rewardType).put("parent_id",gameID);
+            jsonObject.put(rewardType,jsonObject2);
             result = requestUtil.postRequest(jsonObject.toString());
         }
         return JsonHandler.stringToJson(result);
     }
+    public JSONObject createReward(String gameID, List<String> gameRewardList,String rewardType){
+        gameRewardBodyList.clear();
+        gameRewardBodyList.addAll(gameRewardList);
+        String url = cloudMIUri+ gameRewardRoute +"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
+        RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
+        String result = "";
+        JSONObject jsonObject = null;
+        JSONObject jsonObject2 = null;
+        for (String optionBody : gameRewardBodyList){
+            jsonObject = JsonHandler.stringToJson(optionBody);
+            jsonObject2 = JsonHandler.stringToJson(optionBody).getJSONObject(rewardType).put("parent_id",gameID);
+            jsonObject.put(rewardType,jsonObject2);
+            result = requestUtil.postRequest(jsonObject.toString());
+        }
+        return JsonHandler.stringToJson(result);
+    }
+    public JSONObject createRewardProps(String gameID, List<String> gameRewardList,String rewardType){
+        gameRewardBodyList.clear();
+        for (String p : gameRewardList){
+            gameRewardBodyList.add(properties.getProperty(p));
+        }
+        String url = cloudMIUri +"/content/general/reward_choices?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
+        RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
+        String result = "";
+        JSONObject jsonObject = null;
+        JSONObject jsonObject2 = null;
+        for (String optionBody : gameRewardBodyList){
+            jsonObject = JsonHandler.stringToJson(optionBody);
+            jsonObject2 = JsonHandler.stringToJson(optionBody).getJSONObject(rewardType).put("parent_id",gameID);
+            jsonObject.put(rewardType,jsonObject2);
+            result = requestUtil.postRequest(jsonObject.toString());
+        }
+        return JsonHandler.stringToJson(result);
+    }
+
 
     /**
      * Add options for survey

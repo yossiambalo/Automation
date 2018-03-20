@@ -34,6 +34,7 @@ public class MessageGenerator {
      */
     public String doGetRequest(String url){
         String res = "";
+        String failedRes = "Failed";
         HttpClient client = HttpClients.createDefault();
         HttpGet request = new HttpGet(url);
         HttpResponse response;
@@ -51,8 +52,10 @@ public class MessageGenerator {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            res = failedRes;
         } catch (UnsupportedOperationException e) {
             e.printStackTrace();
+            res = failedRes;
         }
         return res;
     }
