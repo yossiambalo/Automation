@@ -19,15 +19,18 @@ import java.util.List;
 import java.util.Properties;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNull;
 
 public class SpinTheWheelTest extends ImpulseTestHelper {
     private Game game;
     private String gameID,placementID;
-    private final int WAIT = 15000;
+    private final int WAIT = 20000;
     private SerialMessageGenerator generator;
     private DBHandler dbHandler = null;
-    private final String LOSE_STATUS = "Lose";
-    private final String WON_STATUS = "WonRedeemed";
+    private final String PLU1 = "1030093019";
+    private final String PLU2 = "028400026864";
+    private String selectQuery = "SELECT [Id],[ChannelId],[SiteId],[ProjectId],[TransactionId],[GameTime],[GameDate],[GameId],[GameType]" +
+            ",[GameStatus],[GivenItemCode] FROM [DW_qa].[dbo].[GameJournal]";
     @BeforeClass
     public void setUp(){
         init(POSType.PASSPORT_SERIAL);
@@ -45,6 +48,7 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
     }
     @Test
     public void _001_verifyOnlyWinPercent(){
+        wait(WAIT);
         runCmdCommand(impulseRunnerScript);
         wait(WAIT);
         generator = new SerialMessageGenerator(impulseDeliveryStationUrl);
@@ -60,18 +64,21 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
         wait(10000);
         //finish transaction
         generator.doPostRequest(customer.getEndTransaction());
-        String query = "SELECT [Id],[ChannelId],[SiteId],[ProjectId],[TransactionId],[GameTime],[GameDate],[GameId],[GameType]" +
-                ",[GameStatus] FROM [DW_qa].[dbo].[GameJournal] where GameId='"+gameID+"'";
+        String query = selectQuery+"  where GameId='"+gameID+"'";
         dbHandler = new DBHandler();
-        String actual = dbHandler.executeSelectQuery(query,10);
+        String actual = dbHandler.executeSelectQuery(query,11);
         int timeOut = 0;
-        while((StringUtils.isEmpty(actual) && timeOut < 20)){
+        while((StringUtils.isEmpty(actual) && timeOut < 10)){
             wait(5000);
-            actual = dbHandler.executeSelectQuery(query,10);
+            actual = dbHandler.executeSelectQuery(query,11);
             timeOut++;
         }
         System.out.println("================GameID: "+gameID+" Actual gameID is: "+actual+"======================");
-        assertEquals(actual,WON_STATUS);
+        if (actual.equals(PLU1)) {
+            assertEquals(actual, PLU1);
+        }else {
+            assertEquals(actual, PLU2);
+        }
     }
     @Test
     public void _002_verifyOnlyLosePercent(){
@@ -100,31 +107,30 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
         wait(10000);
         //finish transaction
         generator.doPostRequest(customer.getEndTransaction());
-        String query = "SELECT [Id],[ChannelId],[SiteId],[ProjectId],[TransactionId],[GameTime],[GameDate],[GameId],[GameType]" +
-                ",[GameStatus] FROM [DW_qa].[dbo].[GameJournal] where GameId='"+gameID+"'";
+        String query = selectQuery+"  where GameId='"+gameID+"'";
         dbHandler = new DBHandler();
-        String actual = dbHandler.executeSelectQuery(query,10);
+        String actual = dbHandler.executeSelectQuery(query,11);
         int timeOut = 0;
-        while((StringUtils.isEmpty(actual) && timeOut < 20)){
+        while((actual != null && timeOut < 10)){
             wait(5000);
-            actual = dbHandler.executeSelectQuery(query,10);
+            actual = dbHandler.executeSelectQuery(query,11);
             timeOut++;
         }
         System.out.println("================GameID: "+gameID+" Actual gameID is: "+actual+"======================");
-        assertEquals(actual,LOSE_STATUS);
+        assertNull(actual);
     }
     @Test
-    public void _003_verifyGamePlayedWithoutListItems(){
-        JSONObject jsonObject = game.createGame("winUPC","028400026864");
-        assertEquals(jsonObject.get("status"),"Success","Failed to create game!");
+    public void _003_verifyGamePlayedWithWinUPC() {
+        JSONObject jsonObject = game.createGame("winUPC", "028400026864");
+        assertEquals(jsonObject.get("status"), "Success", "Failed to create game!");
         gameID = jsonObject.get("id").toString();
         jsonObject = game.createReward(gameID, RewardType.REWARD_CHOICES);
-        assertEquals(jsonObject.get("status"),"Success","Failed to create reward for game!");
+        assertEquals(jsonObject.get("status"), "Success", "Failed to create reward for game!");
         jsonObject = game.createPlacement("placement_targeted_body");
-        assertEquals(jsonObject.get("status"),"Success","Failed to create placement for game!");
+        assertEquals(jsonObject.get("status"), "Success", "Failed to create placement for game!");
         placementID = jsonObject.get("id").toString();
-        jsonObject = game.linkPlacement(gameID,placementID);
-        assertEquals(jsonObject.get("status"),"Success","Failed to link placement for game!");
+        jsonObject = game.linkPlacement(gameID, placementID);
+        assertEquals(jsonObject.get("status"), "Success", "Failed to link placement for game!");
         wait(WAIT);
         //Start transaction
         generator.doPostRequest(customer.getStartTransaction());
@@ -140,18 +146,93 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
         wait(10000);
         //finish transaction
         generator.doPostRequest(customer.getEndTransaction());
-        String query = "SELECT [Id],[ChannelId],[SiteId],[ProjectId],[TransactionId],[GameTime],[GameDate],[GameId],[GameType]" +
-                ",[GameStatus] FROM [DW_qa].[dbo].[GameJournal] where GameId='"+gameID+"'";
+        String query = selectQuery + "  where GameId='" + gameID + "'";
         dbHandler = new DBHandler();
-        String actual = dbHandler.executeSelectQuery(query,10);
+        String actual = dbHandler.executeSelectQuery(query, 11);
         int timeOut = 0;
-        while((StringUtils.isEmpty(actual) && timeOut < 20)){
+        while ((StringUtils.isEmpty(actual) && timeOut < 10)) {
             wait(5000);
-            actual = dbHandler.executeSelectQuery(query,10);
+            actual = dbHandler.executeSelectQuery(query, 11);
             timeOut++;
         }
-        System.out.println("================GameID: "+gameID+" Actual gameID is: "+actual+"======================");
-        assertEquals(actual,WON_STATUS);
+    }
+        @Test
+        public void _004_verifyGamePlayedNoConfirmReward(){
+            JSONObject jsonObject = game.createGame("confirmReward","false");
+            assertEquals(jsonObject.get("status"),"Success","Failed to create game!");
+            gameID = jsonObject.get("id").toString();
+            jsonObject = game.createReward(gameID, RewardType.REWARD_CHOICES);
+            assertEquals(jsonObject.get("status"),"Success","Failed to create reward for game!");
+            jsonObject = game.createPlacement("placement_targeted_body");
+            assertEquals(jsonObject.get("status"),"Success","Failed to create placement for game!");
+            placementID = jsonObject.get("id").toString();
+            jsonObject = game.linkPlacement(gameID,placementID);
+            assertEquals(jsonObject.get("status"),"Success","Failed to link placement for game!");
+            wait(WAIT);
+            //Start transaction
+            generator.doPostRequest(customer.getStartTransaction());
+            wait(2000);
+            //Add item
+            generator.doPostRequest(customer.getAddItem());
+            wait(2000);
+            //click to play game
+            runCmdCommand(game.getPlayGameScript());
+            wait(10000);
+            //finish transaction
+            generator.doPostRequest(customer.getEndTransaction());
+            String query = selectQuery+"  where GameId='"+gameID+"'";
+            dbHandler = new DBHandler();
+            String actual = dbHandler.executeSelectQuery(query,11);
+            int timeOut = 0;
+            while((StringUtils.isEmpty(actual) && timeOut < 10)){
+                wait(5000);
+                actual = dbHandler.executeSelectQuery(query,11);
+                timeOut++;
+            }
+            System.out.println("================Expected item : "+PLU1+" or "+PLU2+" Actual is: "+actual+"======================");
+        if (actual.equals(PLU1)) {
+            assertEquals(actual, PLU1);
+        }else {
+            assertEquals(actual, PLU2);
+        }
+    }
+    @Test
+    public void _006_verifyGamePlayedWithWinUPCNoThanks() {
+        JSONObject jsonObject = game.createGame("winUPC", "028400026864");
+        assertEquals(jsonObject.get("status"), "Success", "Failed to create game!");
+        gameID = jsonObject.get("id").toString();
+        jsonObject = game.createReward(gameID, RewardType.REWARD_CHOICES);
+        assertEquals(jsonObject.get("status"), "Success", "Failed to create reward for game!");
+        jsonObject = game.createPlacement("placement_targeted_body");
+        assertEquals(jsonObject.get("status"), "Success", "Failed to create placement for game!");
+        placementID = jsonObject.get("id").toString();
+        jsonObject = game.linkPlacement(gameID, placementID);
+        assertEquals(jsonObject.get("status"), "Success", "Failed to link placement for game!");
+        wait(WAIT);
+        //Start transaction
+        generator.doPostRequest(customer.getStartTransaction());
+        wait(2000);
+        //Add item
+        generator.doPostRequest(customer.getAddItem());
+        wait(2000);
+        //click to play game
+        runCmdCommand(game.getPlayGameScript());
+        wait(10000);
+        //click to get the reward
+        runCmdCommand(game.getNoThanksBtn());
+        wait(10000);
+        //finish transaction
+        generator.doPostRequest(customer.getEndTransaction());
+        String query = selectQuery + "  where GameId='" + gameID + "'";
+        dbHandler = new DBHandler();
+        String actual = dbHandler.executeSelectQuery(query, 11);
+        int timeOut = 0;
+        while ((StringUtils.isEmpty(actual) && timeOut < 10)) {
+            wait(5000);
+            actual = dbHandler.executeSelectQuery(query, 11);
+            timeOut++;
+        }
+        assertNull(actual);
     }
     @Ignore
     public void _004_verifyRewardMatches(){
@@ -184,18 +265,17 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
         wait(10000);
         //finish transaction
         generator.doPostRequest(customer.getEndTransaction());
-        String query = "SELECT [Id],[ChannelId],[SiteId],[ProjectId],[TransactionId],[GameTime],[GameDate],[GameId],[GameType]" +
-                ",[GameStatus] FROM [DW_qa].[dbo].[GameJournal] where GameId='"+gameID+"'";
+        String query = selectQuery+"  where GameId='"+gameID+"'";
         dbHandler = new DBHandler();
         String actual = dbHandler.executeSelectQuery(query,10);
         int timeOut = 0;
-        while((StringUtils.isEmpty(actual) && timeOut < 20)){
+        while((StringUtils.isEmpty(actual) && timeOut < 10)){
             wait(5000);
             actual = dbHandler.executeSelectQuery(query,10);
             timeOut++;
         }
         System.out.println("================GameID: "+gameID+" Actual gameID is: "+actual+"======================");
-        assertEquals(actual,LOSE_STATUS);
+        assertEquals(actual, PLU1);
     }
     @AfterMethod
     public void afterMethod(){

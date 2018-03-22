@@ -29,6 +29,12 @@ public class Game extends CloudMI {
     private String gameRoute, gameRewardRoute;
     private List<String> gameRewardBodyList;
     private final String url;
+
+    public String getNoThanksBtn() {
+        return noThanksBtn;
+    }
+
+    private String noThanksBtn;
     private RequestUtil requestUtil;
     public Properties getProperties() {
         return properties;
@@ -47,6 +53,7 @@ public class Game extends CloudMI {
         this.gameRewardBodyList.add(properties.getProperty("game_reward_body2"));
         this.playGameScript = properties.getProperty("play_game_script");
         this.getRewardScript = properties.getProperty("get_reward_button");
+        this.noThanksBtn = properties.getProperty("no_thanks");
         url = cloudMIUri+ gameRoute +"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
         requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
     }
@@ -97,12 +104,12 @@ public class Game extends CloudMI {
         }
         return JsonHandler.stringToJson(result);
     }
-    public JSONObject createRewardProps(String gameID, List<String> gameRewardList,String rewardType){
+    public JSONObject createRewardProps(String gameID, List<String> gameRewardList,String rewardType,String subUrl){
         gameRewardBodyList.clear();
         for (String p : gameRewardList){
             gameRewardBodyList.add(properties.getProperty(p));
         }
-        String url = cloudMIUri +"/content/general/reward_choices?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
+        String url = cloudMIUri +"/content/general/"+subUrl+"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
         RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
         String result = "";
         JSONObject jsonObject = null;
