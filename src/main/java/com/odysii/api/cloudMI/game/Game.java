@@ -88,17 +88,17 @@ public class Game extends CloudMI {
         }
         return JsonHandler.stringToJson(result);
     }
-    public JSONObject createReward(String gameID, List<String> gameRewardList,String rewardType){
+    public JSONObject createReward(String parentID, List<String> gameRewardList,String rewardType,String subUrl){
         gameRewardBodyList.clear();
         gameRewardBodyList.addAll(gameRewardList);
-        String url = cloudMIUri+ gameRewardRoute +"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
+        String url = cloudMIUri +"/content/general/"+subUrl+"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
         RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
         String result = "";
         JSONObject jsonObject = null;
         JSONObject jsonObject2 = null;
         for (String optionBody : gameRewardBodyList){
             jsonObject = JsonHandler.stringToJson(optionBody);
-            jsonObject2 = JsonHandler.stringToJson(optionBody).getJSONObject(rewardType).put("parent_id",gameID);
+            jsonObject2 = JsonHandler.stringToJson(optionBody).getJSONObject(rewardType).put("parent_id",parentID);
             jsonObject.put(rewardType,jsonObject2);
             result = requestUtil.postRequest(jsonObject.toString());
         }

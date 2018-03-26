@@ -80,7 +80,7 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
             assertEquals(actual, PLU2);
         }
     }
-    @Test
+    @Ignore
     public void _002_verifyOnlyLosePercent(){
         JSONObject jsonObject = game.createGame("winPercent","0");
         assertEquals(jsonObject.get("status"),"Success","Failed to create game!");
@@ -119,7 +119,7 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
         System.out.println("================GameID: "+gameID+" Actual gameID is: "+actual+"======================");
         assertNull(actual);
     }
-    @Test
+    @Ignore
     public void _003_verifyGamePlayedWithWinUPC() {
         JSONObject jsonObject = game.createGame("winUPC", "028400026864");
         assertEquals(jsonObject.get("status"), "Success", "Failed to create game!");
@@ -156,7 +156,7 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
             timeOut++;
         }
     }
-        @Test
+        @Ignore
         public void _004_verifyGamePlayedNoConfirmReward(){
             JSONObject jsonObject = game.createGame("confirmReward","false");
             assertEquals(jsonObject.get("status"),"Success","Failed to create game!");
@@ -196,8 +196,8 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
             assertEquals(actual, PLU2);
         }
     }
-    @Test
-    public void _006_verifyGamePlayedWithWinUPCNoThanks() {
+    @Ignore
+    public void _005_verifyGamePlayedWithWinUPCNoThanks() {
         JSONObject jsonObject = game.createGame("winUPC", "028400026864");
         assertEquals(jsonObject.get("status"), "Success", "Failed to create game!");
         gameID = jsonObject.get("id").toString();
@@ -234,8 +234,8 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
         }
         assertNull(actual);
     }
-    @Ignore
-    public void _004_verifyRewardMatches(){
+    @Test
+    public void _006_verifyRewardMatches(){
         PropertyLoader loader = new PropertyLoader();
         Properties properties = loader.loadPropFile("rewardChoicesMatches.properties");
         List<String> list = new ArrayList<>();
@@ -243,8 +243,21 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
         JSONObject jsonObject = game.createGame();
         assertEquals(jsonObject.get("status"),"Success","Failed to create game!");
         gameID = jsonObject.get("id").toString();
-        jsonObject = game.createReward(gameID,list,RewardType.REWARD_CHOICES_MATCHES);
+        //Create reward matches
+        jsonObject = game.createReward(gameID,list,RewardType.REWARD_CHOICES_MATCHES,"reward_choices_matches");
         assertEquals(jsonObject.get("status"),"Success","Failed to create reward for game!");
+        String rewardID = jsonObject.get("id").toString();
+        list.clear();
+        list.add(properties.getProperty("reward_group_body"));
+        //Create reward choices group
+        jsonObject = game.createReward(rewardID,list,RewardType.REWARD_CHOICES_GROUPS,"reward_choices_groups");
+        assertEquals(jsonObject.get("status"),"Success","Failed to create group for reward choice!");
+        String rewardGroupID = jsonObject.get("id").toString();
+        //Create reward choices list
+        list.clear();
+        list.add(properties.getProperty("reward_group_list"));
+        jsonObject = game.createReward(rewardGroupID,list,RewardType.REWARD_CHOICES_LIST,"reward_choices_list");
+        assertEquals(jsonObject.get("status"),"Success","Failed to create reward list for group!");
         jsonObject = game.createPlacement("placement_targeted_body");
         assertEquals(jsonObject.get("status"),"Success","Failed to create placement for game!");
         placementID = jsonObject.get("id").toString();
