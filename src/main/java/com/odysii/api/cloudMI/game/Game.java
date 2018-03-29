@@ -35,6 +35,12 @@ public class Game extends CloudMI {
     }
 
     private String noThanksBtn;
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    private String phoneNumber;
     private RequestUtil requestUtil;
     public Properties getProperties() {
         return properties;
@@ -54,6 +60,7 @@ public class Game extends CloudMI {
         this.playGameScript = properties.getProperty("play_game_script");
         this.getRewardScript = properties.getProperty("get_reward_button");
         this.noThanksBtn = properties.getProperty("no_thanks");
+        this.phoneNumber = properties.getProperty("phone_number");
         url = cloudMIUri+ gameRoute +"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
         requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
     }

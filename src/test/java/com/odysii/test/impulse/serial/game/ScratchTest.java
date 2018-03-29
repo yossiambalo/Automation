@@ -6,6 +6,7 @@ import com.odysii.db.DBHandler;
 import com.odysii.general.POSType;
 import com.odysii.test.impulse.helper.ImpulseTestHelper;
 import com.odysii.test.impulse.helper.RewardType;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 import org.testng.annotations.AfterMethod;
@@ -80,7 +81,7 @@ public class ScratchTest extends ImpulseTestHelper {
             assertEquals(actual, PLU2);
         }
     }
-    @Test(priority = 2)
+    @Ignore//(priority = 2)
     public void _002_verifyConfirmRewardOnlyWinPercent(){
         JSONObject jsonObject = game.createGame();
         assertEquals(jsonObject.get("status"),"Success","Failed to create game!");
@@ -126,7 +127,7 @@ public class ScratchTest extends ImpulseTestHelper {
             assertEquals(actual, PLU2);
         }
     }
-    @Test(priority = 3)
+    @Ignore//(priority = 3)
     public void _003_verifyGamePlayedWithWinUPC() {
         JSONObject jsonObject = game.createGame("winUPC", "028400026864");
         assertEquals(jsonObject.get("status"),"Success","Failed to create game!");

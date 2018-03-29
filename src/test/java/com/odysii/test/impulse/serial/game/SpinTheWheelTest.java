@@ -239,7 +239,7 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
         PropertyLoader loader = new PropertyLoader();
         Properties properties = loader.loadPropFile("rewardChoicesMatches.properties");
         List<String> list = new ArrayList<>();
-        list.add(properties.getProperty("game_reward_body"));
+        list.add(properties.getProperty("match_reward_body"));
         JSONObject jsonObject = game.createGame();
         assertEquals(jsonObject.get("status"),"Success","Failed to create game!");
         gameID = jsonObject.get("id").toString();
@@ -247,15 +247,16 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
         jsonObject = game.createReward(gameID,list,RewardType.REWARD_CHOICES_MATCHES,"reward_choices_matches");
         assertEquals(jsonObject.get("status"),"Success","Failed to create reward for game!");
         String rewardID = jsonObject.get("id").toString();
+        //Create reward choices group
         list.clear();
         list.add(properties.getProperty("reward_group_body"));
-        //Create reward choices group
         jsonObject = game.createReward(rewardID,list,RewardType.REWARD_CHOICES_GROUPS,"reward_choices_groups");
         assertEquals(jsonObject.get("status"),"Success","Failed to create group for reward choice!");
         String rewardGroupID = jsonObject.get("id").toString();
         //Create reward choices list
         list.clear();
         list.add(properties.getProperty("reward_group_list"));
+        list.add(properties.getProperty("reward_group_list2"));
         jsonObject = game.createReward(rewardGroupID,list,RewardType.REWARD_CHOICES_LIST,"reward_choices_list");
         assertEquals(jsonObject.get("status"),"Success","Failed to create reward list for group!");
         jsonObject = game.createPlacement("placement_targeted_body");
@@ -276,6 +277,8 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
         //click to get the reward
         runCmdCommand(game.getGetRewardScript());
         wait(10000);
+        runCmdCommand(game.getPhoneNumber());
+        wait(15000);
         //finish transaction
         generator.doPostRequest(customer.getEndTransaction());
         String query = selectQuery+"  where GameId='"+gameID+"'";
