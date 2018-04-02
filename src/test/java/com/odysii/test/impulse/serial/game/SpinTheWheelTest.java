@@ -80,7 +80,7 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
             assertEquals(actual, PLU2);
         }
     }
-    @Ignore
+    @Test
     public void _002_verifyOnlyLosePercent(){
         JSONObject jsonObject = game.createGame("winPercent","0");
         assertEquals(jsonObject.get("status"),"Success","Failed to create game!");
@@ -119,7 +119,7 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
         System.out.println("================GameID: "+gameID+" Actual gameID is: "+actual+"======================");
         assertNull(actual);
     }
-    @Ignore
+    @Test
     public void _003_verifyGamePlayedWithWinUPC() {
         JSONObject jsonObject = game.createGame("winUPC", "028400026864");
         assertEquals(jsonObject.get("status"), "Success", "Failed to create game!");
@@ -156,7 +156,7 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
             timeOut++;
         }
     }
-        @Ignore
+        @Test
         public void _004_verifyGamePlayedNoConfirmReward(){
             JSONObject jsonObject = game.createGame("confirmReward","false");
             assertEquals(jsonObject.get("status"),"Success","Failed to create game!");
@@ -196,7 +196,7 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
             assertEquals(actual, PLU2);
         }
     }
-    @Ignore
+    @Test
     public void _005_verifyGamePlayedWithWinUPCNoThanks() {
         JSONObject jsonObject = game.createGame("winUPC", "028400026864");
         assertEquals(jsonObject.get("status"), "Success", "Failed to create game!");
