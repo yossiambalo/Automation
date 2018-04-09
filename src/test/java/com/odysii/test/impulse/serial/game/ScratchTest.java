@@ -313,7 +313,7 @@ public class ScratchTest extends ImpulseTestHelper {
         }
         assertNull(actual);
     }
-    @Test(priority = 2)
+    @Test(priority = 7)
     public void _007_verifyRewardMatches(){
         PropertyLoader loader = new PropertyLoader();
         Properties properties = loader.loadPropFile("rewardChoicesMatches.properties");
@@ -361,7 +361,7 @@ public class ScratchTest extends ImpulseTestHelper {
         //click to get the reward
         runCmdCommand(game.getGetRewardScript());
         wait(10000);
-        runCmdCommand(game.getPhoneNumber());
+        runCmdCommand(game.getPhoneNumberScript());
         wait(15000);
         //finish transaction
         generator.doPostRequest(customer.getEndTransaction());

@@ -36,7 +36,7 @@ public class Game extends CloudMI {
 
     private String noThanksBtn;
 
-    public String getPhoneNumber() {
+    public String getPhoneNumberScript() {
         return phoneNumber;
     }
 

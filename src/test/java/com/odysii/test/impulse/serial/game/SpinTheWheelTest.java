@@ -7,7 +7,6 @@ import com.odysii.general.POSType;
 import com.odysii.general.PropertyLoader;
 import com.odysii.test.impulse.helper.ImpulseTestHelper;
 import com.odysii.test.impulse.helper.RewardType;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 import org.testng.annotations.AfterMethod;
@@ -277,7 +276,7 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
         //click to get the reward
         runCmdCommand(game.getGetRewardScript());
         wait(10000);
-        runCmdCommand(game.getPhoneNumber());
+        runCmdCommand(game.getPhoneNumberScript());
         wait(15000);
         //finish transaction
         generator.doPostRequest(customer.getEndTransaction());
