@@ -2,7 +2,6 @@ package com.odysii.api.cloudMI.game;
 
 import com.odysii.api.MediaType;
 import com.odysii.api.cloudMI.CloudMI;
-import com.odysii.api.cloudMI.Placement;
 import com.odysii.api.util.RequestUtil;
 import com.odysii.general.JsonHandler;
 import com.odysii.general.PropertyLoader;
@@ -48,7 +47,6 @@ public class Game extends CloudMI {
 
     private Properties properties;
     public Game(String propFile){
-        init();
         PropertyLoader propertyLoader = new PropertyLoader();
         this.properties = propertyLoader.loadPropFile(propFile);
         this.gameRoute = properties.getProperty("gameRoute");
@@ -57,10 +55,17 @@ public class Game extends CloudMI {
         this.gameRewardBodyList = new ArrayList<>();
         this.gameRewardBodyList.add(properties.getProperty("game_reward_body1"));
         this.gameRewardBodyList.add(properties.getProperty("game_reward_body2"));
+        init(gameRoute);
+        /**
+         * ------Start get AutoIt script------
+         */
         this.playGameScript = properties.getProperty("play_game_script");
         this.getRewardScript = properties.getProperty("get_reward_button");
         this.noThanksBtn = properties.getProperty("no_thanks");
         this.phoneNumber = properties.getProperty("phone_number");
+        /**
+         * ------End get AutoIt script------
+         */
         url = cloudMIUri+ gameRoute +"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
         requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
     }
@@ -75,8 +80,8 @@ public class Game extends CloudMI {
         String result = requestUtil.postRequest(jsonObject.toString());
         return JsonHandler.stringToJson(result);
     }
-    public JSONObject deleteGame(String contentID){
-        String url = cloudMIUri+ gameRoute +"/"+contentID+"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
+    public JSONObject deleteGame(String gameID){
+        String url = cloudMIUri+ gameRoute +"/"+gameID+"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
         RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
         String result = requestUtil.deleteRequest();
         return JsonHandler.stringToJson(result);
@@ -129,8 +134,6 @@ public class Game extends CloudMI {
         }
         return JsonHandler.stringToJson(result);
     }
-
-
     /**
      * Add options for survey
      * @param gameID
@@ -150,37 +153,6 @@ public class Game extends CloudMI {
             jsonObject.put("RewardChoices",jsonObject2);
             result = requestUtil.postRequest(jsonObject.toString());
         }
-        return JsonHandler.stringToJson(result);
-    }
-    public JSONObject createPlacement(){
-        Placement placement = new Placement();
-        String url = cloudMIUri+ gameRoute +placement.getCreateRoute() +"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
-        RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
-        String result = requestUtil.postRequest(placement.getBody());
-
-        return JsonHandler.stringToJson(result);
-    }
-    public JSONObject createPlacement(String placementProp){
-        Placement placement = new Placement(placementProp);
-        String url = cloudMIUri+ gameRoute +placement.getCreateRoute() +"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
-        RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
-        String result = requestUtil.postRequest(placement.getBody());
-
-        return JsonHandler.stringToJson(result);
-    }
-    public JSONObject linkPlacement(String contentID,String placementID){
-        Placement placement = new Placement();
-        String url = cloudMIUri+ gameRoute +"/"+contentID+placement.getAddRoute() +"?ProjectId="+projectID+"&placement_id="+placementID+"&UserEmail="+cloudMIUser.getUserEmail();
-        RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_X_URL_ENCODED);
-        StringBuffer result = requestUtil.getRequest();
-
-        return JsonHandler.stringToJson(result.toString());
-    }
-    public JSONObject deletePlacement(String placementID){
-        Placement placement = new Placement();
-        String url = cloudMIUri+ gameRoute +placement.getDeletePlacementRoute() +"?ProjectId="+projectID+"&placement_id="+placementID+"&UserEmail="+cloudMIUser.getUserEmail();
-        RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_X_URL_ENCODED);
-        String result = requestUtil.deleteRequest();
         return JsonHandler.stringToJson(result);
     }
 }

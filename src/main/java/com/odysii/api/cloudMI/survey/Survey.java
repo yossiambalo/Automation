@@ -2,11 +2,9 @@ package com.odysii.api.cloudMI.survey;
 
 import com.odysii.api.MediaType;
 import com.odysii.api.cloudMI.CloudMI;
-import com.odysii.api.cloudMI.Placement;
 import com.odysii.api.util.RequestUtil;
 import com.odysii.general.JsonHandler;
 import com.odysii.general.PropertyLoader;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -26,7 +24,6 @@ public class Survey extends CloudMI {
 
     //const
     public Survey(String propFile){
-        init();
         PropertyLoader propertyLoader = new PropertyLoader();
         this.properties = propertyLoader.loadPropFile(propFile);
         this.surveyRoute = properties.getProperty("surveyRoute");
@@ -35,6 +32,7 @@ public class Survey extends CloudMI {
         this.surveyOptionBodyList = new ArrayList<>();
         this.surveyOptionBodyList.add(properties.getProperty("survey_option_body1"));
         this.surveyOptionBodyList.add(properties.getProperty("survey_option_body2"));
+        init(surveyRoute);
     }
 
     public JSONObject createSurvey(){
@@ -83,38 +81,6 @@ public class Survey extends CloudMI {
             jsonObject.put("survey_option",jsonObject2);
             result = requestUtil.postRequest(jsonObject.toString());
         }
-        return JsonHandler.stringToJson(result);
-    }
-    public JSONObject createPlacement(){
-        Placement placement = new Placement();
-        String url = cloudMIUri+ surveyRoute+placement.getCreateRoute() +"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
-        RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
-        String result = requestUtil.postRequest(placement.getBody());
-
-        return JsonHandler.stringToJson(result);
-    }
-    public JSONObject createPlacement(String placementProp){
-        Placement placement = new Placement(placementProp);
-        String url = cloudMIUri+ surveyRoute+placement.getCreateRoute() +"?ProjectId="+projectID+"&UserEmail="+cloudMIUser.getUserEmail();
-        RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_JSON);
-        String result = requestUtil.postRequest(placement.getBody());
-
-        return JsonHandler.stringToJson(result);
-    }
-    public JSONObject linkPlacement(String surveyID,String placementID){
-        Placement placement = new Placement();
-        String url = cloudMIUri+ surveyRoute+"/"+surveyID+placement.getAddRoute() +"?ProjectId="+projectID+"&placement_id="+placementID+"&UserEmail="+cloudMIUser.getUserEmail();
-        RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_X_URL_ENCODED);
-        StringBuffer result = requestUtil.getRequest();
-
-        return JsonHandler.stringToJson(result.toString());
-    }
-    public JSONObject deletePlacement(String placementID){
-        Placement placement = new Placement();
-        String url = cloudMIUri+ surveyRoute+placement.getDeletePlacementRoute() +"?ProjectId="+projectID+"&placement_id="+placementID+"&UserEmail="+cloudMIUser.getUserEmail();
-        RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_X_URL_ENCODED);
-        String result = requestUtil.deleteRequest();
-
         return JsonHandler.stringToJson(result);
     }
 }
