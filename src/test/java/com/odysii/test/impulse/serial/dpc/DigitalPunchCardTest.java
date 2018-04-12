@@ -23,16 +23,16 @@ public class DigitalPunchCardTest extends ImpulseTestHelper{
         generator = new SerialMessageGenerator(impulseDeliveryStationUrl);
         assertNotEquals(generator.doGetRequest(atbListenerUrl),"Failed","AddToBasket Service Not responding!");
         digitalPunchCard = new DigitalPunchCard("digital_punch_card.properties");
-        JSONObject jsonObject = digitalPunchCard.createDPC();
-        assertEquals(jsonObject.get("status"),"Success","Failed to create game!");
+        JSONObject jsonObject = digitalPunchCard.createDPC("campaign_type","Purchase");
+        assertEquals(jsonObject.get("status"),"Success","Failed to create DPC!");
         dpcID = jsonObject.get("id").toString();
-        jsonObject = digitalPunchCard.createRedemption(dpcID);
-        assertEquals(jsonObject.get("status"),"Success","Failed to create reward for game!");
+//        jsonObject = digitalPunchCard.createRedemption(dpcID);
+//        assertEquals(jsonObject.get("status"),"Success","Failed to create redemption for DPC!");
         jsonObject = digitalPunchCard.createPlacement("placement_targeted_body");
-        assertEquals(jsonObject.get("status"),"Success","Failed to create placement for game!");
+        assertEquals(jsonObject.get("status"),"Success","Failed to create placement for DPC!");
         placementID = jsonObject.get("id").toString();
         jsonObject = digitalPunchCard.linkPlacement(dpcID,placementID);
-        assertEquals(jsonObject.get("status"),"Success","Failed to link placement for game!");
+        assertEquals(jsonObject.get("status"),"Success","Failed to link placement for DPC!");
     }
     @Test
     public void test(){

@@ -74,7 +74,7 @@ public class RequestUtil extends RequestHelper {
             outputStream.flush();
             if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 throw new RuntimeException("Failed to process request : HTTP error code : "
-                        + conn.getResponseCode());
+                        + conn.getResponseMessage());
             }
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String output = "";
