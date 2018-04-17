@@ -13,6 +13,9 @@ public class PassportSerial extends Customer {
         return addItem;
     }
 
+    public String getAddItem(String plu) {
+        return addItem.replace("(12)","("+plu+")");
+    }
     public String getEndTransaction() {
         return endTransaction;
     }

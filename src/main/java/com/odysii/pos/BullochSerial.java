@@ -13,6 +13,11 @@ public class BullochSerial extends Customer {
         return addItem;
     }
 
+    @Override
+    public String getAddItem(String s) {
+        return null;
+    }
+
     public String getEndTransaction() {
         return endTransaction;
     }

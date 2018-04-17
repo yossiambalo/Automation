@@ -72,7 +72,6 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
             actual = dbHandler.executeSelectQuery(query,11);
             timeOut++;
         }
-        System.out.println("================GameID: "+gameID+" Actual gameID is: "+actual+"======================");
         if (actual.equals(PLU1)) {
             assertEquals(actual, PLU1);
         }else {
