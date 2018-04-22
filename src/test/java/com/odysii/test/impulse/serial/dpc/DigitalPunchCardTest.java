@@ -1,13 +1,13 @@
 package com.odysii.test.impulse.serial.dpc;
 
 import com.odysii.api.cloudMI.dpc.DigitalPunchCard;
-import com.odysii.api.pos.MessageGenerator;
 import com.odysii.api.pos.SerialMessageGenerator;
 import com.odysii.db.DBHandler;
 import com.odysii.general.POSType;
 import com.odysii.test.impulse.helper.ImpulseTestHelper;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -25,13 +25,16 @@ public class DigitalPunchCardTest extends ImpulseTestHelper{
     private final String FILL_PHONE_NUM_SCRIPT = "cmd /c start cmd.exe /K \"cd C:\\Program Files\\Odysii && scratch_phone_number.exe\"";
     private String selectQuery = "SELECT [Id],[ProjectId],[Phone],[EventType],[ItemCode],[Quantity],[CampaignId],[CouponId] FROM [DW_qa].[dbo].[LoyaltyJournal]";
     private DBHandler dbHandler;
+    private String campaignID = "628";
+    private final String PLACEMENT_ID = "3000";
 
     @BeforeClass
     public void setUp(){
+        JSONObject jsonObject;
         init(POSType.PASSPORT_SERIAL);
         generator = new SerialMessageGenerator(impulseDeliveryStationUrl);
         assertNotEquals(generator.doGetRequest(atbListenerUrl),"Failed","AddToBasket Service Not responding!");
- //       digitalPunchCard = new DigitalPunchCard("digital_punch_card.properties");
+        digitalPunchCard = new DigitalPunchCard("digital_punch_card.properties");
 //        JSONObject jsonObject = digitalPunchCard.createDPC("campaign_type","Purchase");
 //        assertEquals(jsonObject.get("status"),"Success","Failed to create DPC!");
 //        dpcID = jsonObject.get("id").toString();
@@ -40,12 +43,12 @@ public class DigitalPunchCardTest extends ImpulseTestHelper{
 //        jsonObject = digitalPunchCard.createPlacement("placement_targeted_body");
 //        assertEquals(jsonObject.get("status"),"Success","Failed to create placement for DPC!");
 //        placementID = jsonObject.get("id").toString();
-//        jsonObject = digitalPunchCard.linkPlacement(dpcID,placementID);
-//        assertEquals(jsonObject.get("status"),"Success","Failed to link placement for DPC!");
+        jsonObject = digitalPunchCard.linkPlacement(campaignID,PLACEMENT_ID);
+        assertEquals(jsonObject.get("status"),"Success","Failed to link placement for DPC!");
     }
     @Test
     public void _001_valid_purchase_dpc(){
-        String purchseList = "1030093019";
+        String purchaseList = "1030093019";
         runCmdCommand(RUN_IMPULSE);
         wait(WAIT);
         //Start transaction
@@ -59,11 +62,11 @@ public class DigitalPunchCardTest extends ImpulseTestHelper{
         runCmdCommand(FILL_PHONE_NUM_SCRIPT);
         wait(10000);
         //Add item
-        generator.doPostRequest(customer.getAddItem(purchseList));
+        generator.doPostRequest(customer.getAddItem(purchaseList));
         wait(2000);
-        generator.doPostRequest(customer.getAddItem(purchseList));
+        generator.doPostRequest(customer.getAddItem(purchaseList));
         wait(2000);
-        generator.doPostRequest(customer.getAddItem(purchseList));
+        generator.doPostRequest(customer.getAddItem(purchaseList));
         wait(2000);
         //finish transaction
         generator.doPostRequest(customer.getEndTransaction());
@@ -79,7 +82,7 @@ public class DigitalPunchCardTest extends ImpulseTestHelper{
         runCmdCommand(COFFEE_CLUB_COUPON_BTN);
         wait(10000);
         generator.doPostRequest(customer.getEndTransaction());
-        String query = selectQuery+"  where CampaignId='628'";
+        String query = selectQuery+"  where CampaignId='"+ campaignID +"'";
         dbHandler = new DBHandler();
         String actual = dbHandler.executeSelectQuery(query,7);
         int timeOut = 0;
@@ -88,8 +91,65 @@ public class DigitalPunchCardTest extends ImpulseTestHelper{
             actual = dbHandler.executeSelectQuery(query,7);
             timeOut++;
         }
-        assertEquals(actual, "628");
-        dbHandler.closeConnection();
+        assertEquals(actual, campaignID);
+    }
+    @Test
+    public void _002_valid_spend_dpc(){
+        campaignID = "624";
+        String purchaseList = "1030093019";
+        digitalPunchCard.linkPlacement(campaignID,PLACEMENT_ID);
+        runCmdCommand(RUN_IMPULSE);
+        wait(WAIT);
+        //Start transaction
+        generator.doPostRequest(customer.getStartTransaction());
+        wait(2000);
+        //Add item
+        generator.doPostRequest(customer.getAddItem());
+        wait(2000);
+        runCmdCommand(COFFEE_CLUB_BTN);
+        wait(5000);
+        runCmdCommand(FILL_PHONE_NUM_SCRIPT);
+        wait(10000);
+        //Add item
+        generator.doPostRequest(customer.getAddItem(purchaseList));
+        wait(2000);
+        generator.doPostRequest(customer.getAddItem(purchaseList));
+        wait(2000);
+        generator.doPostRequest(customer.getAddItem(purchaseList));
+        generator.doPostRequest(customer.getTotal());
+        wait(2000);
+        //finish transaction
+        generator.doPostRequest(customer.getEndTransaction());
+        wait(5000);
+        generator.doPostRequest(customer.getStartTransaction());
+        wait(2000);
+        generator.doPostRequest(customer.getAddItem());
+        wait(2000);
+        runCmdCommand(COFFEE_CLUB_BTN);
+        wait(5000);
+        runCmdCommand(FILL_PHONE_NUM_SCRIPT);
+        wait(10000);
+        runCmdCommand(COFFEE_CLUB_COUPON_BTN);
+        wait(10000);
+        generator.doPostRequest(customer.getEndTransaction());
+        String query = selectQuery+"  where CampaignId='"+ campaignID +"'";
+        dbHandler = new DBHandler();
+        String actual = dbHandler.executeSelectQuery(query,7);
+        int timeOut = 0;
+        while((StringUtils.isEmpty(actual) && timeOut < 10)){
+            wait(5000);
+            actual = dbHandler.executeSelectQuery(query,7);
+            timeOut++;
+        }
+        assertEquals(actual, campaignID);
+    }
+    @AfterMethod
+    public void clean(){
+        digitalPunchCard.unlinkPlacement(campaignID, PLACEMENT_ID);
+        if (dbHandler != null) {
+            dbHandler.executeDeleteQuery("delete FROM [DW_qa].[dbo].[LoyaltyJournal] where ProjectId = '2727'");
+            dbHandler.closeConnection();
+        }
     }
 }
 

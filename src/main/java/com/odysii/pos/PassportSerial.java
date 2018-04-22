@@ -21,6 +21,12 @@ public class PassportSerial extends Customer {
     }
     private String startTransaction;
     private String addItem;
+
+    public String getTotal() {
+        return total;
+    }
+
+    private String total;
     private String endTransaction;
 
     @Override
@@ -29,6 +35,7 @@ public class PassportSerial extends Customer {
         Properties properties = loader.loadPropFile("pos_serial.properties");
         this.startTransaction = properties.getProperty("passport_start_transaction");
         this.addItem = properties.getProperty("passport_add_item");
+        this.total = properties.getProperty("passport_total");
         this.endTransaction = properties.getProperty("passport_end_transaction");
     }
 }

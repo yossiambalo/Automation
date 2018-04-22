@@ -22,7 +22,16 @@ public class Placement {
         return deletePlacementRoute;
     }
 
-    private String createRoute,addRoute,body, deletePlacementRoute;
+    private String createRoute;
+    private String addRoute;
+    private String body;
+    private String deletePlacementRoute;
+
+    public String getUnlinkPlacement() {
+        return unlinkPlacement;
+    }
+
+    private String unlinkPlacement;
     private Properties properties;
 
     public Placement(){
@@ -32,6 +41,7 @@ public class Placement {
         this.addRoute = properties.getProperty("link_placement_route");
         this.body = properties.getProperty("placement_body");
         this.deletePlacementRoute = properties.getProperty("delete_placement_route");
+        this.unlinkPlacement = properties.getProperty("unlink_placement_route");
     }
     public Placement(String placementProp){
         this();

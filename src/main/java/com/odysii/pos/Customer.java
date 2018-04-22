@@ -6,5 +6,6 @@ public abstract class Customer {
     public abstract String getAddItem();
     public abstract String getAddItem(String s);
     public abstract String getEndTransaction();
+    public abstract String getTotal();
 
 }

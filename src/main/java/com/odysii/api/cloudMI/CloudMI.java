@@ -47,6 +47,14 @@ public abstract class CloudMI {
 
         return JsonHandler.stringToJson(result.toString());
     }
+    public JSONObject unlinkPlacement(String contentID,String placementID){
+        Placement placement = new Placement();
+        String url = cloudMIUri+ subUrl +"/"+contentID+placement.getUnlinkPlacement() +"?ProjectId="+projectID+"&placement_id="+placementID+"&UserEmail="+cloudMIUser.getUserEmail();
+        RequestUtil requestUtil = new RequestUtil(token,url, MediaType.APPLICATION_X_URL_ENCODED);
+        StringBuffer result = requestUtil.getRequest();
+
+        return JsonHandler.stringToJson(result.toString());
+    }
     public JSONObject deletePlacement(String placementID){
         Placement placement = new Placement();
         String url = cloudMIUri+ subUrl +placement.getDeletePlacementRoute() +"?ProjectId="+projectID+"&placement_id="+placementID+"&UserEmail="+cloudMIUser.getUserEmail();

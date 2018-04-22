@@ -21,6 +21,12 @@ public class BullochSerial extends Customer {
     public String getEndTransaction() {
         return endTransaction;
     }
+
+    @Override
+    public String getTotal() {
+        return null;
+    }
+
     private String startTransaction;
     private String addItem;
     private String endTransaction;
