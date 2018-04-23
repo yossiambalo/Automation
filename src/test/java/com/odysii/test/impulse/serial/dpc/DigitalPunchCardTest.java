@@ -47,7 +47,7 @@ public class DigitalPunchCardTest extends ImpulseTestHelper{
         assertEquals(jsonObject.get("status"),"Success","Failed to link placement for DPC!");
     }
     @Test
-    public void _001_valid_purchase_dpc(){
+    public void _001_valid_purchase_campaign(){
         String purchaseList = "1030093019";
         runCmdCommand(RUN_IMPULSE);
         wait(WAIT);
@@ -94,9 +94,8 @@ public class DigitalPunchCardTest extends ImpulseTestHelper{
         assertEquals(actual, campaignID);
     }
     @Test
-    public void _002_valid_spend_dpc(){
+    public void _002_valid_spent_campaign(){
         campaignID = "624";
-        String purchaseList = "1030093019";
         digitalPunchCard.linkPlacement(campaignID,PLACEMENT_ID);
         runCmdCommand(RUN_IMPULSE);
         wait(WAIT);
@@ -110,12 +109,6 @@ public class DigitalPunchCardTest extends ImpulseTestHelper{
         wait(5000);
         runCmdCommand(FILL_PHONE_NUM_SCRIPT);
         wait(10000);
-        //Add item
-        generator.doPostRequest(customer.getAddItem(purchaseList));
-        wait(2000);
-        generator.doPostRequest(customer.getAddItem(purchaseList));
-        wait(2000);
-        generator.doPostRequest(customer.getAddItem(purchaseList));
         generator.doPostRequest(customer.getTotal());
         wait(2000);
         //finish transaction
@@ -124,6 +117,49 @@ public class DigitalPunchCardTest extends ImpulseTestHelper{
         generator.doPostRequest(customer.getStartTransaction());
         wait(2000);
         generator.doPostRequest(customer.getAddItem());
+        wait(2000);
+        runCmdCommand(COFFEE_CLUB_BTN);
+        wait(5000);
+        runCmdCommand(FILL_PHONE_NUM_SCRIPT);
+        wait(10000);
+        runCmdCommand(COFFEE_CLUB_COUPON_BTN);
+        wait(10000);
+        generator.doPostRequest(customer.getEndTransaction());
+        String query = selectQuery+"  where CampaignId='"+ campaignID +"'";
+        dbHandler = new DBHandler();
+        String actual = dbHandler.executeSelectQuery(query,7);
+        int timeOut = 0;
+        while((StringUtils.isEmpty(actual) && timeOut < 10)){
+            wait(5000);
+            actual = dbHandler.executeSelectQuery(query,7);
+            timeOut++;
+        }
+        assertEquals(actual, campaignID);
+    }
+    @Test
+    public void _003_valid_visit_campaign(){
+        campaignID = "619";
+        digitalPunchCard.linkPlacement(campaignID,PLACEMENT_ID);
+        runCmdCommand(RUN_IMPULSE);
+        wait(WAIT);
+        //Start transaction
+        generator.doPostRequest(customer.getStartTransaction());
+        wait(2000);
+        //Add item
+        generator.doPostRequest(customer.getAddItem());
+        wait(2000);
+        runCmdCommand(COFFEE_CLUB_BTN);
+        wait(5000);
+        runCmdCommand(FILL_PHONE_NUM_SCRIPT);
+        wait(10000);
+        //finish transaction
+        generator.doPostRequest(customer.getEndTransaction());
+        wait(5000);
+        generator.doPostRequest(customer.getStartTransaction());
+        wait(2000);
+        generator.doPostRequest(customer.getAddItem());
+        wait(1000);
+        digitalPunchCard.unlinkPlacement(campaignID, PLACEMENT_ID);
         wait(2000);
         runCmdCommand(COFFEE_CLUB_BTN);
         wait(5000);
