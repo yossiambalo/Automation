@@ -46,18 +46,6 @@ public class FullUpdateTest extends ImpulseTestHelper {
 
     @BeforeClass
     public void setUp(){
-        init(POSType.PASSPORT_SERIAL);
-        runCmdCommand(impulseRunnerScript);
-        wait(TIME_OUT);
-        PropertyLoader propertyLoader = new PropertyLoader();
-        Properties properties = propertyLoader.loadPropFile("price_book.properties");
-        localPath = properties.getProperty("local_pricebook_path");
-        shardPath = properties.getProperty("shard_pricebook_path");
-        boolean flag = FileHandler.copyFile(localPath+"\\backup\\ITTIncCopy.xml",getFile(localPath,ITT_FILE_PERFIX).toString(),true);
-        assertTrue(flag,"Failed to copy file!");
-        flag = FileHandler.copyFile(shardPath+"\\backup\\ITTIncCopy.xml",getFile(shardPath,ITT_FILE_PERFIX).toString(),true);
-        assertTrue(flag,"Failed to copy file!");
-        wait(10000);
         /**
          * WebDriver Start
          */
@@ -76,6 +64,18 @@ public class FullUpdateTest extends ImpulseTestHelper {
         /**
          * WebDriver End
          */
+        init(POSType.PASSPORT_SERIAL);
+        runCmdCommand(impulseRunnerScript);
+        wait(TIME_OUT);
+        PropertyLoader propertyLoader = new PropertyLoader();
+        Properties properties = propertyLoader.loadPropFile("price_book.properties");
+        localPath = properties.getProperty("local_pricebook_path");
+        shardPath = properties.getProperty("shard_pricebook_path");
+        boolean flag = FileHandler.copyFile(localPath+"\\backup\\ITTIncCopy.xml",getFile(localPath,ITT_FILE_PERFIX).toString(),true);
+        assertTrue(flag,"Failed to copy file!");
+        flag = FileHandler.copyFile(shardPath+"\\backup\\ITTIncCopy.xml",getFile(shardPath,ITT_FILE_PERFIX).toString(),true);
+        assertTrue(flag,"Failed to copy file!");
+        wait(10000);
     }
     @AfterClass
     public void tearDown() {
