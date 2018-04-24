@@ -48,7 +48,7 @@ public class DigitalPunchCardTest extends ImpulseTestHelper{
         runCmdCommand(FILL_PHONE_NUM_SCRIPT);
         wait(10000);
         runCmdCommand(COFFEE_CLUB_COUPON_BTN);
-        wait(2000);
+        wait(5000);
         generator.doPostRequest(customer.getEndTransaction());
         digitalPunchCard = new DigitalPunchCard("digital_punch_card.properties");
 //        JSONObject jsonObject = digitalPunchCard.createDPC("campaign_type","Purchase");
