@@ -7,6 +7,7 @@ import com.odysii.general.POSType;
 import com.odysii.test.impulse.helper.ImpulseTestHelper;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -34,6 +35,21 @@ public class DigitalPunchCardTest extends ImpulseTestHelper{
         init(POSType.PASSPORT_SERIAL);
         generator = new SerialMessageGenerator(impulseDeliveryStationUrl);
         assertNotEquals(generator.doGetRequest(atbListenerUrl),"Failed","AddToBasket Service Not responding!");
+        runCmdCommand(RUN_IMPULSE);
+        wait(WAIT);
+        //Start transaction
+        generator.doPostRequest(customer.getStartTransaction());
+        wait(2000);
+        //Add item
+        generator.doPostRequest(customer.getAddItem());
+        wait(2000);
+        runCmdCommand(COFFEE_CLUB_BTN);
+        wait(5000);
+        runCmdCommand(FILL_PHONE_NUM_SCRIPT);
+        wait(10000);
+        runCmdCommand(COFFEE_CLUB_COUPON_BTN);
+        wait(2000);
+        generator.doPostRequest(customer.getEndTransaction());
         digitalPunchCard = new DigitalPunchCard("digital_punch_card.properties");
 //        JSONObject jsonObject = digitalPunchCard.createDPC("campaign_type","Purchase");
 //        assertEquals(jsonObject.get("status"),"Success","Failed to create DPC!");
@@ -182,10 +198,14 @@ public class DigitalPunchCardTest extends ImpulseTestHelper{
     @AfterMethod
     public void clean(){
         digitalPunchCard.unlinkPlacement(campaignID, PLACEMENT_ID);
+    }
+    @AfterClass
+    public void tearDown(){
         if (dbHandler != null) {
             dbHandler.executeDeleteQuery("delete FROM [DW_qa].[dbo].[LoyaltyJournal] where ProjectId = '2727'");
             dbHandler.closeConnection();
         }
+        runCmdCommand(closeImpulseRunnerScript);
     }
 }
 
