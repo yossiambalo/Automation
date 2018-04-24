@@ -4,6 +4,7 @@ import com.odysii.api.cloudMI.survey.Survey;
 import com.odysii.api.cloudMI.survey.SurveyType;
 import com.odysii.api.pos.SerialMessageGenerator;
 import com.odysii.db.DBHandler;
+import com.odysii.test.impulse.serial.survey.helper.SurveyTestBase;
 import org.apache.commons.lang.StringUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
