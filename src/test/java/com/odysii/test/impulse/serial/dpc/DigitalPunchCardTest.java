@@ -24,6 +24,7 @@ public class DigitalPunchCardTest extends ImpulseTestHelper{
     private final String COFFEE_CLUB_BTN = "cmd /c start cmd.exe /K \"cd C:\\Program Files\\Odysii && coffee_club_btn.exe\"";
     private final String COFFEE_CLUB_COUPON_BTN = "cmd /c start cmd.exe /K \"cd C:\\Program Files\\Odysii && coffee_club_coupon_btn.exe\"";
     private final String FILL_PHONE_NUM_SCRIPT = "cmd /c start cmd.exe /K \"cd C:\\Program Files\\Odysii && scratch_phone_number.exe\"";
+    private final String REDMPTION_SCRIPT = "cmd /c start cmd.exe /K \"cd C:\\Program Files\\Odysii && coupon_redemption_btn.exe\"";
     private String selectQuery = "SELECT [Id],[ProjectId],[Phone],[EventType],[ItemCode],[Quantity],[CampaignId],[CouponId] FROM [DW_qa].[dbo].[LoyaltyJournal]";
     private DBHandler dbHandler;
     private String campaignID = "628";
@@ -49,6 +50,8 @@ public class DigitalPunchCardTest extends ImpulseTestHelper{
         wait(10000);
         runCmdCommand(COFFEE_CLUB_COUPON_BTN);
         wait(5000);
+        runCmdCommand(REDMPTION_SCRIPT);
+        wait(7000);
         generator.doPostRequest(customer.getEndTransaction());
         digitalPunchCard = new DigitalPunchCard("digital_punch_card.properties");
 //        JSONObject jsonObject = digitalPunchCard.createDPC("campaign_type","Purchase");
@@ -96,13 +99,15 @@ public class DigitalPunchCardTest extends ImpulseTestHelper{
         runCmdCommand(FILL_PHONE_NUM_SCRIPT);
         wait(10000);
         runCmdCommand(COFFEE_CLUB_COUPON_BTN);
+        wait(5000);
+        runCmdCommand(REDMPTION_SCRIPT);
         wait(10000);
         generator.doPostRequest(customer.getEndTransaction());
         String query = selectQuery+"  where CampaignId='"+ campaignID +"'";
         dbHandler = new DBHandler();
         String actual = dbHandler.executeSelectQuery(query,7);
         int timeOut = 0;
-        while((StringUtils.isEmpty(actual) && timeOut < 10)){
+        while((StringUtils.isEmpty(actual) && timeOut < 12)){
             wait(5000);
             actual = dbHandler.executeSelectQuery(query,7);
             timeOut++;
@@ -139,13 +144,15 @@ public class DigitalPunchCardTest extends ImpulseTestHelper{
         runCmdCommand(FILL_PHONE_NUM_SCRIPT);
         wait(10000);
         runCmdCommand(COFFEE_CLUB_COUPON_BTN);
+        wait(5000);
+        runCmdCommand(REDMPTION_SCRIPT);
         wait(10000);
         generator.doPostRequest(customer.getEndTransaction());
         String query = selectQuery+"  where CampaignId='"+ campaignID +"'";
         dbHandler = new DBHandler();
         String actual = dbHandler.executeSelectQuery(query,7);
         int timeOut = 0;
-        while((StringUtils.isEmpty(actual) && timeOut < 10)){
+        while((StringUtils.isEmpty(actual) && timeOut < 12)){
             wait(5000);
             actual = dbHandler.executeSelectQuery(query,7);
             timeOut++;
@@ -182,13 +189,15 @@ public class DigitalPunchCardTest extends ImpulseTestHelper{
         runCmdCommand(FILL_PHONE_NUM_SCRIPT);
         wait(10000);
         runCmdCommand(COFFEE_CLUB_COUPON_BTN);
+        wait(5000);
+        runCmdCommand(REDMPTION_SCRIPT);
         wait(10000);
         generator.doPostRequest(customer.getEndTransaction());
         String query = selectQuery+"  where CampaignId='"+ campaignID +"'";
         dbHandler = new DBHandler();
         String actual = dbHandler.executeSelectQuery(query,7);
         int timeOut = 0;
-        while((StringUtils.isEmpty(actual) && timeOut < 10)){
+        while((StringUtils.isEmpty(actual) && timeOut < 12)){
             wait(5000);
             actual = dbHandler.executeSelectQuery(query,7);
             timeOut++;

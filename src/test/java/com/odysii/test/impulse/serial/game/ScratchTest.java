@@ -83,7 +83,7 @@ public class ScratchTest extends ImpulseTestHelper {
             assertEquals(actual, PLU2);
         }
     }
-    @Ignore//(priority = 2)
+    @Test(priority = 2)
     public void _002_verifyConfirmRewardOnlyWinPercent(){
         JSONObject jsonObject = game.createGame();
         assertEquals(jsonObject.get("status"),"Success","Failed to create game!");
@@ -129,7 +129,7 @@ public class ScratchTest extends ImpulseTestHelper {
             assertEquals(actual, PLU2);
         }
     }
-    @Ignore//(priority = 3)
+    @Test(priority = 3)
     public void _003_verifyGamePlayedWithWinUPC() {
         JSONObject jsonObject = game.createGame("winUPC", "028400026864");
         assertEquals(jsonObject.get("status"),"Success","Failed to create game!");
@@ -174,7 +174,7 @@ public class ScratchTest extends ImpulseTestHelper {
             timeOut++;
         }
     }
-    @Ignore//(priority = 4)
+    @Test(priority = 4)
     public void _004_verifyGamePlayedNoConfirmReward(){
         JSONObject jsonObject = game.createGame("confirmReward","false");
         assertEquals(jsonObject.get("status"),"Success","Failed to create game!");
@@ -222,7 +222,7 @@ public class ScratchTest extends ImpulseTestHelper {
             assertEquals(actual, PLU2);
         }
     }
-    @Ignore//(priority = 5)
+    @Test(priority = 5)
     public void _005_verifyConfirmRewardOnlyWinPercentNoThanks(){
         JSONObject jsonObject = game.createGame();
         assertEquals(jsonObject.get("status"),"Success","Failed to create game!");
@@ -267,7 +267,7 @@ public class ScratchTest extends ImpulseTestHelper {
         }
         assertNull(actual);
     }
-    @Ignore//(priority = 6)
+    @Test(priority = 6)
     public void _006_verifyGamePlayedWithWinUPCNoThanks() {
         JSONObject jsonObject = game.createGame("winUPC", "028400026864");
         assertEquals(jsonObject.get("status"),"Success","Failed to create game!");
@@ -313,7 +313,7 @@ public class ScratchTest extends ImpulseTestHelper {
         }
         assertNull(actual);
     }
-    @Test(priority = 7)
+    //@Test(priority = 7)
     public void _007_verifyRewardMatches(){
         PropertyLoader loader = new PropertyLoader();
         Properties properties = loader.loadPropFile("rewardChoicesMatches.properties");
