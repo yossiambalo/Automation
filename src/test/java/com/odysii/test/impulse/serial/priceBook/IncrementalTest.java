@@ -20,7 +20,7 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-import static com.odysii.general.fileUtil.FileHandler.getFile;
+import static com.odysii.general.fileUtil.FileHandler.getFileByType;
 import static com.odysii.general.fileUtil.FileHandler.getFileName;
 import static org.testng.Assert.*;
 
@@ -69,9 +69,11 @@ public class IncrementalTest extends ImpulseTestHelper{
         Properties properties = propertyLoader.loadPropFile("price_book.properties");
         localPath = properties.getProperty("local_pricebook_path");
         shardPath = properties.getProperty("shard_pricebook_path");
-        boolean flag = FileHandler.copyFile(localPath+"\\backup\\ITTIncCopy.xml",getFile(localPath,ITT_FILE_PERFIX).toString(),true);
+        //FileHandler.deleteFile(shardPath);
+        //FileHandler.copyDir(System.getProperty("sourceDir"),shardPath);
+        boolean flag = FileHandler.copyFile(localPath+"\\backup\\ITTIncCopy.xml", getFileByType(localPath,ITT_FILE_PERFIX).toString(),true);
         assertTrue(flag,"Failed to copy file!");
-        flag = FileHandler.copyFile(shardPath+"\\backup\\ITTIncCopy.xml",getFile(shardPath,ITT_FILE_PERFIX).toString(),true);
+        flag = FileHandler.copyFile(shardPath+"\\backup\\ITTIncCopy.xml", getFileByType(shardPath,ITT_FILE_PERFIX).toString(),true);
         assertTrue(flag,"Failed to copy file!");
         wait(10000);
     }
@@ -144,14 +146,14 @@ public class IncrementalTest extends ImpulseTestHelper{
     public void _004_validFileWithInvalidNamesNotAddedToLocalWhileImpulseInit(){
         runCmdCommand(closeImpulseRunnerScript);
         String newFileName = "";
-        File file = getFile(shardPath,ILT_FILE_PERFIX);
+        File file = getFileByType(shardPath,ILT_FILE_PERFIX);
         assertNotNull(file,"File not found in: "+shardPath);
         newFileName = shardPath+"\\YOS36020170313153531.xml";
         FileHandler.renameFile(file,newFileName);
         wait(1000);
         runCmdCommand(impulseRunnerScript);
         wait(10000);
-        File localFile = getFile(localPath,"YOS");
+        File localFile = getFileByType(localPath,"YOS");
         FileHandler.renameFile(new File(newFileName),file.toString());
         assertNull(localFile,"Invalid File found in: "+localPath);
     }
@@ -160,17 +162,17 @@ public class IncrementalTest extends ImpulseTestHelper{
         wait(5000);
         runCmdCommand(closeImpulseRunnerScript);
         String newFileName = "";
-        File file = getFile(shardPath,ILT_FILE_PERFIX);
+        File file = getFileByType(shardPath,ILT_FILE_PERFIX);
         assertNotNull(file,"File not found in: "+shardPath);
         String[] arr = file.toString().split("\\.");
         newFileName = arr[0]+".txt";
         FileHandler.renameFile(file,newFileName);
-        File file2 = getFile(localPath,ILT_FILE_PERFIX);
+        File file2 = getFileByType(localPath,ILT_FILE_PERFIX);
         FileHandler.deleteFile(file2.toString());
         wait(1000);
         runCmdCommand(impulseRunnerScript);
         wait(10000);
-        File localFile = getFile(localPath,newFileName.split("\\\\")[2]);
+        File localFile = getFileByType(localPath,newFileName.split("\\\\")[2]);
         FileHandler.renameFile(new File(newFileName),file.toString());
         assertNull(localFile,"Invalid File found in: "+localPath);
     }
@@ -182,7 +184,7 @@ public class IncrementalTest extends ImpulseTestHelper{
     @Test(dependsOnMethods = {"_005_validFileWithFormatNotAddedToLocalWhileImpulseInit"},priority = 6)
     public void _006_validLocalSyncMultipleUpdatedOfSharedFilesWhileImpulseRunning(){
 
-        File file = getFile(shardPath,ITT_FILE_PERFIX);
+        File file = getFileByType(shardPath,ITT_FILE_PERFIX);
         String fileStr = getFileName(file.toString());
         String[]arr = fileStr.split(ITT_FILE_PERFIX);
         long copy1,copy2;
@@ -195,7 +197,7 @@ public class IncrementalTest extends ImpulseTestHelper{
         FileHandler.copyFile(shardPath+"\\backup\\item1.xml",newFile1,true);
         FileHandler.copyFile(shardPath+"\\backup\\item2.xml",newFile2,true);
         wait(20000);
-        int size = XmlManager.getSizeOfNode(getFile(localPath,ITT_FILE_PERFIX),"ITTDetail");
+        int size = XmlManager.getSizeOfNode(getFileByType(localPath,ITT_FILE_PERFIX),"ITTDetail");
         FileHandler.deleteFile(newFile1);
         FileHandler.deleteFile(file.toString());
         assertEquals(size,3,"Update multiple files in shared of same type(ITT) wasn't synchronized in local!");
@@ -208,10 +210,10 @@ public class IncrementalTest extends ImpulseTestHelper{
     public void _007_validLocalUpdatedTheLatestSharedFilesWhileImpulseInit(){
 
         runCmdCommand(closeImpulseRunnerScript);
-        boolean flag = FileHandler.copyFile(localPath+"\\backup\\ITTIncCopy.xml",getFile(localPath,ITT_FILE_PERFIX).toString(),true);
+        boolean flag = FileHandler.copyFile(localPath+"\\backup\\ITTIncCopy.xml", getFileByType(localPath,ITT_FILE_PERFIX).toString(),true);
         assertTrue(flag,"Failed to copy file!");
         wait(2000);
-        File file = getFile(shardPath,ITT_FILE_PERFIX);
+        File file = getFileByType(shardPath,ITT_FILE_PERFIX);
         String fileStr = getFileName(file.toString());
         String[]arr = fileStr.split(ITT_FILE_PERFIX);
         long copy1,copy2;
@@ -225,54 +227,55 @@ public class IncrementalTest extends ImpulseTestHelper{
         FileHandler.copyFile(shardPath+"\\backup\\item2.xml",newFile2,true);
         runCmdCommand(impulseRunnerScript);
         wait(15000);
-        int size = XmlManager.getSizeOfNode(getFile(localPath,ITT_FILE_PERFIX),"ITTDetail");
+        int size = XmlManager.getSizeOfNode(getFileByType(localPath,ITT_FILE_PERFIX),"ITTDetail");
         FileHandler.deleteFile(newFile1);
         FileHandler.deleteFile(file.toString());
         assertEquals(size,3,"Update latest file of shared wasn't synchronized in local!");
     }
     @Test(priority =8)
     public void _008_validAllFileOfSharedUpdatedWhenTableActionSetToInit(){
-        File file = getFile(shardPath,ITT_FILE_PERFIX);
+        File file = getFileByType(shardPath,ITT_FILE_PERFIX);
         runCmdCommand(impulseRunnerScript);
         wait(2000);
+        int expected = XmlManager.getSizeOfNode(getFileByType(shardPath+"\\backup","ITTAll"),"ITTDetail");
         FileHandler.copyFile(shardPath+"\\backup\\ITTAll.xml",file.toString(),true);
         String fileStr = getFileName(file.toString());
         String[]arr = fileStr.split(ITT_FILE_PERFIX);
         long copy1 = Long.parseLong(arr[1])+2;
         FileHandler.renameFile(file,shardPath+"\\ITT"+copy1+".xml");
         wait(20000);
-        int size = XmlManager.getSizeOfNode(getFile(localPath,ITT_FILE_PERFIX),"ITTDetail");
-        assertEquals(size,199);
+        int actual = XmlManager.getSizeOfNode(getFileByType(localPath,ITT_FILE_PERFIX),"ITTDetail");
+        assertEquals(expected,actual);
     }
     @Test(priority = 9)
     public void _009_validLocalDeletedFileItRetakingWhileImpulseRunning(){
-        File file = getFile(localPath,ITT_FILE_PERFIX);
+        File file = getFileByType(localPath,ITT_FILE_PERFIX);
         boolean res = FileHandler.deleteFile(file.toString());
         assertTrue(res,"Failed to delete file!");
         wait(20000);
-        file = getFile(localPath,ITT_FILE_PERFIX);
+        file = getFileByType(localPath,ITT_FILE_PERFIX);
         assertNotNull(file,"Failed to retaking file from shared!");
     }
     @Test(priority = 10)
     public void _010_validItemNotDuplicatedInLocal(){
-        boolean flag = FileHandler.copyFile(localPath+"\\backup\\ITTIncCopy.xml",getFile(localPath,ITT_FILE_PERFIX).toString(),true);
+        boolean flag = FileHandler.copyFile(localPath+"\\backup\\ITTIncCopy.xml", getFileByType(localPath,ITT_FILE_PERFIX).toString(),true);
         assertTrue(flag,"Failed to copy file!");
-        flag = FileHandler.copyFile(shardPath+"\\backup\\ITTIncCopy.xml",getFile(shardPath,ITT_FILE_PERFIX).toString(),true);
+        flag = FileHandler.copyFile(shardPath+"\\backup\\ITTIncCopy.xml", getFileByType(shardPath,ITT_FILE_PERFIX).toString(),true);
         assertTrue(flag,"Failed to copy file!");
-        flag = FileHandler.copyFile(shardPath+"\\backup\\ITTIncDuplicate.xml",getFile(shardPath,ITT_FILE_PERFIX).toString(),true);
+        flag = FileHandler.copyFile(shardPath+"\\backup\\ITTIncDuplicate.xml", getFileByType(shardPath,ITT_FILE_PERFIX).toString(),true);
         assertTrue(flag,"Failed to copy file!");
-        File file = getFile(shardPath,ITT_FILE_PERFIX);
+        File file = getFileByType(shardPath,ITT_FILE_PERFIX);
         String fileStr = getFileName(file.toString());
         String[]arr = fileStr.split(ITT_FILE_PERFIX);
         long copy1 = Long.parseLong(arr[1])+2;
         FileHandler.renameFile(file,shardPath+"\\ITT"+copy1+".xml");
         wait(20000);
-        int size = XmlManager.getSizeOfNode(getFile(localPath,ITT_FILE_PERFIX),"ITTDetail");
+        int size = XmlManager.getSizeOfNode(getFileByType(localPath,ITT_FILE_PERFIX),"ITTDetail");
         assertEquals(size,1);
     }
     @Test(priority = 11)
     public void _011_validItemDeletedInLocalWhenRecordActionDelete(){
-        File file = getFile(shardPath,ILT_FILE_PERFIX);
+        File file = getFileByType(shardPath,ILT_FILE_PERFIX);
         //Expected size
         int originalSize = XmlManager.getSizeOfNode(file,"ILTDetail");
         boolean flag = XmlManager.replaceNodeAttribute(file,"RecordAction",1,"type","delete");
@@ -283,7 +286,7 @@ public class IncrementalTest extends ImpulseTestHelper{
         String newFileName = shardPath+"\\ILT"+copy1+".xml";
         FileHandler.renameFile(file,newFileName);
         wait(20000);
-        int actualSize = XmlManager.getSizeOfNode(getFile(localPath,ILT_FILE_PERFIX),"ILTDetail");
+        int actualSize = XmlManager.getSizeOfNode(getFileByType(localPath,ILT_FILE_PERFIX),"ILTDetail");
         //Return the original value of node attribute
         flag = XmlManager.replaceNodeAttribute(new File(newFileName),"RecordAction",1,"type","addchange");
         assertTrue(flag,"Failed to set node attribute to addchange!");
@@ -291,7 +294,7 @@ public class IncrementalTest extends ImpulseTestHelper{
     }
     @Test(priority = 12)
     public void _012_validItemWithoutRecordActionAddedToLocal() {
-        File file = getFile(shardPath,ITT_FILE_PERFIX);
+        File file = getFileByType(shardPath,ITT_FILE_PERFIX);
         boolean flag = FileHandler.copyFile(shardPath+"\\backup\\twoItems.xml",file.toString(),true);
         assertTrue(flag,"Failed to copy file!");
         int originalSize = XmlManager.getSizeOfNode(file,"RecordAction");
@@ -302,7 +305,7 @@ public class IncrementalTest extends ImpulseTestHelper{
         String newFileName = shardPath+"\\ITT"+copy1+".xml";
         FileHandler.renameFile(file,newFileName);
         wait(20000);
-        file = getFile(localPath,ITT_FILE_PERFIX);
+        file = getFileByType(localPath,ITT_FILE_PERFIX);
         int actualSize = XmlManager.getSizeOfNode(file,"RecordAction");
         assertEquals(actualSize,originalSize);
 
@@ -313,36 +316,36 @@ public class IncrementalTest extends ImpulseTestHelper{
      */
     @Test(priority = 13)
     public void _013_validSameItemWithDifferentSellingUnitNotOverridden() {
-        File file = getFile(localPath,ITT_FILE_PERFIX);
+        File file = getFileByType(localPath,ITT_FILE_PERFIX);
         boolean flag = FileHandler.copyFile(shardPath+"\\backup\\item2.xml",file.toString(),true);
         assertTrue(flag, "Failed to copy file!");
-        file = getFile(shardPath,ITT_FILE_PERFIX);
-        flag = FileHandler.copyFile(shardPath+"\\backup\\same_item_diff_unit.xml",file.toString(),true);
+        file = getFileByType(shardPath,ITT_FILE_PERFIX);
+        flag = FileHandler.copyFile(shardPath+"\\backup\\same_item_diff_desc.xml",file.toString(),true);
         assertTrue(flag);
         String fileName = getFileName(file.toString());
         String[]arr = fileName.split(ITT_FILE_PERFIX);
         String newFileName = shardPath+"\\ITT"+Long.parseLong(arr[1])+2+".xml";
         FileHandler.renameFile(file,newFileName);
         wait(1000);
-        int originalSize = XmlManager.getSizeOfNode(new File(newFileName),"ITTDetail");
+        int expected = XmlManager.getSizeOfNode(new File(newFileName),"ITTDetail");
         wait(20000);
-        file = getFile(localPath,ITT_FILE_PERFIX);
-        int actualSize = XmlManager.getSizeOfNode(file,"ITTDetail");
-        assertEquals(actualSize,originalSize);
+        file = getFileByType(localPath,ITT_FILE_PERFIX);
+        int actual = XmlManager.getSizeOfNode(file,"ITTDetail");
+        assertEquals(expected,actual);
     }
     @Test(priority = 14)
     public void _014_validITTFileWithUnderScoreUpdatedToLocal(){
         //delete file from local
-        boolean res = FileHandler.deleteFile(getFile(localPath,ITT_FILE_PERFIX).toString());
+        boolean res = FileHandler.deleteFile(getFileByType(localPath,ITT_FILE_PERFIX).toString());
         assertTrue(res,"Failed to delete file!");
         //get ITT  file from shared
-        File file = getFile(shardPath,ITT_FILE_PERFIX);
+        File file = getFileByType(shardPath,ITT_FILE_PERFIX);
         assertNotNull(file,"File not found!");
         FileHandler.renameFile(file,shardPath+"\\ITT_360217.xml");
         wait(TIME_OUT);
         //Check file updated to local with underscore
-        String expectedFileName = getFileName(getFile(shardPath,ITT_FILE_PERFIX).toString());
-        String actualFileName = getFileName(getFile(localPath,ITT_FILE_PERFIX).toString());
+        String expectedFileName = getFileName(getFileByType(shardPath,ITT_FILE_PERFIX).toString());
+        String actualFileName = getFileName(getFileByType(localPath,ITT_FILE_PERFIX).toString());
         FileHandler.renameFile(new File(shardPath+"\\ITT_360217.xml"),file.toString());
         assertEquals(actualFileName,expectedFileName);
     }
@@ -351,14 +354,14 @@ public class IncrementalTest extends ImpulseTestHelper{
          runCmdCommand(closeImpulseRunnerScript);
          wait(1000);
          //delete file from local
-         boolean res = FileHandler.deleteFile(getFile(localPath,ITT_FILE_PERFIX).toString());
+         boolean res = FileHandler.deleteFile(getFileByType(localPath,ITT_FILE_PERFIX).toString());
          assertTrue(res,"Failed to delete file!");
-         boolean flag = FileHandler.copyFile(shardPath+"\\backup\\delete_items.xml",getFile(shardPath,ITT_FILE_PERFIX).toString(),true);
+         boolean flag = FileHandler.copyFile(shardPath+"\\backup\\delete_items.xml", getFileByType(shardPath,ITT_FILE_PERFIX).toString(),true);
          assertTrue(flag,"Failed to delete file!");
-         int originalSize = XmlManager.getSizeOfNode(getFile(shardPath,ITT_FILE_PERFIX),"ITTDetail");
+         int originalSize = XmlManager.getSizeOfNode(getFileByType(shardPath,ITT_FILE_PERFIX),"ITTDetail");
          runCmdCommand(impulseRunnerScript);
          wait(TIME_OUT);
-         int actualSize = XmlManager.getSizeOfNode(getFile(localPath,ITT_FILE_PERFIX),"ITTDetail");
+         int actualSize = XmlManager.getSizeOfNode(getFileByType(localPath,ITT_FILE_PERFIX),"ITTDetail");
          assertEquals(actualSize,originalSize -1,"Item type delete should not add to local!");
     }
     @AfterTest

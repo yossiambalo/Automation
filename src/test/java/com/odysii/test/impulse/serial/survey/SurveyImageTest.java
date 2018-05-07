@@ -299,8 +299,10 @@ public class SurveyImageTest extends SurveyTestBase {
         assertEquals(actual,surveyOptionID);
     }
     @Test
-    //Survey is image type and following option will be without image
-    //and options should not be display
+    /**
+     Survey is image type and following option will be without image
+     and options should not be display
+     */
     public void _009_validAnswerNumber9ShouldNotBeDisplayed(){
 
         List<String> options = new ArrayList<>();

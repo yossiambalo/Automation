@@ -22,7 +22,7 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-import static com.odysii.general.fileUtil.FileHandler.getFile;
+import static com.odysii.general.fileUtil.FileHandler.getFileByType;
 import static com.odysii.general.fileUtil.FileHandler.getFileName;
 import static org.testng.Assert.*;
 import static org.testng.AssertJUnit.assertEquals;
@@ -71,9 +71,9 @@ public class FullUpdateTest extends ImpulseTestHelper {
         Properties properties = propertyLoader.loadPropFile("price_book.properties");
         localPath = properties.getProperty("local_pricebook_path");
         shardPath = properties.getProperty("shard_pricebook_path");
-        boolean flag = FileHandler.copyFile(localPath+"\\backup\\ITTIncCopy.xml",getFile(localPath,ITT_FILE_PERFIX).toString(),true);
+        boolean flag = FileHandler.copyFile(localPath+"\\backup\\ITTIncCopy.xml", getFileByType(localPath,ITT_FILE_PERFIX).toString(),true);
         assertTrue(flag,"Failed to copy file!");
-        flag = FileHandler.copyFile(shardPath+"\\backup\\ITTIncCopy.xml",getFile(shardPath,ITT_FILE_PERFIX).toString(),true);
+        flag = FileHandler.copyFile(shardPath+"\\backup\\ITTIncCopy.xml", getFileByType(shardPath,ITT_FILE_PERFIX).toString(),true);
         assertTrue(flag,"Failed to copy file!");
         wait(10000);
     }
@@ -84,23 +84,23 @@ public class FullUpdateTest extends ImpulseTestHelper {
 
     @Test(priority = 16)
     public void _001_validLocalDeletedFileItRetakingWhileImpulseRunning(){
-        File file = getFile(localPath,ITT_FILE_PERFIX);
+        File file = getFileByType(localPath,ITT_FILE_PERFIX);
         boolean res = FileHandler.deleteFile(file.toString());
         assertTrue(res,"Failed to delete file!");
         wait(TIME_OUT+5000);
-        file = getFile(localPath,ITT_FILE_PERFIX);
+        file = getFileByType(localPath,ITT_FILE_PERFIX);
         assertNotNull(file,"Failed to retaking file from shared!");
     }
     @Test(priority = 17)
     public void _002_validLocalFileUpdateWhileImpulseRunning(){
-        File sharedFile = getFile(shardPath,ITT_FILE_PERFIX);
+        File sharedFile = getFileByType(shardPath,ITT_FILE_PERFIX);
         String fileName = getFileName(sharedFile.toString());
         String[]arr1 = fileName.split(ITT_FILE_PERFIX);
         long changeFileName = Long.parseLong(arr1[1])+2;
         String newFileName = shardPath+"\\ITT"+changeFileName+".xml";
         FileHandler.renameFile(sharedFile,newFileName);
         wait(20000);
-        File localdFile = getFile(localPath,ITT_FILE_PERFIX);
+        File localdFile = getFileByType(localPath,ITT_FILE_PERFIX);
         String fileName2 = getFileName(localdFile.toString());
         String[]arr2 = fileName2.split(ITT_FILE_PERFIX);
         assertEquals(changeFileName,Long.parseLong(arr2[1]));
@@ -109,13 +109,13 @@ public class FullUpdateTest extends ImpulseTestHelper {
     public void _003_validLocalDeletedFileUpdateWhileImpulseInit(){
         runCmdCommand(closeImpulseRunnerScript);
         wait(2000);
-        File deleteFile = getFile(localPath,ITT_FILE_PERFIX);
+        File deleteFile = getFileByType(localPath,ITT_FILE_PERFIX);
         Boolean res = FileHandler.deleteFile(deleteFile.toString());
         assertTrue(res,"Failed to delete file!");
-        String originalFile = getFileName(getFile(shardPath,ITT_FILE_PERFIX).toString());
+        String originalFile = getFileName(getFileByType(shardPath,ITT_FILE_PERFIX).toString());
         runCmdCommand(impulseRunnerScript);
         wait(TIME_OUT);
-        String actualFile = getFileName(getFile(localPath,ITT_FILE_PERFIX).toString());
+        String actualFile = getFileName(getFileByType(localPath,ITT_FILE_PERFIX).toString());
         assertEquals(actualFile,originalFile);
     }
     @Test(priority = 19)
@@ -123,17 +123,17 @@ public class FullUpdateTest extends ImpulseTestHelper {
         wait(5000);
         runCmdCommand(closeImpulseRunnerScript);
         String newFileName = "";
-        File file = getFile(shardPath,ILT_FILE_PERFIX);
+        File file = getFileByType(shardPath,ILT_FILE_PERFIX);
         assertNotNull(file,"File not found in: "+shardPath);
         String[] arr = file.toString().split("\\.");
         newFileName = arr[0]+".txt";
         FileHandler.renameFile(file,newFileName);
-        File file2 = getFile(localPath,ILT_FILE_PERFIX);
+        File file2 = getFileByType(localPath,ILT_FILE_PERFIX);
         FileHandler.deleteFile(file2.toString());
         wait(3000);
         runCmdCommand(impulseRunnerScript);
         wait(TIME_OUT);
-        File localFile = getFile(localPath,newFileName.split("\\\\")[2]);
+        File localFile = getFileByType(localPath,newFileName.split("\\\\")[2]);
         FileHandler.renameFile(new File(newFileName),file.toString());
         assertNull(localFile,"Invalid File found in: "+localPath);
     }
@@ -191,16 +191,16 @@ public class FullUpdateTest extends ImpulseTestHelper {
     @Test(priority = 21)
     public void _007_validITTFileWithUnderScoreUpdatedToLocal(){
         //delete file from local
-        boolean res = FileHandler.deleteFile(getFile(localPath,ITT_FILE_PERFIX).toString());
+        boolean res = FileHandler.deleteFile(getFileByType(localPath,ITT_FILE_PERFIX).toString());
         assertTrue(res,"Failed to delete file!");
         //get ITT  file from shared
-        File file = getFile(shardPath,ITT_FILE_PERFIX);
+        File file = getFileByType(shardPath,ITT_FILE_PERFIX);
         assertNotNull(file,"File not found!");
         FileHandler.renameFile(file,shardPath+"\\ITT_360217.xml");
         wait(TIME_OUT+5000);
         //Check file updated to local with underscore
-        String expectedFileName = getFileName(getFile(shardPath,ITT_FILE_PERFIX).toString());
-        String actualFileName = getFileName(getFile(localPath,ITT_FILE_PERFIX).toString());
+        String expectedFileName = getFileName(getFileByType(shardPath,ITT_FILE_PERFIX).toString());
+        String actualFileName = getFileName(getFileByType(localPath,ITT_FILE_PERFIX).toString());
         FileHandler.renameFile(new File(shardPath+"\\ITT_360217.xml"),file.toString());
         assertEquals(actualFileName,expectedFileName);
     }
@@ -210,30 +210,30 @@ public class FullUpdateTest extends ImpulseTestHelper {
     @Test(priority = 22)
     public void _008_validFileWithInvalidNamesNotAddedToLocalWhileImpulseInit(){
         String newFileName = "";
-        File file = getFile(shardPath,ILT_FILE_PERFIX);
+        File file = getFileByType(shardPath,ILT_FILE_PERFIX);
         assertNotNull(file,"File not found in: "+shardPath);
         newFileName = shardPath+"\\YOS36020170313153531.xml";
         FileHandler.renameFile(file,newFileName);
         wait(1000);
         runCmdCommand(impulseRunnerScript);
         wait(10000);
-        File localFile = getFile(localPath,"YOS");
+        File localFile = getFileByType(localPath,"YOS");
         FileHandler.renameFile(new File(newFileName),file.toString());
         assertNull(localFile,"Invalid File found in: "+localPath);
     }
     @Test(priority = 23)
     public void _009_validITTLocalFileNotUpdatedTimestampNotChanged(){
         wait(5000);
-        boolean flag = FileHandler.copyFile(shardPath+"\\backup\\ITTIncCopy.xml",getFile(shardPath,ITT_FILE_PERFIX).toString(),true);
+        boolean flag = FileHandler.copyFile(shardPath+"\\backup\\ITTIncCopy.xml", getFileByType(shardPath,ITT_FILE_PERFIX).toString(),true);
         assertTrue(flag,"Failed to copy file!");
         Random rand = new Random();
         int  n = rand.nextInt(20000) + 100;
         System.out.println("Random Number: "+n);
         String ittItemListIDValue = String.valueOf(n);
-        File file = getFile(shardPath,ITT_FILE_PERFIX);
+        File file = getFileByType(shardPath,ITT_FILE_PERFIX);
         XmlManager.updateNodeContent(file,SIBLING_NODE,UPDATE_NODE,ittItemListIDValue);
         wait(TIME_OUT+2000);
-        String res = XmlManager.getValueOfLastNode(getFile(localPath,ITT_FILE_PERFIX),ROOT_NODE,CHILD_NODE, SIBLING_NODE,UPDATE_NODE);
+        String res = XmlManager.getValueOfLastNode(getFileByType(localPath,ITT_FILE_PERFIX),ROOT_NODE,CHILD_NODE, SIBLING_NODE,UPDATE_NODE);
         assertNotEquals(res,ittItemListIDValue);
     }
 }

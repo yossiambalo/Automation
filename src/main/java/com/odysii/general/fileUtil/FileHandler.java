@@ -1,5 +1,7 @@
 package com.odysii.general.fileUtil;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -142,7 +144,7 @@ public class FileHandler {
             System.out.println(e.getMessage());
         }
     }
-    public static File getFile(String folder,String type){
+    public static File getFileByType(String folder, String type){
         File resFile = null;
         File[]files = FileHandler.getFilesOfFolder(folder);
         for (File file : files) {
@@ -159,5 +161,27 @@ public class FileHandler {
         int index = arr.length -1;
         String[]arr2 = arr[index].split("\\.");
         return  arr2[0];
+    }
+    public static void copyDir(String source,String destination){
+        //String source = "C:/your/source";
+        File srcDir = new File(source);
+
+        //String destination = "C:/your/destination";
+        File destDir = new File(destination);
+
+        try {
+            FileUtils.copyDirectory(srcDir, destDir);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void deleteDir(String dir){
+        //String source = "C:/your/source";
+        File fileDir = new File(dir);
+        try {
+            FileUtils.deleteDirectory(fileDir);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
