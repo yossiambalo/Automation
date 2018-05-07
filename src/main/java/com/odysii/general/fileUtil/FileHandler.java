@@ -175,11 +175,10 @@ public class FileHandler {
             e.printStackTrace();
         }
     }
-    public static void deleteDir(String dir){
-        //String source = "C:/your/source";
+    public static void cleanDirectory(String dir){
         File fileDir = new File(dir);
         try {
-            FileUtils.deleteDirectory(fileDir);
+            FileUtils.cleanDirectory(fileDir);
         } catch (IOException e) {
             e.printStackTrace();
         }

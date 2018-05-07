@@ -7,25 +7,19 @@
     <bookmark url="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/game/ScratchTest.java" line="352" />
     <bookmark url="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/game/SpinTheWheelTest.java" line="138" />
     <bookmark url="file://$USER_HOME$/.IdeaIC2017.2/system/temp-testng-customsuite.xml" />
-    <bookmark url="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/IncrementalTest.java" line="129" />
-    <bookmark url="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/IncrementalTest.java" line="361" />
-    <bookmark url="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/IncrementalTest.java" line="247" />
+    <bookmark url="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/IncrementalTest.java" line="131" />
+    <bookmark url="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/IncrementalTest.java" line="363" />
+    <bookmark url="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/IncrementalTest.java" line="249" />
+    <bookmark url="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/IncrementalTest.java" line="360" />
+    <bookmark url="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/IncrementalTest.java" />
+    <bookmark url="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/IncrementalTest.java" line="75" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ee06cc2-e6fb-47da-9252-f87f51543c8a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/.idea/compiler.xml" afterPath="$PROJECT_DIR$/../../odysii/automation/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/.idea/vcs.xml" afterPath="$PROJECT_DIR$/../../odysii/automation/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../odysii/automation/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/automation.iml" afterPath="$PROJECT_DIR$/../../odysii/automation/automation.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/pom.xml" afterPath="$PROJECT_DIR$/../../odysii/automation/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/general/fileUtil/FileHandler.java" afterPath="$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/general/fileUtil/FileHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/game/SpinTheWheelTest.java" afterPath="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/game/SpinTheWheelTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/FullUpdateTest.java" afterPath="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/FullUpdateTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/src/main/resources/price_book.properties" afterPath="$PROJECT_DIR$/../../odysii/automation/src/main/resources/price_book.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/IncrementalTest.java" afterPath="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/IncrementalTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/survey/SurveyImageTest.java" afterPath="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/survey/SurveyImageTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/test-output/html/overview.html" afterPath="$PROJECT_DIR$/../../odysii/automation/test-output/html/overview.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/test-output/html/suite1_test1_results.html" afterPath="$PROJECT_DIR$/../../odysii/automation/test-output/html/suite1_test1_results.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/test-output/html/suites.html" afterPath="$PROJECT_DIR$/../../odysii/automation/test-output/html/suites.html" />
     </list>
     <ignored path="$PROJECT_DIR$/../../odysii/automation/out/" />
     <ignored path="$PROJECT_DIR$/../../odysii/automation/target/" />
@@ -55,11 +49,11 @@
       <file leaf-file-name="IncrementalTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/IncrementalTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="529">
-              <caret line="341" column="61" lean-forward="true" selection-start-line="341" selection-start-column="61" selection-end-line="341" selection-end-column="61" />
+            <state relative-caret-position="340">
+              <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
               <folding>
-                <element signature="e#18469#18470#0" expanded="true" />
-                <element signature="e#18524#18525#0" expanded="true" />
+                <element signature="e#18572#18573#0" expanded="true" />
+                <element signature="e#18627#18628#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -98,8 +92,8 @@
       <file leaf-file-name="FileHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/general/fileUtil/FileHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2958">
-              <caret line="179" column="17" lean-forward="false" selection-start-line="179" selection-start-column="17" selection-end-line="179" selection-end-column="17" />
+            <state relative-caret-position="385">
+              <caret line="65" column="0" lean-forward="false" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -128,8 +122,8 @@
       <file leaf-file-name="price_book.properties" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/resources/price_book.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+            <state relative-caret-position="51">
+              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -214,6 +208,7 @@
         <option value="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/dpc/DigitalPunchCardTest.java" />
         <option value="$PROJECT_DIR$/../../odysii/automation/pom.xml" />
         <option value="$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/general/fileUtil/FileHandler.java" />
+        <option value="$PROJECT_DIR$/../../odysii/automation/src/main/resources/price_book.properties" />
         <option value="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/IncrementalTest.java" />
       </list>
     </option>
@@ -810,38 +805,45 @@
       <option name="project" value="LOCAL" />
       <updated>1524670226241</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="DigitalPunchCardTest">
+      <created>1525682788125</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1525682788125</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="FullUpdateTest - 2018.05.06 at 17h 23m 27s.xml">
-      <configuration name="FullUpdateTest" configurationId="TestNG" />
-    </history-entry>
-    <history-entry file="IncrementalTest - 2018.05.06 at 15h 51m 51s.xml">
+    <history-entry file="IncrementalTest - 2018.05.07 at 12h 00m 40s.xml">
       <configuration name="IncrementalTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="IncrementalTest - 2018.05.06 at 16h 07m 15s.xml">
+    <history-entry file="IncrementalTest - 2018.05.07 at 13h 19m 49s.xml">
       <configuration name="IncrementalTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="IncrementalTest - 2018.05.06 at 16h 10m 36s.xml">
+    <history-entry file="IncrementalTest - 2018.05.07 at 13h 26m 21s.xml">
       <configuration name="IncrementalTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="IncrementalTest - 2018.05.06 at 16h 16m 17s.xml">
+    <history-entry file="IncrementalTest - 2018.05.07 at 13h 27m 26s.xml">
       <configuration name="IncrementalTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="IncrementalTest - 2018.05.06 at 16h 40m 50s.xml">
+    <history-entry file="IncrementalTest - 2018.05.07 at 13h 27m 50s.xml">
       <configuration name="IncrementalTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="IncrementalTest - 2018.05.06 at 16h 47m 56s.xml">
+    <history-entry file="IncrementalTest - 2018.05.07 at 13h 34m 43s.xml">
       <configuration name="IncrementalTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="IncrementalTest - 2018.05.06 at 17h 46m 28s.xml">
+    <history-entry file="IncrementalTest - 2018.05.07 at 13h 36m 42s.xml">
       <configuration name="IncrementalTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="IncrementalTest - 2018.05.07 at 11h 21m 15s.xml">
+    <history-entry file="IncrementalTest - 2018.05.07 at 13h 37m 24s.xml">
       <configuration name="IncrementalTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="IncrementalTest - 2018.05.07 at 11h 39m 01s.xml">
+    <history-entry file="IncrementalTest - 2018.05.07 at 13h 48m 44s.xml">
+      <configuration name="IncrementalTest" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="IncrementalTest - 2018.05.07 at 13h 59m 24s.xml">
       <configuration name="IncrementalTest" configurationId="TestNG" />
     </history-entry>
   </component>
@@ -925,9 +927,13 @@
           <option name="timeStamp" value="57" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="67" />
+      <option name="time" value="69" />
     </breakpoint-manager>
-    <watches-manager />
+    <watches-manager>
+      <configuration name="TestNG">
+        <watch expression="System.getProperty(&quot;sourceDir&quot;)" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="jar://$MAVEN_REPOSITORY$/net/sf/jacob-project/jacob/1.14.3/jacob-1.14.3.jar!/com/jacob/com/LibraryLoader.class">
@@ -1240,22 +1246,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/general/fileUtil/FileHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2958">
-          <caret line="179" column="17" lean-forward="false" selection-start-line="179" selection-start-column="17" selection-end-line="179" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/resources/price_book.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/testng/testng/6.11/testng-6.11.jar!/org/testng/internal/Invoker.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="175">
@@ -1288,13 +1278,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/resources/price_book.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/general/fileUtil/FileHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="65" column="0" lean-forward="false" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/IncrementalTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="341" column="61" lean-forward="true" selection-start-line="341" selection-start-column="61" selection-end-line="341" selection-end-column="61" />
+        <state relative-caret-position="340">
+          <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
           <folding>
-            <element signature="e#18469#18470#0" expanded="true" />
-            <element signature="e#18524#18525#0" expanded="true" />
+            <element signature="e#18572#18573#0" expanded="true" />
+            <element signature="e#18627#18628#0" expanded="true" />
           </folding>
         </state>
       </provider>
