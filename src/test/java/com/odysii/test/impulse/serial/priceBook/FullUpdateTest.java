@@ -29,7 +29,7 @@ import static org.testng.AssertJUnit.assertEquals;
 
 public class FullUpdateTest extends ImpulseTestHelper {
 
-    private String shardPath,localPath;
+    private String shardPath,localPath,priceBookHelper;
     private String newFileName;
     private boolean flag;
     private final String ITT_FILE_PERFIX = "ITT";
@@ -64,16 +64,21 @@ public class FullUpdateTest extends ImpulseTestHelper {
         /**
          * WebDriver End
          */
-        init(POSType.PASSPORT_SERIAL);
-        runCmdCommand(impulseRunnerScript);
-        wait(TIME_OUT);
         PropertyLoader propertyLoader = new PropertyLoader();
         Properties properties = propertyLoader.loadPropFile("price_book.properties");
         localPath = properties.getProperty("local_pricebook_path");
         shardPath = properties.getProperty("shard_pricebook_path");
-        boolean flag = FileHandler.copyFile(localPath+"\\backup\\ITTIncCopy.xml", getFileByType(localPath,ITT_FILE_PERFIX).toString(),true);
+        priceBookHelper = properties.getProperty("price_book_helper");
+        FileHandler.cleanDirectory(localPath);
+        FileHandler.copyDir(System.getProperty("sourceDir"),localPath);
+        FileHandler.cleanDirectory(shardPath);
+        FileHandler.copyDir(System.getProperty("sourceDir"),shardPath);
+        init(POSType.PASSPORT_SERIAL);
+        runCmdCommand(impulseRunnerScript);
+        wait(TIME_OUT);
+        boolean flag = FileHandler.copyFile(priceBookHelper+"\\ITTIncCopy.xml", getFileByType(localPath,ITT_FILE_PERFIX).toString(),true);
         assertTrue(flag,"Failed to copy file!");
-        flag = FileHandler.copyFile(shardPath+"\\backup\\ITTIncCopy.xml", getFileByType(shardPath,ITT_FILE_PERFIX).toString(),true);
+        flag = FileHandler.copyFile(priceBookHelper+"\\ITTIncCopy.xml", getFileByType(shardPath,ITT_FILE_PERFIX).toString(),true);
         assertTrue(flag,"Failed to copy file!");
         wait(10000);
     }
@@ -224,7 +229,7 @@ public class FullUpdateTest extends ImpulseTestHelper {
     @Test(priority = 23)
     public void _009_validITTLocalFileNotUpdatedTimestampNotChanged(){
         wait(5000);
-        boolean flag = FileHandler.copyFile(shardPath+"\\backup\\ITTIncCopy.xml", getFileByType(shardPath,ITT_FILE_PERFIX).toString(),true);
+        boolean flag = FileHandler.copyFile(priceBookHelper+"\\ITTIncCopy.xml", getFileByType(shardPath,ITT_FILE_PERFIX).toString(),true);
         assertTrue(flag,"Failed to copy file!");
         Random rand = new Random();
         int  n = rand.nextInt(20000) + 100;

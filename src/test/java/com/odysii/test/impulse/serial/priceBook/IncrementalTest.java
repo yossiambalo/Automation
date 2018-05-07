@@ -67,6 +67,7 @@ public class IncrementalTest extends ImpulseTestHelper{
         shardPath = properties.getProperty("shard_pricebook_path");
         priceBookHelper = properties.getProperty("price_book_helper");
         FileHandler.cleanDirectory(localPath);
+        FileHandler.copyDir(System.getProperty("sourceDir"),localPath);
         FileHandler.cleanDirectory(shardPath);
         FileHandler.copyDir(System.getProperty("sourceDir"),shardPath);
         init(POSType.PASSPORT_SERIAL);
@@ -196,8 +197,8 @@ public class IncrementalTest extends ImpulseTestHelper{
         String newFile2 = shardPath+"\\"+ITT_FILE_PERFIX+copy2+".xml";
         FileHandler.copyFile(file.toString(),newFile1,true);
         FileHandler.copyFile(newFile1,newFile2,true);
-        FileHandler.copyFile(localPath+"\\backup\\item1.xml",newFile1,true);
-        FileHandler.copyFile(localPath+"\\backup\\item2.xml",newFile2,true);
+        FileHandler.copyFile(priceBookHelper+"\\item1.xml",newFile1,true);
+        FileHandler.copyFile(priceBookHelper+"\\item2.xml",newFile2,true);
         wait(20000);
         int size = XmlManager.getSizeOfNode(getFileByType(localPath,ITT_FILE_PERFIX),"ITTDetail");
         FileHandler.deleteFile(newFile1);
