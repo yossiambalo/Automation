@@ -100,7 +100,7 @@ public class ScratchTest extends ImpulseTestHelper {
         list.add("game_reward_body4");
         jsonObject = game.createRewardProps(gameID,list,RewardType.REWARD_CHOICES,"reward_choices");
         assertEquals(jsonObject.get("status"),"Success","Failed to create reward for game!");
-        runCmdCommand(RUN_IMPULSE);
+        //runCmdCommand(RUN_IMPULSE);
         wait(WAIT);
         //Start transaction
         generator.doPostRequest(customer.getStartTransaction());
@@ -265,7 +265,7 @@ public class ScratchTest extends ImpulseTestHelper {
             actual = dbHandler.executeSelectQuery(query,11);
             timeOut++;
         }
-        assertNull(actual);
+        assertEquals(actual,"028400026864");
     }
     @Test(priority = 6)
     public void _006_verifyGamePlayedWithWinUPCNoThanks() {
@@ -311,7 +311,7 @@ public class ScratchTest extends ImpulseTestHelper {
             actual = dbHandler.executeSelectQuery(query, 11);
             timeOut++;
         }
-        assertNull(actual);
+        assertEquals(actual,"028400026864");
     }
     //@Test(priority = 7)
     public void _007_verifyRewardMatches(){

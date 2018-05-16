@@ -53,8 +53,11 @@ public class ImpulseTestHelper {
             if (FileHandler.isFileExist(bullochIntDll)){
                 FileHandler.deleteFile(bullochIntDll);
                 FileHandler.copyFile(properties.getProperty("passport_pos_int_dll_source_path"),passportIntDll,true);
-                XmlManager.updateNodeContent(new File(cncConfigFile),"Config","ChannelID",properties.getProperty("passport_chanel_id"));
             }
+            XmlManager.updateNodeContent(new File(cncConfigFile),"Config","ChannelID",properties.getProperty("passport_chanel_id"));
+            XmlManager.updateNodeContent(new File(cncConfigFile),"Config","ProjectID",properties.getProperty("passport_project_id"));
+            XmlManager.updateNodeContent(new File(cncConfigFile),"Config","CnCService",properties.getProperty("passport_CnCService"));
+            XmlManager.updateNodeContent(new File(cncConfigFile),"Config","ProjectToken",properties.getProperty("passport_project_token"));
         }
     }
     protected void runCmdCommand(String command){

@@ -67,13 +67,14 @@ public class IncrementalTest extends ImpulseTestHelper{
         shardPath = properties.getProperty("shard_pricebook_path");
         priceBookHelper = properties.getProperty("price_book_helper");
         FileHandler.cleanDirectory(localPath);
-        FileHandler.copyDir(System.getProperty("sourceDir"),localPath);
+        //FileHandler.copyDir(System.getProperty("sourceDir"),localPath);
         FileHandler.cleanDirectory(shardPath);
         FileHandler.copyDir(System.getProperty("sourceDir"),shardPath);
         init(POSType.PASSPORT_SERIAL);
+        runCmdCommand(impulseRunnerScript);
+        wait(20000);
         String fileName = "";
         //Run impulse
-        runCmdCommand(impulseRunnerScript);
         boolean flag = FileHandler.copyFile(priceBookHelper+"\\ITTIncCopy.xml", getFileByType(localPath,ITT_FILE_PERFIX).toString(),true);
         assertTrue(flag,"Failed to copy file!");
         flag = FileHandler.copyFile(priceBookHelper+"\\ITTIncCopy.xml", getFileByType(shardPath,ITT_FILE_PERFIX).toString(),true);
@@ -87,7 +88,7 @@ public class IncrementalTest extends ImpulseTestHelper{
      * 2. Increment timestamp(name of ITT file)
      */
     @Test(priority = 1)
-    public void _001_validILTLocalFileUpdatedRespectivelyIncrementTimestamp(){
+    public void _001_validITTLocalFileUpdatedRespectivelyIncrementTimestamp(){
         Random rand = new Random();
         int  n = rand.nextInt(20000) + 100;
         System.out.println("Random Number: "+n);
@@ -106,12 +107,13 @@ public class IncrementalTest extends ImpulseTestHelper{
                 System.out.println(newFileName);
                 FileHandler.renameFile(file,newFileName);
                 wait(TIME_OUT);
-                String res = XmlManager.getValueOfLastNode(new File(localPath+File.separator+ ITT_FILE_PERFIX+incrementNum +".xml"), ROOT_NODE,CHILD_NODE, SIBLING_NODE,UPDATE_NODE);
+                File ittFile = getFileByType(localPath,ITT_FILE_PERFIX);
+                String res = XmlManager.getValueOfLastNode(ittFile, ROOT_NODE,CHILD_NODE, SIBLING_NODE,UPDATE_NODE);
                 assertEquals(res,ittItemListIDValue);
             }
         }
     }
-    @Test(priority = 2,dependsOnMethods = {"_001_validILTLocalFileUpdatedRespectivelyIncrementTimestamp"})
+    @Test(priority = 2,dependsOnMethods = {"_001_validITTLocalFileUpdatedRespectivelyIncrementTimestamp"})
     public void _002_validITTLocalFileNotUpdatedTimestampNotChanged(){
         Random rand = new Random();
         int  n = rand.nextInt(20000) + 100;

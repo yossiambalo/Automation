@@ -231,7 +231,7 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
             actual = dbHandler.executeSelectQuery(query, 11);
             timeOut++;
         }
-        assertNull(actual);
+        assertNull(actual,"1030093019");
     }
     @Ignore
     public void _006_verifyRewardMatches(){

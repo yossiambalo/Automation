@@ -64,7 +64,7 @@ public class CascadeSurveyTest extends SurveyTestBase {
         jsonObject = survey.linkPlacement("1264",placementID);
         assertEquals(jsonObject.get("status"),"Success","Failed to link placement for survey!");
         //Start Impulse
-        runCmdCommand(impulseRunnerScript);
+        //runCmdCommand(impulseRunnerScript);
         //Wait CNC client downloading the new survey instructions
         wait(CNC_DOWNLOAD_WAIT);
         generator = new SerialMessageGenerator(impulseDeliveryStationUrl);
