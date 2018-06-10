@@ -24,14 +24,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ee06cc2-e6fb-47da-9252-f87f51543c8a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../odysii/automation/.idea/libraries/Maven__org_glassfish_javax_json_1_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/PayloadHandler.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/window/fff.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../odysii/automation/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/automation.iml" afterPath="$PROJECT_DIR$/../../odysii/automation/automation.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/pom.xml" afterPath="$PROJECT_DIR$/../../odysii/automation/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/db/DBHandler.java" afterPath="$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/db/DBHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/transactionReport/TransactionReportTest.java" afterPath="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/transactionReport/TransactionReportTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/../../odysii/automation/out/" />
     <ignored path="$PROJECT_DIR$/../../odysii/automation/target/" />
@@ -150,8 +144,8 @@
       <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../../odysii/automation/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="816">
-              <caret line="78" column="21" lean-forward="false" selection-start-line="78" selection-start-column="21" selection-end-line="78" selection-end-column="21" />
+            <state relative-caret-position="441">
+              <caret line="61" column="65" lean-forward="false" selection-start-line="61" selection-start-column="65" selection-end-line="61" selection-end-column="65" />
               <folding />
             </state>
           </provider>
@@ -179,6 +173,11 @@
   <component name="Git.Settings">
     <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../odysii/automation" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/../../odysii/automation" value="automation-1.0.0.0" />
+      </map>
+    </option>
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -236,9 +235,9 @@
         <option value="$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/window/fff.java" />
         <option value="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/IncrementalTest.java" />
         <option value="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/FullUpdateTest.java" />
-        <option value="$PROJECT_DIR$/../../odysii/automation/pom.xml" />
         <option value="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/transactionReport/TransactionReportTest.java" />
         <option value="$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/PayloadHandler.java" />
+        <option value="$PROJECT_DIR$/../../odysii/automation/pom.xml" />
       </list>
     </option>
   </component>
@@ -941,7 +940,14 @@
       <option name="project" value="LOCAL" />
       <updated>1526480073038</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="start transaction report tests">
+      <created>1528617413333</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1528617413333</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1045,7 +1051,8 @@
     <MESSAGE value="Survey helper package" />
     <MESSAGE value="DigitalPunchCardTest" />
     <MESSAGE value="pricebook optimization" />
-    <option name="LAST_COMMIT_MESSAGE" value="pricebook optimization" />
+    <MESSAGE value="start transaction report tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="start transaction report tests" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1439,8 +1446,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../../odysii/automation/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="816">
-          <caret line="78" column="21" lean-forward="false" selection-start-line="78" selection-start-column="21" selection-end-line="78" selection-end-column="21" />
+        <state relative-caret-position="441">
+          <caret line="61" column="65" lean-forward="false" selection-start-line="61" selection-start-column="65" selection-end-line="61" selection-end-column="65" />
           <folding />
         </state>
       </provider>
