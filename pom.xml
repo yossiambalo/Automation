@@ -60,7 +60,6 @@
             <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.json/json -->
-        <!-- https://mvnrepository.com/artifact/org.json/json -->
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
