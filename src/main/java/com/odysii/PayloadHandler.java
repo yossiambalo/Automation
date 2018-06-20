@@ -27,6 +27,7 @@ public class PayloadHandler {
     private List<Map<String,String>> tender = new ArrayList<>();
     private Map<String,String> additionalData = new HashMap<>();
     private JsonObject object;
+    private final String BASKET_EVENT = "Basket";
 
     public List<Map<String, String>> getPlayedItems() {
         return playedItems;
@@ -44,7 +45,7 @@ public class PayloadHandler {
     private JsonObject getJsonObject(String json) {
         JsonReader jsonReader = Json.createReader(new ByteArrayInputStream(json.getBytes(StandardCharsets.UTF_8)));
         JsonObject object = jsonReader.readObject();
-        setBaskets(object.getJsonObject("POS").getJsonArray("Basket"));
+        //setBaskets(object.getJsonObject("POS").getJsonArray("Basket"));
         //setPlayedItems(object.getJsonArray("PlayedItems"));
         //setLines(object.getJsonObject("POS").getJsonArray("Lines"));
         jsonReader.close();
@@ -85,7 +86,8 @@ public class PayloadHandler {
             lines.add(line);
         }
     }
-    private void setBaskets(JsonArray jsonArray){
+    public void setBaskets(){
+        JsonArray jsonArray = object.getJsonObject("POS").getJsonArray(BASKET_EVENT);
         Iterator<JsonValue> iterator = jsonArray.iterator();
         while (iterator.hasNext()) {
             basket = new HashMap<>();

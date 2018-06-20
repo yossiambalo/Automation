@@ -23,14 +23,12 @@
     <bookmark url="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/IncrementalTest.java" line="90" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ee06cc2-e6fb-47da-9252-f87f51543c8a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../odysii/automation/.idea/libraries/Maven__org_glassfish_javax_json_1_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/PayloadHandler.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/window/fff.java" afterPath="" />
+    <list default="true" id="0ee06cc2-e6fb-47da-9252-f87f51543c8a" name="Default" comment="TEST SNAPSHOT">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../odysii/automation/.idea/libraries/Maven__log4j_log4j_1_2_17.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../odysii/automation/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/automation.iml" afterPath="$PROJECT_DIR$/../../odysii/automation/automation.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/pom.xml" afterPath="$PROJECT_DIR$/../../odysii/automation/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/db/DBHandler.java" afterPath="$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/db/DBHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/PayloadHandler.java" afterPath="$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/PayloadHandler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/transactionReport/TransactionReportTest.java" afterPath="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/transactionReport/TransactionReportTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/../../odysii/automation/out/" />
@@ -48,11 +46,21 @@
       <file leaf-file-name="TransactionReportTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/transactionReport/TransactionReportTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="26" column="57" lean-forward="true" selection-start-line="26" selection-start-column="57" selection-end-line="26" selection-end-column="57" />
+            <state relative-caret-position="306">
+              <caret line="42" column="42" lean-forward="true" selection-start-line="42" selection-start-column="42" selection-end-line="42" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="log4j.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/resources/log4j.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="28" lean-forward="false" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -60,15 +68,19 @@
       <file leaf-file-name="PayloadHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/PayloadHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="46" column="71" lean-forward="true" selection-start-line="46" selection-start-column="71" selection-end-line="46" selection-end-column="71" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1205#1206#0" expanded="true" />
-                <element signature="e#1239#1240#0" expanded="true" />
-                <element signature="e#1291#1292#0" expanded="true" />
-                <element signature="e#1321#1322#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="1292">
+              <caret line="98" column="32" lean-forward="false" selection-start-line="98" selection-start-column="32" selection-end-line="98" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Assert.class" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/testng/testng/6.11/testng-6.11.jar!/org/testng/Assert.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2924">
+              <caret line="206" column="23" lean-forward="false" selection-start-line="206" selection-start-column="23" selection-end-line="206" selection-end-column="23" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -76,72 +88,41 @@
       <file leaf-file-name="CascadeSurveyTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/survey/CascadeSurveyTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="57" column="31" lean-forward="true" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JsonObjectBuilderImpl.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/glassfish/javax.json/1.1/javax.json-1.1.jar!/org/glassfish/json/JsonObjectBuilderImpl.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="127">
-              <caret line="204" column="0" lean-forward="false" selection-start-line="204" selection-start-column="0" selection-end-line="204" selection-end-column="0" />
+            <state relative-caret-position="68">
+              <caret line="13" column="42" lean-forward="false" selection-start-line="13" selection-start-column="42" selection-end-line="13" selection-end-column="42" />
               <folding>
-                <element signature="e#6559#6560#0" expanded="true" />
-                <element signature="e#6615#6616#0" expanded="true" />
-                <element signature="e#6672#6673#0" expanded="true" />
+                <element signature="e#587#588#0" expanded="true" />
+                <element signature="e#649#650#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Invoker.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/testng/testng/6.11/testng-6.11.jar!/org/testng/internal/Invoker.class">
+      <file leaf-file-name="TriviaTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/survey/TriviaTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="465" column="0" lean-forward="false" selection-start-line="465" selection-start-column="0" selection-end-line="465" selection-end-column="0" />
+            <state relative-caret-position="510">
+              <caret line="39" column="38" lean-forward="false" selection-start-line="39" selection-start-column="38" selection-end-line="39" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IncrementalTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/IncrementalTest.java">
+      <file leaf-file-name="MessageGenerator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/api/pos/MessageGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-18">
-              <caret line="89" column="4" lean-forward="false" selection-start-line="89" selection-start-column="4" selection-end-line="89" selection-end-column="4" />
+            <state relative-caret-position="1037">
+              <caret line="85" column="47" lean-forward="false" selection-start-line="85" selection-start-column="47" selection-end-line="85" selection-end-column="47" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DigitalPunchCardTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/dpc/DigitalPunchCardTest.java">
+      <file leaf-file-name="ImpulseTestHelper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/helper/ImpulseTestHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="68" column="16" lean-forward="false" selection-start-line="68" selection-start-column="16" selection-end-line="68" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ScratchTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/game/ScratchTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="267" column="28" lean-forward="false" selection-start-line="267" selection-start-column="28" selection-end-line="267" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FullUpdateTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/FullUpdateTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="211" column="7" lean-forward="false" selection-start-line="211" selection-start-column="7" selection-end-line="211" selection-end-column="7" />
+            <state relative-caret-position="255">
+              <caret line="29" column="55" lean-forward="false" selection-start-line="29" selection-start-column="55" selection-end-line="29" selection-end-column="55" />
               <folding />
             </state>
           </provider>
@@ -150,8 +131,18 @@
       <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../../odysii/automation/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="816">
-              <caret line="78" column="21" lean-forward="false" selection-start-line="78" selection-start-column="21" selection-end-line="78" selection-end-column="21" />
+            <state relative-caret-position="1394">
+              <caret line="82" column="21" lean-forward="false" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="impulseTestHelper.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/resources/impulseTestHelper.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="19" lean-forward="false" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="69" />
               <folding />
             </state>
           </provider>
@@ -171,6 +162,7 @@
       <find>exe</find>
       <find>PropertyLo</find>
       <find>sql</find>
+      <find>Logging</find>
     </findStrings>
     <dirStrings>
       <dir>C:\odysii\automation</dir>
@@ -179,6 +171,11 @@
   <component name="Git.Settings">
     <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../odysii/automation" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/../../odysii/automation" value="automation-1.0.0.0-SNAPSHOT" />
+      </map>
+    </option>
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -188,7 +185,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/selenium/page/ICloudMI.java" />
         <option value="$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/selenium/Survey.java" />
         <option value="$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/selenium/page/Survey.java" />
         <option value="$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/selenium/ICloudMI.java" />
@@ -236,9 +232,10 @@
         <option value="$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/window/fff.java" />
         <option value="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/IncrementalTest.java" />
         <option value="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/FullUpdateTest.java" />
-        <option value="$PROJECT_DIR$/../../odysii/automation/pom.xml" />
-        <option value="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/transactionReport/TransactionReportTest.java" />
         <option value="$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/PayloadHandler.java" />
+        <option value="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/transactionReport/TransactionReportTest.java" />
+        <option value="$PROJECT_DIR$/../../odysii/automation/pom.xml" />
+        <option value="$PROJECT_DIR$/../../odysii/automation/src/main/resources/log4j.properties" />
       </list>
     </option>
   </component>
@@ -271,10 +268,10 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-413" />
-    <option name="y" value="181" />
-    <option name="width" value="1932" />
-    <option name="height" value="1045" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -292,10 +289,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="AndroidView" />
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -415,6 +409,13 @@
               <item name="automation" type="b2602c69:ProjectViewProjectNode" />
               <item name="automation" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="automation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="automation" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -508,24 +509,15 @@
             <path>
               <item name="automation" type="b2602c69:ProjectViewProjectNode" />
               <item name="automation" type="462c0819:PsiDirectoryNode" />
-              <item name="test-output" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="automation" type="b2602c69:ProjectViewProjectNode" />
-              <item name="automation" type="462c0819:PsiDirectoryNode" />
-              <item name="test-output" type="462c0819:PsiDirectoryNode" />
-              <item name="html" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="automation" type="b2602c69:ProjectViewProjectNode" />
-              <item name="automation" type="462c0819:PsiDirectoryNode" />
-              <item name="test-output" type="462c0819:PsiDirectoryNode" />
-              <item name="xml" type="462c0819:PsiDirectoryNode" />
+              <item name="target" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -547,7 +539,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="TestNG.TransactionReportTest.test">
+  <component name="RunManager" selected="TestNG.TransactionReportTest">
     <configuration name="C:/odysii/automation/survey_test.xml" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="automation" />
@@ -859,9 +851,9 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="TestNG.TransactionReportTest.test" />
-        <item index="1" class="java.lang.String" itemvalue="TestNG.DigitalPunchCardTest" />
-        <item index="2" class="java.lang.String" itemvalue="TestNG.TransactionReportTest" />
+        <item index="0" class="java.lang.String" itemvalue="TestNG.TransactionReportTest" />
+        <item index="1" class="java.lang.String" itemvalue="TestNG.TransactionReportTest.test" />
+        <item index="2" class="java.lang.String" itemvalue="TestNG.DigitalPunchCardTest" />
         <item index="3" class="java.lang.String" itemvalue="TestNG.C:/odysii/automation/survey_test.xml" />
         <item index="4" class="java.lang.String" itemvalue="TestNG.ScratchTest" />
       </list>
@@ -941,39 +933,53 @@
       <option name="project" value="LOCAL" />
       <updated>1526480073038</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="start transaction report tests">
+      <created>1528617413333</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1528617413333</updated>
+    </task>
+    <task id="LOCAL-00011" summary="TEST SNAPSHOT">
+      <created>1528618090545</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1528618090545</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="DigitalPunchCardTest - 2018.06.06 at 10h 42m 23s.xml">
-      <configuration name="DigitalPunchCardTest" configurationId="TestNG" />
+    <history-entry file="TransactionReportTest - 2018.06.19 at 13h 34m 29s.xml">
+      <configuration name="TransactionReportTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="TransactionReportTest_test - 2018.06.07 at 14h 05m 32s.xml">
-      <configuration name="TransactionReportTest.test" configurationId="TestNG" />
+    <history-entry file="TransactionReportTest - 2018.06.19 at 13h 35m 00s.xml">
+      <configuration name="TransactionReportTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="TransactionReportTest_test - 2018.06.07 at 14h 20m 07s.xml">
-      <configuration name="TransactionReportTest.test" configurationId="TestNG" />
+    <history-entry file="TransactionReportTest - 2018.06.19 at 13h 38m 46s.xml">
+      <configuration name="TransactionReportTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="TransactionReportTest_test - 2018.06.07 at 14h 47m 09s.xml">
-      <configuration name="TransactionReportTest.test" configurationId="TestNG" />
+    <history-entry file="TransactionReportTest - 2018.06.19 at 13h 44m 22s.xml">
+      <configuration name="TransactionReportTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="TransactionReportTest_test - 2018.06.07 at 15h 17m 41s.xml">
-      <configuration name="TransactionReportTest.test" configurationId="TestNG" />
+    <history-entry file="TransactionReportTest - 2018.06.19 at 13h 50m 46s.xml">
+      <configuration name="TransactionReportTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="TransactionReportTest_test - 2018.06.07 at 15h 18m 22s.xml">
-      <configuration name="TransactionReportTest.test" configurationId="TestNG" />
+    <history-entry file="TransactionReportTest - 2018.06.19 at 13h 52m 55s.xml">
+      <configuration name="TransactionReportTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="TransactionReportTest_test - 2018.06.07 at 15h 19m 08s.xml">
-      <configuration name="TransactionReportTest.test" configurationId="TestNG" />
+    <history-entry file="TransactionReportTest - 2018.06.19 at 13h 55m 21s.xml">
+      <configuration name="TransactionReportTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="TransactionReportTest_test - 2018.06.07 at 15h 19m 57s.xml">
-      <configuration name="TransactionReportTest.test" configurationId="TestNG" />
+    <history-entry file="TransactionReportTest - 2018.06.19 at 13h 55m 27s.xml">
+      <configuration name="TransactionReportTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="TransactionReportTest_test - 2018.06.07 at 15h 21m 15s.xml">
-      <configuration name="TransactionReportTest.test" configurationId="TestNG" />
+    <history-entry file="TransactionReportTest - 2018.06.19 at 13h 57m 20s.xml">
+      <configuration name="TransactionReportTest" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="TransactionReportTest_test - 2018.06.10 at 10h 30m 03s.xml">
-      <configuration name="TransactionReportTest.test" configurationId="TestNG" />
+    <history-entry file="TransactionReportTest - 2018.06.19 at 14h 16m 54s.xml">
+      <configuration name="TransactionReportTest" configurationId="TestNG" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
@@ -987,12 +993,12 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22761194" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5083612" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44370124" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32998884" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32887402" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21481876" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19829424" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1045,7 +1051,9 @@
     <MESSAGE value="Survey helper package" />
     <MESSAGE value="DigitalPunchCardTest" />
     <MESSAGE value="pricebook optimization" />
-    <option name="LAST_COMMIT_MESSAGE" value="pricebook optimization" />
+    <MESSAGE value="start transaction report tests" />
+    <MESSAGE value="TEST SNAPSHOT" />
+    <option name="LAST_COMMIT_MESSAGE" value="TEST SNAPSHOT" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1075,57 +1083,11 @@
           <option name="timeStamp" value="97" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="103" />
+      <option name="time" value="106" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/org/testng/testng/6.11/testng-6.11.jar!/org/testng/Assert.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="120" column="23" lean-forward="false" selection-start-line="120" selection-start-column="23" selection-end-line="120" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/jaxb.java" />
-    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/general/fileUtil/XmlManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="38" column="41" lean-forward="false" selection-start-line="38" selection-start-column="41" selection-end-line="38" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/TestNGSample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="26" column="66" lean-forward="false" selection-start-line="26" selection-start-column="66" selection-end-line="26" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/helper/Helper.java" />
-    <entry file="file://$PROJECT_DIR$/../../odysii/automation/test-output/xml/com.odysii.test.SampleTest_results.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-94">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/general/CncManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="17" column="10" lean-forward="false" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/SanityTest.java" />
-    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/selenium/cloudMI/util/Feature.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="21" lean-forward="false" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/selenium/cloudMI/util/FeatureType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -1146,14 +1108,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="39" lean-forward="false" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="85" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/api/pos/MessageGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="799">
-          <caret line="62" column="7" lean-forward="false" selection-start-line="62" selection-start-column="7" selection-end-line="62" selection-end-column="7" />
           <folding />
         </state>
       </provider>
@@ -1205,14 +1159,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="26" column="34" lean-forward="true" selection-start-line="26" selection-start-column="34" selection-end-line="26" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/survey/TriviaTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1295,22 +1241,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/resources/impulseTestHelper.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/survey/helper/SurveyTestBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1445">
-          <caret line="97" column="10" lean-forward="false" selection-start-line="97" selection-start-column="10" selection-end-line="97" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/general/PropertyLoader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -1319,36 +1249,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/resources/db.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/window/fff.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/helper/ImpulseTestHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/window/fff.java" />
     <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/db/DBHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="283">
           <caret line="17" column="11" lean-forward="false" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1377,19 +1284,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/game/ScratchTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="267" column="28" lean-forward="false" selection-start-line="267" selection-start-column="28" selection-end-line="267" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/testng/testng/6.11/testng-6.11.jar!/org/testng/internal/Invoker.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
           <caret line="465" column="0" lean-forward="false" selection-start-line="465" selection-start-column="0" selection-end-line="465" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1397,50 +1295,168 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="127">
           <caret line="204" column="0" lean-forward="false" selection-start-line="204" selection-start-column="0" selection-end-line="204" selection-end-column="0" />
-          <folding>
-            <element signature="e#6559#6560#0" expanded="true" />
-            <element signature="e#6615#6616#0" expanded="true" />
-            <element signature="e#6672#6673#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/transactionReport/TransactionReportTest.java">
+    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/resources/db.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="57" lean-forward="true" selection-start-line="26" selection-start-column="57" selection-end-line="26" selection-end-column="57" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="17">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/PayloadHandler.java">
+    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/pos/Customer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="46" column="71" lean-forward="true" selection-start-line="46" selection-start-column="71" selection-end-line="46" selection-end-column="71" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1205#1206#0" expanded="true" />
-            <element signature="e#1239#1240#0" expanded="true" />
-            <element signature="e#1291#1292#0" expanded="true" />
-            <element signature="e#1321#1322#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="68">
+          <caret line="4" column="27" lean-forward="false" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/game/ScratchTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="515">
+          <caret line="247" column="37" lean-forward="false" selection-start-line="247" selection-start-column="37" selection-end-line="247" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/pos/BullochSerial.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="36" column="61" lean-forward="false" selection-start-line="36" selection-start-column="61" selection-end-line="36" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/resources/pos_serial.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="86" lean-forward="false" selection-start-line="1" selection-start-column="77" selection-end-line="1" selection-end-column="86" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/api/cloudMI/survey/Survey.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="34" column="10" lean-forward="false" selection-start-line="34" selection-start-column="10" selection-end-line="34" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/resources/cloud_mi.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/api/cloudMI/CloudMI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="20" column="50" lean-forward="false" selection-start-line="20" selection-start-column="50" selection-end-line="20" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/survey/helper/SurveyTestBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/survey/CascadeSurveyTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="57" column="31" lean-forward="true" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
+        <state relative-caret-position="68">
+          <caret line="13" column="42" lean-forward="false" selection-start-line="13" selection-start-column="42" selection-end-line="13" selection-end-column="42" />
+          <folding>
+            <element signature="e#587#588#0" expanded="true" />
+            <element signature="e#649#650#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/testng/testng/6.11/testng-6.11.jar!/org/testng/Assert.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2924">
+          <caret line="206" column="23" lean-forward="false" selection-start-line="206" selection-start-column="23" selection-end-line="206" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/helper/ImpulseTestHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="29" column="55" lean-forward="false" selection-start-line="29" selection-start-column="55" selection-end-line="29" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/resources/impulseTestHelper.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="19" lean-forward="false" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/survey/TriviaTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="39" column="38" lean-forward="false" selection-start-line="39" selection-start-column="38" selection-end-line="39" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/api/pos/MessageGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1037">
+          <caret line="85" column="47" lean-forward="false" selection-start-line="85" selection-start-column="47" selection-end-line="85" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/resources/log4j.properties.">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/PayloadHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1292">
+          <caret line="98" column="32" lean-forward="false" selection-start-line="98" selection-start-column="32" selection-end-line="98" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/transactionReport/TransactionReportTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="42" column="42" lean-forward="true" selection-start-line="42" selection-start-column="42" selection-end-line="42" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../odysii/automation/src/main/resources/log4j.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="28" lean-forward="false" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../../odysii/automation/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="816">
-          <caret line="78" column="21" lean-forward="false" selection-start-line="78" selection-start-column="21" selection-end-line="78" selection-end-column="21" />
+        <state relative-caret-position="1394">
+          <caret line="82" column="21" lean-forward="false" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
           <folding />
         </state>
       </provider>
