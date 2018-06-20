@@ -23,14 +23,7 @@
     <bookmark url="file://$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/IncrementalTest.java" line="90" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ee06cc2-e6fb-47da-9252-f87f51543c8a" name="Default" comment="TEST SNAPSHOT">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../../odysii/automation/.idea/libraries/Maven__log4j_log4j_1_2_17.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../../odysii/automation/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/automation.iml" afterPath="$PROJECT_DIR$/../../odysii/automation/automation.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/pom.xml" afterPath="$PROJECT_DIR$/../../odysii/automation/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/PayloadHandler.java" afterPath="$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/PayloadHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/transactionReport/TransactionReportTest.java" afterPath="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/transactionReport/TransactionReportTest.java" />
-    </list>
+    <list default="true" id="0ee06cc2-e6fb-47da-9252-f87f51543c8a" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/../../odysii/automation/out/" />
     <ignored path="$PROJECT_DIR$/../../odysii/automation/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -131,8 +124,8 @@
       <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../../odysii/automation/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1394">
-              <caret line="82" column="21" lean-forward="false" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
+            <state relative-caret-position="1122">
+              <caret line="81" column="21" lean-forward="false" selection-start-line="81" selection-start-column="21" selection-end-line="81" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -234,8 +227,8 @@
         <option value="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/serial/priceBook/FullUpdateTest.java" />
         <option value="$PROJECT_DIR$/../../odysii/automation/src/main/java/com/odysii/PayloadHandler.java" />
         <option value="$PROJECT_DIR$/../../odysii/automation/src/test/java/com/odysii/test/impulse/transactionReport/TransactionReportTest.java" />
-        <option value="$PROJECT_DIR$/../../odysii/automation/pom.xml" />
         <option value="$PROJECT_DIR$/../../odysii/automation/src/main/resources/log4j.properties" />
+        <option value="$PROJECT_DIR$/../../odysii/automation/pom.xml" />
       </list>
     </option>
   </component>
@@ -947,7 +940,14 @@
       <option name="project" value="LOCAL" />
       <updated>1528618090545</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="log4j">
+      <created>1529480233366</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1529480233366</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1053,7 +1053,8 @@
     <MESSAGE value="pricebook optimization" />
     <MESSAGE value="start transaction report tests" />
     <MESSAGE value="TEST SNAPSHOT" />
-    <option name="LAST_COMMIT_MESSAGE" value="TEST SNAPSHOT" />
+    <MESSAGE value="log4j" />
+    <option name="LAST_COMMIT_MESSAGE" value="log4j" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1455,8 +1456,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../../odysii/automation/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1394">
-          <caret line="82" column="21" lean-forward="false" selection-start-line="82" selection-start-column="21" selection-end-line="82" selection-end-column="21" />
+        <state relative-caret-position="1122">
+          <caret line="81" column="21" lean-forward="false" selection-start-line="81" selection-start-column="21" selection-end-line="81" selection-end-column="21" />
           <folding />
         </state>
       </provider>
