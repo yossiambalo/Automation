@@ -31,6 +31,7 @@ public class TransactionReportTest extends SurveyTestBase{
             System.out.println(e.getMessage());
         }
     }
+
     private static String getCurrentDate(){
         LocalDateTime localDateTime = LocalDateTime.now();
         LocalDate localDate = localDateTime.toLocalDate();
