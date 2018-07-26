@@ -9,7 +9,9 @@ import com.odysii.selenium.cloudMI.PriceBookManager;
 import com.odysii.selenium.cloudMI.ProjectPage;
 import com.odysii.selenium.cloudMI.SignUpPage;
 import com.odysii.test.impulse.helper.ImpulseTestHelper;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
@@ -33,7 +35,7 @@ public class IncrementalTest extends ImpulseTestHelper{
     private final String ILT_FILE_PERFIX = "ILT";
     private final String ROOT_NODE = "ItemMaintenance";
     private final String CHILD_NODE = "ITTDetail";
-    private final String SIBLING_NODE = "ITTData";
+    private final String ITT_DATA = "ITTData";
     private final String UPDATE_NODE = "Description";
     private final int TIME_OUT = 30000;
     private long incrementNum;
@@ -57,7 +59,6 @@ public class IncrementalTest extends ImpulseTestHelper{
         PriceBookManager priceBookManager = projectPage.getPriceBook();
         priceBookManager.setPricebookLoaderType(PriceBookLoaderType.INC);
         wait(5000);
-        driver.quit();
         /**
          * WebDriver End
          */
@@ -97,7 +98,7 @@ public class IncrementalTest extends ImpulseTestHelper{
         for (File file : files){
             String fileStr = file.toString();
             if (fileStr.contains(ITT_FILE_PERFIX)){
-                XmlManager.updateNodeContent(file, SIBLING_NODE, UPDATE_NODE,ittItemListIDValue);
+                XmlManager.updateNodeContent(file, ITT_DATA, UPDATE_NODE,ittItemListIDValue);
                 arr1 = fileStr.split(ITT_FILE_PERFIX);
                 String[]arr2 = arr1[1].split("\\.");
                 num = Long.parseLong(arr2[0]);
@@ -108,12 +109,69 @@ public class IncrementalTest extends ImpulseTestHelper{
                 FileHandler.renameFile(file,newFileName);
                 wait(TIME_OUT);
                 File ittFile = getFileByType(localPath,ITT_FILE_PERFIX);
-                String res = XmlManager.getValueOfLastNode(ittFile, ROOT_NODE,CHILD_NODE, SIBLING_NODE,UPDATE_NODE);
+                String res = XmlManager.getValueOfLastNode(ittFile, ROOT_NODE,CHILD_NODE, ITT_DATA,UPDATE_NODE);
                 assertEquals(res,ittItemListIDValue);
             }
         }
     }
-    @Test(priority = 2,dependsOnMethods = {"_001_validITTLocalFileUpdatedRespectivelyIncrementTimestamp"})
+
+    /**
+     * POSCodeModifier and RegularSellPrice changed in shared folder (override)
+     * ModifiersEnabled = false
+     */
+    @Test(priority = 2)
+    public void _011_valid_item_properties_changed_and_overridden_in_local(){
+        driver.get("http://cloudmiqa.tveez.local/settings/3852/edit?project_feature_id=978");
+        WebElement element = driver.findElement(By.id("setting_value"));
+        element.clear();
+        element.sendKeys("false");
+        driver.findElement(By.xpath("//input[@value='Update']")).click();
+        wait(20000);
+        File file = getFileByType(shardPath,ITT_FILE_PERFIX);
+        //Expected size
+        int originalSize = XmlManager.getSizeOfNode(getFileByType(shardPath,ITT_FILE_PERFIX),"ITTDetail");
+        boolean flag = XmlManager.replaceNodeAttribute(file,"RecordAction",1,"type","addchange");
+        assertTrue(flag,"Failed to set node attribute!");
+        XmlManager.updateNodeContent(file, "ItemCode", "POSCodeModifier","2");
+        XmlManager.updateNodeContent(file, ITT_DATA, "RegularSellPrice","5.5");
+        String fileStr = getFileName(file.toString());
+        String[]arr = fileStr.split(ITT_FILE_PERFIX);
+        long copy1 = Long.parseLong(arr[1])+2;
+        String newFileName = shardPath+"\\ITT"+copy1+".xml";
+        FileHandler.renameFile(file,newFileName);
+        wait(20000);
+        int actualSize = XmlManager.getSizeOfNode(getFileByType(localPath,ITT_FILE_PERFIX),"ITTDetail");
+        assertEquals(actualSize,originalSize);
+    }
+    /**
+     * POSCodeModifier and RegularSellPrice changed in shared folder (not override)
+     * ModifiersEnabled = true
+     */
+    @Test(priority = 3)
+    public void _011_valid_item_properties_changed_and_not_overridden_in_local(){
+        driver.get("http://cloudmiqa.tveez.local/settings/3852/edit?project_feature_id=978");
+        WebElement element = driver.findElement(By.id("setting_value"));
+        element.clear();
+        element.sendKeys("true");
+        driver.findElement(By.xpath("//input[@value='Update']")).click();
+        wait(20000);
+        File file = getFileByType(shardPath,ITT_FILE_PERFIX);
+        //Expected size
+        int originalSize = XmlManager.getSizeOfNode(getFileByType(shardPath,ITT_FILE_PERFIX),"ITTDetail");
+        boolean flag = XmlManager.replaceNodeAttribute(file,"RecordAction",1,"type","addchange");
+        assertTrue(flag,"Failed to set node attribute!");
+        XmlManager.updateNodeContent(file, "ItemCode", "POSCodeModifier","3");
+        XmlManager.updateNodeContent(file, ITT_DATA, "RegularSellPrice","6.5");
+        String fileStr = getFileName(file.toString());
+        String[]arr = fileStr.split(ITT_FILE_PERFIX);
+        long copy1 = Long.parseLong(arr[1])+2;
+        String newFileName = shardPath+"\\ITT"+copy1+".xml";
+        FileHandler.renameFile(file,newFileName);
+        wait(20000);
+        int actualSize = XmlManager.getSizeOfNode(getFileByType(localPath,ITT_FILE_PERFIX),"ITTDetail");
+        assertEquals(actualSize,originalSize);
+    }
+    @Test(priority = 4,dependsOnMethods = {"_001_validITTLocalFileUpdatedRespectivelyIncrementTimestamp"})
     public void _002_validITTLocalFileNotUpdatedTimestampNotChanged(){
         Random rand = new Random();
         int  n = rand.nextInt(20000) + 100;
@@ -123,14 +181,14 @@ public class IncrementalTest extends ImpulseTestHelper{
         for (File file : files){
             String fileStr = file.toString();
             if (fileStr.contains(ITT_FILE_PERFIX)){
-                XmlManager.updateNodeContent(file,SIBLING_NODE,UPDATE_NODE,ittItemListIDValue);
+                XmlManager.updateNodeContent(file, ITT_DATA,UPDATE_NODE,ittItemListIDValue);
                 wait(TIME_OUT);
-                String res = XmlManager.getValueOfLastNode(new File(localPath+File.separator+ ITT_FILE_PERFIX+incrementNum +".xml"),ROOT_NODE,CHILD_NODE, SIBLING_NODE,UPDATE_NODE);
+                String res = XmlManager.getValueOfLastNode(new File(localPath+File.separator+ ITT_FILE_PERFIX+incrementNum +".xml"),ROOT_NODE,CHILD_NODE, ITT_DATA,UPDATE_NODE);
                 assertNotEquals(res,ittItemListIDValue);
             }
         }
     }
-    @Test(priority = 3)
+    @Test(priority = 5)
     public void _003_validDeletedDataUpdatedRespectively(){
         boolean flag = XmlManager.replaceNodeAttribute(new File(newFileName),"RecordAction",0,"type","delete");
        assertTrue(flag,"Failed to replace Node attribute!");
@@ -140,14 +198,14 @@ public class IncrementalTest extends ImpulseTestHelper{
         String fileName = arr1[0]+ ITT_FILE_PERFIX +incrementNum+".xml";
         FileHandler.renameFile(new File(newFileName),fileName);
         wait(TIME_OUT);
-        flag = XmlManager.isNodeExist(new File(localPath+File.separator+ ITT_FILE_PERFIX+incrementNum +".xml"),ROOT_NODE,CHILD_NODE,SIBLING_NODE,UPDATE_NODE);
+        flag = XmlManager.isNodeExist(new File(localPath+File.separator+ ITT_FILE_PERFIX+incrementNum +".xml"),ROOT_NODE,CHILD_NODE, ITT_DATA,UPDATE_NODE);
         assertFalse(flag);
     }
 
     /**
      * File name not configured in cloudMI
      */
-    @Test(priority = 4)
+    @Test(priority = 6)
     public void _004_validFileWithInvalidNamesNotAddedToLocalWhileImpulseInit(){
         runCmdCommand(closeImpulseRunnerScript);
         String newFileName = "";
@@ -162,7 +220,7 @@ public class IncrementalTest extends ImpulseTestHelper{
         FileHandler.renameFile(new File(newFileName),file.toString());
         assertNull(localFile,"Invalid File found in: "+localPath);
     }
-    @Test(priority = 5)
+    @Test(priority = 7)
     public void _005_validFileWithFormatNotAddedToLocalWhileImpulseInit(){
         wait(5000);
         runCmdCommand(closeImpulseRunnerScript);
@@ -186,7 +244,7 @@ public class IncrementalTest extends ImpulseTestHelper{
      * Update multiple files in shared of same type(ITT) and valid local was synchronized
      * respectively- while impulse is running
      */
-    @Test(dependsOnMethods = {"_005_validFileWithFormatNotAddedToLocalWhileImpulseInit"},priority = 6)
+    @Test(dependsOnMethods = {"_005_validFileWithFormatNotAddedToLocalWhileImpulseInit"},priority = 8)
     public void _006_validLocalSyncMultipleUpdatedOfSharedFilesWhileImpulseRunning(){
 
         File file = getFileByType(shardPath,ITT_FILE_PERFIX);
@@ -211,7 +269,7 @@ public class IncrementalTest extends ImpulseTestHelper{
      * Update files in shared of same type(ITT) and valid local was synchronized
      * respectively with latest file- while impulse is init!
      */
-    @Test(priority = 7)
+    @Test(priority = 9)
     public void _007_validLocalUpdatedTheLatestSharedFilesWhileImpulseInit(){
 
         runCmdCommand(closeImpulseRunnerScript);
