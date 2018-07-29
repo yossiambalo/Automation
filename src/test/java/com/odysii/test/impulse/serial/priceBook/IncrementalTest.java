@@ -169,9 +169,23 @@ public class IncrementalTest extends ImpulseTestHelper{
         FileHandler.renameFile(file,newFileName);
         wait(20000);
         int actualSize = XmlManager.getSizeOfNode(getFileByType(localPath,ITT_FILE_PERFIX),"ITTDetail");
-        assertEquals(actualSize,originalSize);
+        assertEquals(actualSize,originalSize+1);
     }
-    @Test(priority = 4,dependsOnMethods = {"_001_validITTLocalFileUpdatedRespectivelyIncrementTimestamp"})
+    @Test(priority = 4)
+    public void _011_valid_pb_manager_big_file_processing(){
+        FileHandler.deleteContentOfFolder(new File(localPath),false);
+        FileHandler.deleteContentOfFolder(new File(shardPath),false);
+        FileHandler.copyDir("C:\\pricebook\\big_files",shardPath);
+        File file = getFileByType(shardPath,ITT_FILE_PERFIX);
+        String fileStr = getFileName(file.toString());
+        String[]arr = fileStr.split(ITT_FILE_PERFIX);
+        long copy1 = Long.parseLong(arr[1])+2;
+        String newFileName = shardPath+"\\ITT"+copy1+".xml";
+        FileHandler.renameFile(file,newFileName);
+        wait(60000);
+        assertTrue(getFileByType(localPath,ITT_FILE_PERFIX).toString().contains("ITT"+copy1+".xml"));
+    }
+    @Test(priority = 5,dependsOnMethods = {"_001_validITTLocalFileUpdatedRespectivelyIncrementTimestamp"})
     public void _002_validITTLocalFileNotUpdatedTimestampNotChanged(){
         Random rand = new Random();
         int  n = rand.nextInt(20000) + 100;
