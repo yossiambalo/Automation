@@ -33,6 +33,8 @@ public class IncrementalTest extends ImpulseTestHelper{
     private boolean flag;
     private final String ITT_FILE_PERFIX = "ITT";
     private final String ILT_FILE_PERFIX = "ILT";
+    private final String MMT_FILE_PERFIX = "MMT";
+    private final String CBT_FILE_PERFIX = "CBT";
     private final String ROOT_NODE = "ItemMaintenance";
     private final String CHILD_NODE = "ITTDetail";
     private final String ITT_DATA = "ITTData";
@@ -41,7 +43,6 @@ public class IncrementalTest extends ImpulseTestHelper{
     private long incrementNum;
     private long num;
     private String[]arr1;
-    private WebDriver driver;
 
     @BeforeClass
     public void setUp(){
@@ -74,6 +75,10 @@ public class IncrementalTest extends ImpulseTestHelper{
         init(POSType.PASSPORT_SERIAL);
         runCmdCommand(impulseRunnerScript);
         wait(20000);
+        assertNotNull(FileHandler.getFileByType(localPath,ITT_FILE_PERFIX),"ITT file type not copied to local!");
+        assertNotNull(FileHandler.getFileByType(localPath,ILT_FILE_PERFIX),"ILT file type not copied to local!");
+        assertNotNull(FileHandler.getFileByType(localPath,MMT_FILE_PERFIX),"MMT file type not copied to local!");
+        assertNotNull(FileHandler.getFileByType(localPath,CBT_FILE_PERFIX),"CBT file type not copied to local!");
         String fileName = "";
         //Run impulse
         boolean flag = FileHandler.copyFile(priceBookHelper+"\\ITTIncCopy.xml", getFileByType(localPath,ITT_FILE_PERFIX).toString(),true);
@@ -82,7 +87,6 @@ public class IncrementalTest extends ImpulseTestHelper{
         assertTrue(flag,"Failed to copy file!");
         wait(10000);
     }
-
     /**
      * Update shared ITT file and validate local ITT file updated too respectively
      * 1. Update shared ITT file
@@ -119,7 +123,7 @@ public class IncrementalTest extends ImpulseTestHelper{
      * POSCodeModifier and RegularSellPrice changed in shared folder (override)
      * ModifiersEnabled = false
      */
-    @Test(priority = 2)
+    @Test(priority = 3)
     public void _011_valid_item_properties_changed_and_overridden_in_local(){
         driver.get("http://cloudmiqa.tveez.local/settings/3852/edit?project_feature_id=978");
         WebElement element = driver.findElement(By.id("setting_value"));
@@ -147,7 +151,7 @@ public class IncrementalTest extends ImpulseTestHelper{
      * POSCodeModifier and RegularSellPrice changed in shared folder (not override)
      * ModifiersEnabled = true
      */
-    @Test(priority = 3)
+    @Test(priority = 2)
     public void _011_valid_item_properties_changed_and_not_overridden_in_local(){
         driver.get("http://cloudmiqa.tveez.local/settings/3852/edit?project_feature_id=978");
         WebElement element = driver.findElement(By.id("setting_value"));
