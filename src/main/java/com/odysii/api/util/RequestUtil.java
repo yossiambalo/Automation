@@ -60,10 +60,11 @@ public class RequestUtil extends RequestHelper {
         return result;
     }
     public String postRequest(String body){
+        HttpURLConnection conn = null;
         setPostHeaders(token,mediaType);
         try {
             URL url = new URL(getUrl());
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);
             conn.setRequestMethod("POST");
             for (Map.Entry<String,String> header : postHeaders.entrySet()){
@@ -85,6 +86,8 @@ public class RequestUtil extends RequestHelper {
             System.out.println(e.getMessage());
         }catch (IOException e){
             System.out.println(e.getMessage());
+        }finally {
+            conn.disconnect();
         }
         return res;
     }

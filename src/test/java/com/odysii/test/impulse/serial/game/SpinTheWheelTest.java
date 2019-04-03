@@ -7,7 +7,6 @@ import com.odysii.general.POSType;
 import com.odysii.general.PropertyLoader;
 import com.odysii.test.impulse.helper.ImpulseTestHelper;
 import com.odysii.test.impulse.helper.RewardType;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 import org.testng.annotations.AfterMethod;
@@ -233,7 +232,7 @@ public class SpinTheWheelTest extends ImpulseTestHelper {
         }
         assertNull(actual,"1030093019");
     }
-    @Ignore
+    //@Ignore
     public void _006_verifyRewardMatches(){
         PropertyLoader loader = new PropertyLoader();
         Properties properties = loader.loadPropFile("rewardChoicesMatches.properties");

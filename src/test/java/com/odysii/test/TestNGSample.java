@@ -1,8 +1,6 @@
 package com.odysii.test;
 
 import com.odysii.db.DBHandler;
-import com.odysii.general.fileUtil.XmlManager;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;

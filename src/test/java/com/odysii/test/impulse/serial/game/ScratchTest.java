@@ -7,7 +7,6 @@ import com.odysii.general.POSType;
 import com.odysii.general.PropertyLoader;
 import com.odysii.test.impulse.helper.ImpulseTestHelper;
 import com.odysii.test.impulse.helper.RewardType;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 import org.testng.annotations.AfterMethod;
@@ -20,7 +19,6 @@ import java.util.Properties;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotEquals;
-import static org.testng.Assert.assertNull;
 
 public class ScratchTest extends ImpulseTestHelper {
 

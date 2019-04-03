@@ -21,7 +21,7 @@ public class SurveyTextTest extends SurveyTestBase {
     }
 
     //Test Cases: SUR-2-1,SUR-2-2,SUR-2-3,SUR-2-5
-    @Test
+    //@Test
     public void _001_validAnswerNumber2(){
         //Start Impulse
         runCmdCommand(impulseRunnerScript);

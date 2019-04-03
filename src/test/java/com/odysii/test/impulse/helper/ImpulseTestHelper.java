@@ -7,6 +7,7 @@ import com.odysii.general.fileUtil.XmlManager;
 import com.odysii.pos.BullochSerial;
 import com.odysii.pos.Customer;
 import com.odysii.pos.PassportSerial;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 
 import java.io.File;
@@ -18,6 +19,7 @@ import java.util.Properties;
 
 public class ImpulseTestHelper {
 
+    protected WebDriver driver;
     protected static String atbListenerUrl, impulseRunnerScript,atbRunnerScript, closeImpulseRunnerScript,
             surveyRunnerScript,survey3dOption,survey4dOption,impulseDeliveryStationUrl;
     protected static Customer customer;
@@ -91,5 +93,6 @@ public class ImpulseTestHelper {
     @AfterClass
     public void tearDown(){
         runCmdCommand(closeImpulseRunnerScript);
+        driver.quit();
     }
 }

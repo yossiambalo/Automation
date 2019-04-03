@@ -9,7 +9,6 @@ import com.odysii.selenium.cloudMI.PriceBookManager;
 import com.odysii.selenium.cloudMI.ProjectPage;
 import com.odysii.selenium.cloudMI.SignUpPage;
 import com.odysii.test.impulse.helper.ImpulseTestHelper;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -174,7 +173,7 @@ public class FullUpdateTest extends ImpulseTestHelper {
             }
         }
     }
-    @Ignore
+    //@Ignore
     public void _006_validILTLocalFileNotUpdatedTimestampNotChanged(){
         runCmdCommand(impulseRunnerScript);
         wait(TIME_OUT);

@@ -2,8 +2,6 @@ package com.odysii.test.impulse.helper;
 
 import com.odysii.api.pos.SerialMessageGenerator;
 import com.odysii.general.POSType;
-import com.odysii.test.impulse.helper.ImpulseTestHelper;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -48,7 +46,7 @@ public class PassportSerialTest extends ImpulseTestHelper {
         assertEquals(itemPLU,expectedPLU);
     }
 
-    @Ignore
+    //@Ignore
     public void _002_passport_serial_AddToBasket_Fail() {
         wait(5000);
         String expectedPLU = "121212";
